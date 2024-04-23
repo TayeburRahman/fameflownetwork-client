@@ -1,22 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/logo.svg';
-import DefaultLayout from '../../layout/DefaultLayout';
 
 const SignIn: React.FC = () => {
   return (
-    <DefaultLayout>
-      <Breadcrumb pageName="Sign In" />
+    <Fragment>
+      {/* <Breadcrumb pageName="Sign In" /> */}
 
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-              <img className="hidden dark:block" src='https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png' alt="Logo" />
-                <img className="dark:hidden" src='https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png' alt="Logo" />
+                <img
+                  className="hidden dark:block"
+                  src="https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png"
+                  alt="Logo"
+                />
+                <img
+                  className="dark:hidden"
+                  src="https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png"
+                  alt="Logo"
+                />
               </Link>
 
               <p className="2xl:px-20">
@@ -281,7 +285,7 @@ const SignIn: React.FC = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </Fragment>
   );
 };
 
