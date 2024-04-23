@@ -1,0 +1,42 @@
+[
+  {
+    "name": "International Airport",
+    "distance": "6.0 Km",
+    "image_url": "https://i.ibb.co/mct9LhM/airport.png"
+  },
+  {
+    "name": "Railway Station",
+    "distance": "8.0 Km",
+    "image_url": "https://i.ibb.co/nbbpXMJ/train-station.png"
+  },
+  {
+    "name": "ABC Store",
+    "distance": "2.5 Km",
+    "image_url": "https://i.ibb.co/TKzZn2Q/shop.png"
+  },
+  {
+    "name": "Stanford University",
+    "distance": "3.8 Km",
+    "image_url": "https://i.ibb.co/sHGVg5Z/university.png"
+  },
+  {
+    "name": "Rocky Cinema",
+    "distance": "2.5 Km",
+    "image_url": "https://i.ibb.co/7nXmJyM/cinema.png"
+  },
+  {
+    "name": "ABC Hospital",
+    "distance": "3.0 Km",
+    "image_url": "https://i.ibb.co/QpcPkcN/hospital.png"
+  },
+  {
+    "name": "Tommy GYM",
+    "distance": "4.3 Km",
+    "image_url": "https://i.ibb.co/V2MQmn7/weightlifter.png"
+  },
+  {
+    "name": "Cricket Stadium",
+    "distance": "2.5 Km",
+    "image_url": "https://i.ibb.co/1fJrsxw/stadium.png"
+  }
+]

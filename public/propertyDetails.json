@@ -1,0 +1,41 @@
+[
+  {
+    "name": "General",
+    "icon_url": "https://i.ibb.co/F65fS8S/book.png",
+    "image_url": "https://i.ibb.co/v42JcqH/10.jpg",
+    "description": "unique location on private road overlooking countryside. detailed planning currently approved for exclusive 1850 sq/ft dwelling. the site has its permitted development in tact allowing for initial extension up to 2400 sq/ft. all services on site. application can be viewed on coventry council planning portal ref: rm/2021/3791",
+    "features": [
+      "UNIQUE LOCATION ON PRIVATE ROAD",
+      "Oak veneer doors with polished chrome",
+      "Zoned heating to upper floors",
+      "Fibre broadband to premises for home working",
+      "CAT 5 cabling for secure networks to lounge and bedrooms",
+      "AUTOMATIC EXTENSION UP TO 2400 SQ/FT",
+      "Large storage area in loft space"
+    ]
+  },
+  {
+    "name": "Bathroom",
+    "icon_url": "https://i.ibb.co/pXF73yk/bath.png",
+    "image_url": "https://i.ibb.co/4TzPGKF/15.jpg",
+    "description": "The Bathroom is a serene oasis within your home. Porcelain tiling and LED feature lighting create a calming atmosphere. The Hansgrohe tops and wall-hung sanitary wear provide both style and functionality. Soft towels and complimentary toiletries are thoughtfully provided for your convenience.",
+    "features": [
+      "Porcelain tiling",
+      "LED feature lighting",
+      "Hansgrohe tops",
+      "Wall hung sanitary wear"
+    ]
+  },
+  {
+    "name": "Garden/ Patio",
+    "icon_url": "https://i.ibb.co/RNTVDCj/flowers.png",
+    "image_url": "https://i.ibb.co/Tqjndxj/26.jpg",
+    "description": "The Externals feature a range of amenities designed to enhance your living experience. An outside tap provides convenience, and a security alarm system ensures peace of mind. The property also offers a 3kw charging point with provisions for 7kw, ensuring you're prepared for the future of electric vehicles. Additionally, the rear outside lights, porch lantern, and dusk-to-dawn lantern provide both practicality and an inviting ambiance to the exterior of your home.",
+    "features": [
+      "Outside tap",
+      "Rear outside lights",
+      "Porch lantern",
+      "Dusk to dawn lantern"
+    ]
+  }
+]

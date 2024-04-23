@@ -1,0 +1,177 @@
+/* Merriweather */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+
+/* Assistant */
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Poppins', serif !important;
+
+  textarea,
+  input {
+    color: black !important
+  }
+}
+.overflow-y-scroll::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar width */
+}
+.hero-title {
+  font-family: 'Poppins', serif!important;
+}
+
+.wrapper {
+  @apply w-[95%] mx-auto;
+}
+
+.padding {
+  @apply py-10 md:py-20;
+}
+
+.section-padding {
+  @apply py-10 md:py-20 px-[5%] mx-auto;
+}
+
+.nav-items a {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  /* color: black; */
+}
+
+.boxShadow {
+  /* box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.2); */
+  z-index: 1;
+}
+
+body {
+  background-color: #f4f6f9;
+  /* color: white; */
+}
+
+.button-head {
+  /* background-color: rgb(28, 0, 155); */
+  padding: 20px 45px;
+  /* color: white; */
+  border-radius: 50px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 2px solid black;
+  font-weight: 600;
+}
+
+.heading svg {
+  position: absolute;
+  color: lime;
+  z-index: -1;
+  font-size: 150px;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-color: rgba(145, 255, 0, 0.205);
+  padding: 40px;
+  border-radius: 50%;
+}
+
+.h2 svg {
+  position: absolute;
+  color: rgb(0, 204, 255);
+  z-index: -1;
+  font-size: 150px;
+  margin-left: -100px;
+  margin-top: -50px;
+  background-color: rgba(0, 255, 234, 0.205);
+  padding: 40px;
+  border-radius: 50%;
+}
+
+.button-head1 {
+  background-color: rgb(255, 0, 43);
+  padding: 20px 45px;
+  color: white;
+  border-radius: 50px;
+  font-size: 18px;
+  cursor: pointer
+}
+
+.button-head:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #000000;
+  text-decoration: none;
+}
+
+
+.my-border {
+  /* border: 1.5px solid rgba(255, 255, 255, 0.76); */
+}
+
+.desc1 {
+  word-spacing: 1.5px;
+  line-height: 1.8;
+  word-break: break-word;
+}
+
+.navs a {
+  font-size: 15px !important;
+  font-weight: 500;
+  color: rgb(99, 99, 99);
+}
+
+.heading-text p {
+  line-height: 2;
+}
+
+@media (max-width: 768px) {
+  .navbar-for-mob {
+    background-color: white !important;
+    border-top: 2px solid white;
+    z-index:9999;
+  }
+}
+
+.bg-img {
+  background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-Review-By-kate-smoothy-267%C3%97356.jpg');
+  width: 305px;
+  height: 387px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 25px;
+  text-align: center;
+  color:white!important;
+}
+
+.bg-img:nth-child(2){
+  background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-review-by-Domenic-Landolo-1200.jpg');
+}
+.bg-img:nth-child(3){
+  background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-Review-By-Simply-Digital-267%C3%97356-2.jpg');
+}
+.bg-img:nth-child(4){
+  background-image: url('https://www.brandpush.co/assets/img/avatar/Brand-Push-review-by-Maria-the-savvy-millennial-1200.jpg');
+}
+.bg-img:nth-child(5){
+  background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-review-by-stef-pinsley-1200.jpg');
+}
+
+.buttons{
+  width:10px!important;
+}
+@media not all and (min-width: 768px) {
+  .bg-img {
+    background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-Review-By-kate-smoothy-267%C3%97356.jpg');
+    /* width: auto; */
+    /* height: auto; */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 25px;
+    text-align: center;
+    color:white!important;
+  }
+}

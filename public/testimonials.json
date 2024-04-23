@@ -1,0 +1,38 @@
+[
+  {
+    "name": "John Doe",
+    "position": "CEO, ABC Company",
+    "testimonial": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic earum eius sapiente voluptates dolorem iusto ratione minus consectetur! Autem, natus veniam aliquam consequatur consectetur saepe quod voluptatem eaque ipsam ut dolorum fuga eius, eum accusamus tempora quisquam itaque? Reprehenderit, ratione at? Repellat officiis ducimus suscipit natus ipsum, corporis dignissimos placeat.",
+    "image_url": "https://img.freepik.com/free-photo/cheerful-young-man-posing-isolated-grey_171337-10579.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  },
+  {
+    "name": "Jane Smith",
+    "position": "Marketing Manager, XYZ Inc.",
+    "testimonial": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi, aut provident incidunt eius molestias dicta repellendus natus tempora ab rem maxime consectetur explicabo eveniet ipsam non molestiae excepturi odio obcaecati nam illum, laboriosam dolore. Veniam reiciendis, assumenda dolor placeat aspernatur quidem tenetur inventore obcaecati aut ipsa id a ut corporis?",
+    "image_url": "https://img.freepik.com/free-photo/front-view-stoic-woman-posing_23-2148442204.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  },
+  {
+    "name": "David Johnson",
+    "position": "Product Manager, Acme Corp",
+    "testimonial": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates illo, ex adipisci consequuntur officia id magnam quo cupiditate optio blanditiis nobis non, commodi aperiam amet nulla? Id vitae, amet porro suscipit saepe tempora adipisci! Modi quia minus sed laboriosam. Nisi molestiae eius explicabo dolores ipsam quo nostrum id magni qui.",
+    "image_url": "https://img.freepik.com/premium-photo/photo-young-male-model-black-sweat-shirt-with-grey-background_954789-354.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  },
+  {
+    "name": "Emily Davis",
+    "position": "Founder, EFG Startup",
+    "testimonial": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio repudiandae a ex officia consectetur nostrum aspernatur delectus harum ipsa! Eos, aliquid! Reiciendis similique soluta magnam velit, quas sapiente expedita quidem, odio veniam eveniet totam ex minus. Nisi iusto beatae, debitis cumque dolorem maiores sit inventore consectetur, ex suscipit soluta quia?",
+    "image_url": "https://img.freepik.com/premium-photo/portrait-beautiful-young-brunette-woman-with-makeup-fashion-clothes_947073-2784.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  },
+  {
+    "name": "Michael Wilson",
+    "position": "CTO, InnovateTech",
+    "testimonial": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquid magni possimus, explicabo distinctio praesentium cupiditate odio aperiam corporis ullam voluptatum laudantium dignissimos suscipit quae molestiae soluta delectus earum saepe deleniti debitis et, accusamus illum quidem id ab! Neque, adipisci. Inventore rerum praesentium eveniet maxime hic neque autem molestias sint veritatis!",
+    "image_url": "https://img.freepik.com/premium-photo/cool-trendy-fashion-young-handsome-hipster-man-with-hairstyle-vintage-eyewear-fashionable-clothes-with-plaid-shirt-studio-with-creative-clothes-colorful-lights_338491-17109.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  },
+  {
+    "name": "Sarah Brown",
+    "position": "Designer, CreativeWorks",
+    "testimonial": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum, ratione quaerat? Pariatur porro eligendi et eveniet enim fugiat exercitationem. Facere, exercitationem officiis! Labore officia animi nulla asperiores corporis vero, repellat consectetur ducimus. Autem optio veniam accusantium a dolores. Consequatur qui culpa modi nam porro aut doloremque nemo reprehenderit ex cumque.",
+    "image_url": "https://img.freepik.com/premium-photo/beautiful-woman-pink-green-colors_115919-23407.jpg?size=626&ext=jpg&ga=GA1.1.950297979.1689850759&semt=ais"
+  }
+]
