@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
-import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
+import BillInfo from './pages/BillInfo';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
-import Sample from './pages/Sample';
+import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
+import Home from './pages/Home';
 import Profile from './pages/Profile';
+import Sample from './pages/Sample';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import UserSettings from './pages/UserSettings';
-import BillInfo from './pages/BillInfo';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,14 +33,13 @@ const App = () => {
   return (
     <>
       <Routes>
-
-        <Route path='/' element={<Home />} />
-        <Route path='/sample-reports' element={<Sample />} />
-        <Route path='/user-dashboard' element={<Dashboard />} />
-        <Route path='/user-settings' element={<UserSettings />} />
-        <Route path='/billing-info' element={<BillInfo />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/sample-reports" element={<Sample />} />
+        <Route path="/user-dashboard" element={<Dashboard />} />
+        <Route path="/user-settings" element={<UserSettings />} />
+        <Route path="/billing-info" element={<BillInfo />} />
         <Route
-          path='/dashboard'
+          path="/dashboard"
           index
           element={
             <>
@@ -151,14 +149,15 @@ const App = () => {
         />
       </Routes>
     </>
-
-  )
+  );
 };
 
 export default App;
 
-{/* <BrowserRouter>
+{
+  /* <BrowserRouter>
     <Routes>
       <Route exact path='/' element={<Home />} />
     </Routes>
-    </BrowserRouter> */}
+    </BrowserRouter> */
+}

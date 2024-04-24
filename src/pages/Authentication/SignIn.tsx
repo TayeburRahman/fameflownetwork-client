@@ -1,7 +1,75 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import useAuth from '../../firebase/useAuth';
+import useToast from '../../hooks/useToast';
+
+// import { toast } from 'react-toastify';
+
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const SignIn: React.FC = () => {
+  const { displayToast } = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // const history = useHistory();
+  const { signImWithGoogle } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<Inputs>();
+  const password = watch('password');
+
+  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
+    try {
+      console.log('Submit', forData);
+      const apiUrl = 'http://localhost:6060/api/v1/user/login';
+      const response = await axios.post(apiUrl, forData);
+      const { token, user } = response.data;
+
+      if (response.data.status === 'error') {
+        displayToast({
+          status: 'error',
+          message: response.data.message,
+        });
+        return;
+      }
+
+      if (user?.email) {
+        displayToast({
+          status: 'success',
+          message: 'Login successfully!',
+        });
+        navigate('/');
+        reset();
+      } else {
+      }
+      // Save token and user data to local storage
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      // reset();
+    } catch (error: any) {
+      console.log('error', error.response);
+      displayToast({
+        status: 'error',
+        message: 'Server error! Please try again.',
+      });
+    }
+  };
+
+  const handelGoogleSignIn = () => {
+    signImWithGoogle(location);
+  };
+
   return (
     <Fragment>
       {/* <Breadcrumb pageName="Sign In" /> */}
@@ -160,7 +228,7 @@ const SignIn: React.FC = () => {
                 Sign In to FameFlow
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
@@ -170,8 +238,10 @@ const SignIn: React.FC = () => {
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('email', {
+                        required: true,
+                      })}
                     />
-
                     <span className="absolute right-4 top-4">
                       <svg
                         className="fill-current"
@@ -190,17 +260,21 @@ const SignIn: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+                  {/* {errors.email && <span>Email is required</span>} */}
                 </div>
 
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input
                       type="password"
-                      placeholder="6+ Characters, 1 Capital letter"
+                      placeholder="8+ Characters, 1 Capital letter, 1 Number character"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('password', {
+                        required: true,
+                      })}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -235,7 +309,10 @@ const SignIn: React.FC = () => {
                   />
                 </div>
 
-                <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
+                <button
+                  onClick={handelGoogleSignIn}
+                  className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
+                >
                   <span>
                     <svg
                       width="20"
@@ -275,7 +352,7 @@ const SignIn: React.FC = () => {
                 <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{' '}
-                    <Link to="/dashboard/auth/signup" className="text-primary">
+                    <Link to="/auth/signup" className="text-primary">
                       Sign Up
                     </Link>
                   </p>

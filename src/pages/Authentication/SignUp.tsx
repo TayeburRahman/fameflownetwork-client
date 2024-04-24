@@ -1,10 +1,87 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import LogoDark from '../../images/logo/logo-dark.svg';
 // import Logo from '../../images/logo/logo.svg';
 import { Fragment } from 'react';
 
+import axios from 'axios';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import useToast from '../../hooks/useToast';
+
+type Inputs = {
+  email: string;
+  password: string;
+  name: string;
+  confirmPassword: string;
+};
+
 const SignUp: React.FC = () => {
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  const { displayToast } = useToast();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<Inputs>();
+  const password = watch('password');
+
+  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
+    try {
+      const apiUrl = 'http://localhost:6060/api/v1/user/signup';
+      const response = await axios.post(apiUrl, forData);
+      const { user } = response.data;
+
+      if (response.data.status === 'error') {
+        displayToast({
+          status: 'error',
+          message: response.data.message,
+        });
+        return;
+      }
+
+      if (user?.email) {
+        displayToast({
+          status: 'success',
+          message: 'Account create successfully!',
+        });
+        navigate('/auth/signin');
+        reset();
+      } else {
+      }
+    } catch (error: any) {
+      console.log('error', error.response);
+      displayToast({
+        status: 'error',
+        message: 'Server error! Please try again.',
+      });
+    }
+  };
+
+  const validatePassword = (value: string) => {
+    if (!value) {
+      return 'Password is required';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+
+    if (!/[A-Z]/.test(value)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+
+    if (!/\d/.test(value)) {
+      return 'Password must contain at least one number';
+    }
+
+    return true;
+  };
+
   return (
     <Fragment>
       {/* <Breadcrumb pageName="Sign Up" /> */}
@@ -14,8 +91,16 @@ const SignUp: React.FC = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-                <img className="hidden dark:block" src='https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png' alt="Logo" />
-                <img className="dark:hidden" src='https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png' alt="Logo" />
+                <img
+                  className="hidden dark:block"
+                  src="https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png"
+                  alt="Logo"
+                />
+                <img
+                  className="dark:hidden"
+                  src="https://fameflownetwork.com/wp-content/uploads/2023/08/Fame_Flow_logo-preview-e1692368073160.png"
+                  alt="Logo"
+                />
               </Link>
               <p className="2xl:px-20">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -154,7 +239,7 @@ const SignUp: React.FC = () => {
                 Sign Up to FameFlow
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -164,6 +249,9 @@ const SignUp: React.FC = () => {
                       type="text"
                       placeholder="Enter your full name"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('name', {
+                        required: 'Name is required',
+                      })}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -188,6 +276,7 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+                  {errors.name && <span>Name is required</span>}
                 </div>
 
                 <div className="mb-4">
@@ -199,6 +288,9 @@ const SignUp: React.FC = () => {
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('email', {
+                        required: 'Email is required',
+                      })}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -219,6 +311,7 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+                  {errors.email && <span>Email is required</span>}
                 </div>
 
                 <div className="mb-4">
@@ -230,6 +323,10 @@ const SignUp: React.FC = () => {
                       type="password"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('password', {
+                        required: 'Password is required!',
+                        validate: validatePassword,
+                      })}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -254,6 +351,7 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+                  {errors.password && <span>{errors.password.message}</span>}
                 </div>
 
                 <div className="mb-6">
@@ -265,6 +363,11 @@ const SignUp: React.FC = () => {
                       type="password"
                       placeholder="Re-enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      {...register('confirmPassword', {
+                        required: 'please confirm your password!',
+                        validate: (value) =>
+                          value === password || "password don't match",
+                      })}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -289,6 +392,8 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
+
+                  {errors.confirmPassword && <span>Password don't match</span>}
                 </div>
 
                 <div className="mb-5">
