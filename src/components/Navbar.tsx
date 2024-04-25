@@ -19,8 +19,7 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  console.log('cookies', cookies.auth);
-  ``;
+  console.log('loggedIn', loggedIn);
 
   const navItems = (
     <div

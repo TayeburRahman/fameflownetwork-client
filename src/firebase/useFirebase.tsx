@@ -102,7 +102,7 @@ const useFirebase = () => {
     const response = await axios.post(apiUrl, userData);
     const { token, user } = response.data;
 
-    console.log(response, token, user);
+    console.log('data', response, token, user);
 
     if (user?.email) {
       setCookie('auth', {
