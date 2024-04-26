@@ -31,6 +31,7 @@ const SignUp: React.FC = () => {
     reset,
     watch,
   } = useForm<Inputs>();
+
   const password = watch('password');
 
   const onSubmit: SubmitHandler<Inputs> = async (forData) => {
