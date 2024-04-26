@@ -19,8 +19,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  console.log('loggedIn', loggedIn);
-
   const navItems = (
     <div
       className={clsx(

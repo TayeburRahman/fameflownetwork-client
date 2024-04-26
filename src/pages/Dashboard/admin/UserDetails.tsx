@@ -68,7 +68,7 @@ const UserDetails = () => {
   useEffect(() => {
     const userDataApi = async () => {
       try {
-        const apiUrl = `http://localhost:6060/api/v1/user/details/${id}`;
+        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${id}`;
 
         const response = await axios.get(apiUrl, {
           headers: {
