@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from './components/PageTitle';
+import Admin from './pages/Admin';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import BillInfo from './pages/BillInfo';
@@ -8,6 +9,8 @@ import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
+import ManageUsers from './pages/Dashboard/admin/ManageUsers';
+import UserDetails from './pages/Dashboard/admin/UserDetails';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Home from './pages/Home';
@@ -49,7 +52,16 @@ const App = () => {
           }
         />
         <Route
-          path="/calendar"
+          path="/dashboard/manage-users"
+          element={
+            <>
+              <PageTitle title="Manage Users | FameFlow - Admin Activity" />
+              <ManageUsers />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/calendar"
           element={
             <>
               <PageTitle title="Calendar | FameFlow - Tailwind CSS Admin Dashboard Template" />
@@ -58,7 +70,7 @@ const App = () => {
           }
         />
         <Route
-          path="/profile"
+          path="/dashboard/profile"
           element={
             <>
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
@@ -66,8 +78,29 @@ const App = () => {
             </>
           }
         />
+
         <Route
-          path="/forms/form-elements"
+          path="/dashboard/admin"
+          element={
+            <>
+              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
+              <Admin />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/user/:id"
+          element={
+            <>
+              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
+              <UserDetails />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard/forms/form-elements"
           element={
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />

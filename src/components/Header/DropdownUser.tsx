@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { useCookies } from 'react-cookie';
 import UserOne from '../../images/user/user-01.png';
 
-const DropdownUser = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+interface UserDetailsProps {
+  userdata: any; // Replace 'any' with the actual type of 'loggedIn' data
+}
 
+const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['auth']);
+
+  const navigate = useNavigate();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -35,6 +42,12 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const handleLogOut = () => {
+    localStorage.removeItem('auth');
+    removeCookie('auth');
+    navigate('/');
+  };
+
   return (
     <div className="relative">
       <Link
@@ -45,9 +58,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {userdata.user.name}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">Admin/User</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -83,7 +96,7 @@ const DropdownUser = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              to="/dashboard/profile"
+              to="/dashboard/admin"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -153,7 +166,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogOut}
+        >
           <svg
             className="fill-current"
             width="22"

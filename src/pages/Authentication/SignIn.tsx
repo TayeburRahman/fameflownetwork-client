@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -22,6 +22,7 @@ const SignIn: React.FC = () => {
   const { signImWithGoogle } = useAuth();
 
   const [cookies, setCookie] = useCookies(['auth']);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const {
     register,
@@ -34,7 +35,7 @@ const SignIn: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     try {
-      console.log('Submit', forData);
+      setLoading(true);
       const apiUrl =
         'https://fameflownetwork-server.vercel.app/api/v1/user/login';
       const response = await axios.post(apiUrl, forData);
@@ -49,29 +50,33 @@ const SignIn: React.FC = () => {
       }
 
       if (user?.email) {
+        setLoading(false);
         displayToast({
           status: 'success',
           message: 'Login successfully!',
         });
+
+        localStorage.setItem(
+          'auth',
+          JSON.stringify({
+            token: token,
+            user: user,
+            id: user._id,
+          }),
+        );
+
+        setCookie('auth', {
+          token: token,
+          user: user,
+          id: user._id,
+        });
+
         navigate('/');
         reset();
       } else {
       }
       // Save token and user data to local storage
-      localStorage.setItem(
-        'auth',
-        JSON.stringify({
-          token: token,
-          user: user,
-          id: user._id,
-        }),
-      );
 
-      setCookie('auth', {
-        token: token,
-        user: user,
-        id: user._id,
-      });
       // reset();
     } catch (error: any) {
       console.log('error', error.response);
@@ -320,7 +325,7 @@ const SignIn: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
-                    value="Sign In"
+                    value={isLoading ? 'Sign In' : 'Loading...'}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
