@@ -98,7 +98,7 @@ const ManageUsers = () => {
                   </div>
 
                   <div className="flex items-center justify-center p-2.5 xl:p-5">
-                    <p className="text-black dark:text-white">{data.email}K</p>
+                    <p className="text-black dark:text-white">{data.email}</p>
                   </div>
 
                   <div className="flex items-center justify-center p-2.5 xl:p-5">
