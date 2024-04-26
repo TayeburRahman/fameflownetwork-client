@@ -77,21 +77,6 @@ const Navbar = () => {
       >
         Sample Reports
       </NavLink>
-      {/* <NavLink
-        to="/dashboard"
-        spy={true}
-        // smooth={true}
-        offset={-40}
-        duration={500}
-        onClick={() => handleLinkClick('dashboard')}
-        className={
-          activeLink === 'dashboard'
-            ? 'text-black md:border-b-2 md:border-purple-700'
-            : 'text-black'
-        }
-      >
-        Admin
-      </NavLink> */}
 
       <a
         href="#faq"

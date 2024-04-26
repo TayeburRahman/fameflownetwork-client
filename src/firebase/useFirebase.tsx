@@ -97,8 +97,7 @@ const useFirebase = () => {
       avatars: photoURL || '',
     };
 
-    const apiUrl =
-      'https://fameflownetwork-server.vercel.app/api/v1/user/google-auth';
+    const apiUrl = 'https://fameflownetwork-server.vercel.app/api/v1/user/google-auth';
     const response = await axios.post(apiUrl, userData);
     const { token, user } = response.data;
 
