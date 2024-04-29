@@ -22,7 +22,7 @@ const SignIn: React.FC = () => {
   const { signImWithGoogle } = useAuth();
 
   const [cookies, setCookie] = useCookies(['auth']);
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -74,16 +74,27 @@ const SignIn: React.FC = () => {
         navigate('/');
         reset();
       } else {
+        displayToast({
+          status: 'error',
+          message: 'Server error! Please try again.',
+        });
       }
-      // Save token and user data to local storage
 
       // reset();
     } catch (error: any) {
-      console.log('error', error.response);
-      displayToast({
-        status: 'error',
-        message: 'Server error! Please try again.',
-      });
+      // console.log('error', error.response);
+      setLoading(false);
+      if (error.response.data.status === 'error') {
+        displayToast({
+          status: 'error',
+          message: error.response.data.message,
+        });
+      } else {
+        displayToast({
+          status: 'error',
+          message: 'Server error! Please try again.',
+        });
+      }
     }
   };
 
@@ -325,7 +336,8 @@ const SignIn: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
-                    value={isLoading ? 'Sign In' : 'Loading...'}
+                    value={isLoading ? 'Loading...' : 'Sign In'}
+                    disabled={isLoading}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>

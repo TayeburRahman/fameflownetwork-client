@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../../../layout/DefaultLayout';
 
@@ -10,6 +10,7 @@ interface User {
   email: string;
   publish_site: number;
   sales: string;
+  status: string;
 }
 
 const ManageUsers = () => {
@@ -54,7 +55,74 @@ const ManageUsers = () => {
           User List
         </h4>
 
-        <div className="flex flex-col">
+        <div className="max-w-full overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead>
+              <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  Name
+                </th>
+                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  Email
+                </th>
+                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  Package
+                </th>
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  Invoice date
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users &&
+                users?.map((data, key) => (
+                  <tr
+                    key={key}
+                    onClick={() =>
+                      navigate(`/dashboard/admin/user/${data._id}`)
+                    }
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {data.name}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">{data.email}</p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        Standard Package
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">Jan 13,2023</p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                          data.status === 'Paid'
+                            ? 'bg-success text-success'
+                            : data.status === 'Unpaid'
+                              ? 'bg-danger text-danger'
+                              : 'bg-warning text-warning'
+                        }`}
+                      >
+                        Pending
+                      </p>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* <div className="flex flex-col">
           <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
             <div className="p-2.5 xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
@@ -89,8 +157,7 @@ const ManageUsers = () => {
                   key={key}
                 >
                   <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                    <div className="flex-shrink-0">
-                      {/* <img src={brand.logo} alt="Brand" /> */}
+                    <div className="flex-shrink-0"> 
                     </div>
                     <p className="hidden text-black dark:text-white sm:block">
                       {data.name}
@@ -111,8 +178,7 @@ const ManageUsers = () => {
                 </div>
               </Link>
             ))}
-        </div>
-      </div>
+        </div> */}
       {/* <!-- ====== ManageUsers Section End ====== --> */}
     </DefaultLayout>
   );
