@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import BrandOne from '../../images/brand/brand-01.svg';
 import BrandTwo from '../../images/brand/brand-02.svg';
 import BrandThree from '../../images/brand/brand-03.svg';
 import BrandFour from '../../images/brand/brand-04.svg';
 import { BRAND } from '../../types/brand';
+import DeleteModal from './DeleteModal';
+import LinkModal from './admin/LinkModal';
 
 interface UserDetailsProps {
   data: any; // Replace 'any' with the actual type of 'loggedIn' data
+  mType: string;
 }
 
 const brandData: BRAND[] = [
@@ -107,10 +111,48 @@ const brandData: BRAND[] = [
   },
 ];
 
-const Publications: React.FC<UserDetailsProps> = ({ data }) => {
+const Publications: React.FC<UserDetailsProps> = ({ data, mType }) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isDelete, setOpenDelete] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>('');
+  const [updateValue, setUpdateValue] = useState<object>();
+
+  const handleOnClose = () => {
+    setOpen(false);
+  };
+
+  const onCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handelOpenDelete = (action: string, brand: any) => {
+    setOpenDelete(true);
+    setStatus(action);
+    setUpdateValue(brand);
+  };
+
+  const handelOpenModal = (action: string, brand: any) => {
+    console.log('brand', brand);
+    setOpen(true);
+    setStatus(action);
+    setUpdateValue(brand);
+  };
   return (
-    <div className="flex flex-col mt-4">
-      <div className="grid grid-cols-4 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
+    <div className="flex flex-col  ">
+      <div className="flex items-center justify-between ">
+        <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
+          Publications
+        </h4>
+        {mType === 'admin' && (
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={(e) => handelOpenModal('Add Link', [])}
+          >
+            Add link
+          </button>
+        )}
+      </div>
+      <div className="grid grid-cols-4 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6 mt-4">
         <div className="p-2.5 xl:p-5">
           <h5 className="text-sm font-medium uppercase xsm:text-base">
             News Sites
@@ -209,7 +251,10 @@ const Publications: React.FC<UserDetailsProps> = ({ data }) => {
                 </svg>
               </button>
 
-              <button className="hover:text-primary">
+              <button
+                className="hover:text-primary"
+                onClick={(e) => handelOpenModal('Update', brand)}
+              >
                 <svg
                   className="fill-current"
                   width="20"
@@ -240,7 +285,10 @@ const Publications: React.FC<UserDetailsProps> = ({ data }) => {
                 </svg>
               </button>
 
-              <button className="hover:text-primary">
+              <button
+                className="hover:text-primary"
+                onClick={(e) => handelOpenDelete('delete', brand)}
+              >
                 <svg
                   className="fill-current"
                   width="18"
@@ -268,6 +316,18 @@ const Publications: React.FC<UserDetailsProps> = ({ data }) => {
                 </svg>
               </button>
             </div>
+            <LinkModal
+              isOpen={isOpen}
+              onClose={handleOnClose}
+              status={status}
+              uValue={updateValue}
+            />
+            <DeleteModal
+              dValue={updateValue}
+              onCloseDelete={onCloseDelete}
+              isDelete={isDelete}
+              status={status}
+            />
           </div>
         </div>
       ))}

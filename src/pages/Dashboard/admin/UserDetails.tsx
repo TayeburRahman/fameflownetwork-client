@@ -184,15 +184,7 @@ const UserDetails = () => {
       </div>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pt-5">
         <div className="py-6 px-4 md:px-6 xl:px-7.5">
-          <div className="flex items-center justify-between">
-            <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
-              Publications
-            </h4>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Add link
-            </button>
-          </div>
-          <Publications data="" />
+          <Publications data="" mType="admin" />
         </div>
       </div>
     </DefaultLayout>
