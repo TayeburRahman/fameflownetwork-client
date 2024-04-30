@@ -64,8 +64,6 @@ const UserDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log('userData', userData);
-
   useEffect(() => {
     const userDataApi = async () => {
       try {
@@ -184,7 +182,7 @@ const UserDetails = () => {
       </div>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pt-5">
         <div className="py-6 px-4 md:px-6 xl:px-7.5">
-          <Publications data="" mType="admin" />
+          <Publications userData={userData} mType="admin" />
         </div>
       </div>
     </DefaultLayout>
