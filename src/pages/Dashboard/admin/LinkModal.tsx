@@ -9,6 +9,7 @@ interface ModalProps {
   status: string;
   uValue: any;
   userData: any;
+  setReqStatus: any;
 }
 
 type FormValues = {
@@ -32,6 +33,7 @@ const LinkModal: React.FC<ModalProps> = ({
   status,
   uValue,
   userData,
+  setReqStatus,
 }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -56,6 +58,7 @@ const LinkModal: React.FC<ModalProps> = ({
       // console.log('response.data', response.data);
 
       if (response.data.status === 'success') {
+        setReqStatus((ra) => !ra);
         displayToast({
           status: 'success',
           message: 'Publication added successfully!',

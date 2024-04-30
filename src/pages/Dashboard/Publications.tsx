@@ -116,6 +116,8 @@ const brandData: BRAND[] = [
 const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isDelete, setOpenDelete] = useState<boolean>(false);
+  const [resStatus, setResStatus] = useState<any>(false);
+
   const [status, setStatus] = useState<string>('');
   const [updateValue, setUpdateValue] = useState<object>();
   const [publication, setPublication] = useState<PUBLICATION[]>();
@@ -150,7 +152,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
       }
     };
     publicationDataApi();
-  }, [userData]);
+  }, [userData, resStatus]);
 
   const handleOnClose = () => {
     setOpen(false);
@@ -417,6 +419,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
           status={status}
           uValue={updateValue}
           userData={userData}
+          setReqStatus={setResStatus}
         />
       )}
       {isDelete && (
