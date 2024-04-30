@@ -290,11 +290,19 @@ const LinkModal: React.FC<ModalProps> = ({
           </div>
 
           <div className="flex justify-between">
-            <input
+            <button
+              // className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="border-solid border-2 border-blue-600 rounded px-4 py-2 bg-blue-600 text-white"
+              type="submit"
+            >
+              {status}
+            </button>
+
+            {/* <input
               type="submit"
               value={status}
               className="border-solid border-2 border-blue-600 rounded px-4 py-2 bg-blue-600 text-white"
-            />
+            /> */}
           </div>
         </form>
       </div>
