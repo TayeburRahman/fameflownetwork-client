@@ -42,8 +42,8 @@ const LinkModal: React.FC<ModalProps> = ({
     console.log(isOpen);
 
     try {
-      const apiUrl = `http://localhost:6060/api/v1/publication/add_new/${userData._id}`;
-      const apiUrl2 = `http://localhost:6060/api/v1/publication/update/${userData?._id}/${uValue?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/add_new/${userData._id}`;
+      const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/publication/update/${userData?._id}/${uValue?._id}`;
 
       const response = await axios.post(
         status === 'Update' ? apiUrl2 : apiUrl,

@@ -129,7 +129,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   useEffect(() => {
     const publicationDataApi = async () => {
       try {
-        const apiUrl = `http://localhost:6060/api/v1/publication/get/${userData._id}`;
+        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/get/${userData._id}`;
 
         const response = await axios.get(apiUrl, {
           headers: {
