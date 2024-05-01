@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from './components/PageTitle';
 import Admin from './pages/Admin';
 import SignIn from './pages/Authentication/SignIn';
-import SignUp from './pages/Authentication/SignUp.1';
+import SignUp from './pages/Authentication/SignUp';
 import BillInfo from './pages/BillInfo';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
@@ -11,16 +11,17 @@ import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
 import UserDetails from './pages/Dashboard/admin/UserDetails';
+import SampolReports from './pages/Dashboard/admin/report/SampolReports';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-import Sample from './pages/Sample';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import UserSettings from './pages/UserSettings';
+import LandingPage from './pages/report/LandingPage';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,7 +38,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sample-reports" element={<Sample />} />
+        {/* <Route path="/sample-reports" element={<Sample />} /> */}
         <Route path="/user-dashboard" element={<Dashboard />} />
         <Route path="/user-settings" element={<UserSettings />} />
         <Route path="/billing-info" element={<BillInfo />} />
@@ -108,6 +109,17 @@ const App = () => {
             </>
           }
         />
+
+        <Route
+          path="/dashboard/sample-reports"
+          element={
+            <>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <SampolReports />
+            </>
+          }
+        />
+
         <Route
           path="/forms/form-layout"
           element={
@@ -144,6 +156,17 @@ const App = () => {
             </>
           }
         />
+
+        <Route
+          path="/sample-reports"
+          element={
+            <>
+              <PageTitle title="Report | FameFlow - Go Viral With Massive Exposure" />
+              <LandingPage />
+            </>
+          }
+        />
+
         <Route
           path="/ui/alerts"
           element={

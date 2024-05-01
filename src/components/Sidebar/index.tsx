@@ -178,7 +178,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           !open && 'hidden'
                         }`}
                       >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                        <ul className="mt-4 mb-4.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
                               to="/dashboard/manage-users"
@@ -192,6 +192,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
+                      <div
+                        className={`translate transform overflow-hidden ${
+                          !open && 'hidden'
+                        }`}
+                      >
+                        <ul className=" mb-2.5 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <NavLink
+                              to="/dashboard/sample-reports"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Reports sample
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+
                       {/* <!-- Dropdown Menu End --> */}
                     </React.Fragment>
                   );

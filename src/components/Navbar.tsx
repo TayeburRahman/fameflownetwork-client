@@ -28,7 +28,7 @@ const Navbar = () => {
     >
       <a
         href="#packages"
-        // spy={true}
+        spy={true}
         smooth={true}
         offset={-100}
         duration={500}

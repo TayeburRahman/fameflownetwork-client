@@ -10,6 +10,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
   font-family: 'Poppins', serif !important;
 

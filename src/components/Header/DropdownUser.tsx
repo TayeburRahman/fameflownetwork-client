@@ -58,7 +58,7 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userdata.user.name}
+            {userdata?.user?.name}
           </span>
           <span className="block text-xs">Admin/User</span>
         </span>
