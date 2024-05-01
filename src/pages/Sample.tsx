@@ -459,7 +459,7 @@ const Sample = () => {
   useEffect(() => {
     const publicationDataApi = async () => {
       try {
-        const apiUrl = `http://localhost:6060/api/v1/publication/get/r/sampolreports`;
+        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/get/r/sampolreports`;
 
         const response = await axios.get(apiUrl);
         const { publications, status } = response.data;

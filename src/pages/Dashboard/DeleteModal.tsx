@@ -31,7 +31,7 @@ const DeleteModal: React.FC<ModalProps> = ({
 
   const deleteOnHandel = async () => {
     try {
-      const apiUrl = `http://localhost:6060/api/v1/publication/delete/${userData._id}/${dValue._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/delete/${userData._id}/${dValue._id}`;
 
       const response = await axios.delete(apiUrl);
 
