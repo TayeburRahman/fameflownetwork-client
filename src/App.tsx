@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from './components/PageTitle';
 import Admin from './pages/Admin';
 import SignIn from './pages/Authentication/SignIn';
-import SignUp from './pages/Authentication/SignUp';
+import SignUp from './pages/Authentication/SignUp.1';
 import BillInfo from './pages/BillInfo';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';

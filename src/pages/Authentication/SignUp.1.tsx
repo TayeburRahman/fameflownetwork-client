@@ -1,23 +1,12 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-// import LogoDark from '../../images/logo/logo-dark.svg';
-// import Logo from '../../images/logo/logo.svg';
-import { Fragment } from 'react';
-
 import axios from 'axios';
-import { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../firebase/useAuth';
 import useToast from '../../hooks/useToast';
+import { Inputs } from './SignUp';
 
-type Inputs = {
-  email: string;
-  password: string;
-  name: string;
-  confirmPassword: string;
-};
-
-const SignUp: React.FC = () => {
+export const SignUp: React.FC = () => {
   const [show, setShow] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -412,7 +401,7 @@ const SignUp: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
-                    // disabled="true"
+                    disabled="true"
                     value="Create account"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
@@ -474,5 +463,3 @@ const SignUp: React.FC = () => {
     </Fragment>
   );
 };
-
-export default SignUp;
