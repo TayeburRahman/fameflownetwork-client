@@ -125,7 +125,7 @@ const Settings = () => {
                     </div>
                   </div>
 
-                  <div className="mb-5.5">
+                  {/* <div className="mb-5.5">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="Username"
@@ -140,7 +140,7 @@ const Settings = () => {
                       placeholder="devidjhon24"
                       defaultValue="devidjhon24"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="mb-5.5">
                     <label
@@ -187,7 +187,7 @@ const Settings = () => {
                         id="bio"
                         rows={6}
                         placeholder="Write your bio here"
-                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque posuere fermentum urna, eu condimentum mauris tempus ut. Donec fermentum blandit aliquet."
+                        defaultValue="Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"
                       ></textarea>
                     </div>
                   </div>
