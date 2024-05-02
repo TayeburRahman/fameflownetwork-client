@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 import PageTitle from './components/PageTitle';
 import Admin from './pages/Admin';
 import SignIn from './pages/Authentication/SignIn';
@@ -72,10 +73,10 @@ const App = () => {
         <Route
           path="/dashboard/profile"
           element={
-            <>
+            <PrivateRoute>
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
               <Profile />
-            </>
+            </PrivateRoute>
           }
         />
 
