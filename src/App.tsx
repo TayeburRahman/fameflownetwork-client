@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import AdminRoute from './PrivateRoute/AdminRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import PageTitle from './components/PageTitle';
 import Admin from './pages/Admin';
@@ -47,10 +48,10 @@ const App = () => {
           path="/dashboard"
           index
           element={
-            <>
+            <AdminRoute>
               <PageTitle title="FameFlow Dashboard | FameFlow - Go Viral With Massive Exposure" />
               <ECommerce />
-            </>
+            </AdminRoute>
           }
         />
         <Route
@@ -84,20 +85,20 @@ const App = () => {
         <Route
           path="/dashboard/admin"
           element={
-            <>
+            <AdminRoute>
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
               <Admin />
-            </>
+            </AdminRoute>
           }
         />
 
         <Route
           path="/dashboard/admin/user/:id"
           element={
-            <>
+            <AdminRoute>
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
               <UserDetails />
-            </>
+            </AdminRoute>
           }
         />
 
@@ -114,10 +115,10 @@ const App = () => {
         <Route
           path="/dashboard/sample-reports"
           element={
-            <>
+            <AdminRoute>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
               <SampolReports />
-            </>
+            </AdminRoute>
           }
         />
 
