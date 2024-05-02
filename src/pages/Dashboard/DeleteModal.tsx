@@ -1,10 +1,14 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import useToast from '../../hooks/useToast';
 
 interface ModalProps {
   isDelete: boolean;
   onCloseDelete: () => void;
   status: string;
   dValue: any;
+  userData: any;
+  setReqStatus: any;
 }
 
 const DeleteModal: React.FC<ModalProps> = ({
@@ -12,15 +16,48 @@ const DeleteModal: React.FC<ModalProps> = ({
   onCloseDelete,
   status,
   dValue,
+  userData,
+  setReqStatus,
 }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
-
+  const { displayToast } = useToast();
   const closeModal = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       onCloseDelete();
       setIsTransitioning(false);
     }, 300); // Adjust the transition duration as needed
+  };
+
+  const deleteOnHandel = async () => {
+    try {
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/delete/${userData._id}/${dValue._id}`;
+
+      const response = await axios.delete(apiUrl);
+
+      console.log('response.data', response.data);
+
+      if (response.data.status === 'success') {
+        setReqStatus((e: any) => !e);
+        displayToast({
+          status: 'success',
+          message: 'Publication delete successfully!',
+        });
+        closeModal(); // Close modal on successful submission
+      } else {
+        displayToast({
+          status: 'error',
+          message: 'There is something wrong! Please try again.',
+        });
+      }
+    } catch (error: any) {
+      console.error('Submission error:', error.response?.data || error.message);
+      displayToast({
+        status: 'error',
+        message:
+          'An error occurred while processing your request. Please try again later.',
+      });
+    }
   };
 
   return (
@@ -53,13 +90,13 @@ const DeleteModal: React.FC<ModalProps> = ({
         </div>
         <h6 className="mb-5">
           Are you sure! you want to delete{' '}
-          <span className="font-bold">{dValue && dValue.name}</span>
+          <span className="font-bold">{dValue && dValue.news_name}</span>
         </h6>
 
         <div className="flex justify-between">
           <button
             className="px-4 py-2 rounded-md bg-red-500 hover:bg-red-700 text-white transition-colors"
-            onClick={closeModal}
+            onClick={deleteOnHandel}
           >
             Delete
           </button>

@@ -124,8 +124,6 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   const [updateValue, setUpdateValue] = useState<object>();
   const [publication, setPublication] = useState<PUBLICATION[]>();
 
-  console.log('isOpen', isOpen);
-
   const localAuth = localStorage?.getItem('auth');
   const { token } = JSON.parse(localAuth || '{}');
   const navigate = useNavigate();
@@ -247,7 +245,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
             </div> */}
           </div>
 
-          {publication ? (
+          {publication?.length ? (
             publication.map((brand, key) => (
               <div
                 className={`grid grid-cols-3 sm:grid-cols-6 ${
@@ -453,6 +451,8 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
           onCloseDelete={onCloseDelete}
           isDelete={isDelete}
           status={status}
+          userData={userData}
+          setReqStatus={setResStatus}
         />
       )}
     </div>

@@ -19,6 +19,8 @@ type Inputs = {
 
 const SignUp: React.FC = () => {
   const [show, setShow] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const { displayToast } = useToast();
@@ -36,12 +38,14 @@ const SignUp: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     try {
+      setLoading(true);
       const apiUrl =
         'https://fameflownetwork-server.vercel.app/api/v1/user/signup';
       const response = await axios.post(apiUrl, forData);
       const { user } = response.data;
 
       if (response.data.status === 'error') {
+        setLoading(false);
         displayToast({
           status: 'error',
           message: response.data.message,
@@ -49,7 +53,8 @@ const SignUp: React.FC = () => {
         return;
       }
 
-      if (user?.email) {
+      if (user.email) {
+        setLoading(false);
         displayToast({
           status: 'success',
           message: 'Account create successfully!',
@@ -407,6 +412,7 @@ const SignUp: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
+                    // disabled="true"
                     value="Create account"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />

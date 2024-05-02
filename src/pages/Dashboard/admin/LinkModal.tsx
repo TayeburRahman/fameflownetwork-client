@@ -41,8 +41,6 @@ const LinkModal: React.FC<ModalProps> = ({
   const { displayToast } = useToast();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(isOpen);
-
     try {
       const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/add_new/${userData._id}`;
       const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/publication/update/${userData?._id}/${uValue?._id}`;
@@ -58,10 +56,10 @@ const LinkModal: React.FC<ModalProps> = ({
       // console.log('response.data', response.data);
 
       if (response.data.status === 'success') {
-        setReqStatus((ra) => !ra);
+        setReqStatus((ra: any) => !ra);
         displayToast({
           status: 'success',
-          message: 'Publication added successfully!',
+          message: `Publication ${status} Successfully!`,
         });
         onClose(); // Close modal on successful submission
       } else {
