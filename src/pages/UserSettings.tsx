@@ -43,7 +43,7 @@ const UserSettings = () => {
       setLoading(true);
       const apiUrl = `http://localhost:6060/api/v1/user/details/${user?._id}`;
       const response = await axios.put(apiUrl, forData);
-      const { updateUser } = response.data;
+      const { updateUser, token } = response.data;
 
       if (response.data.status === 'error') {
         displayToast({
@@ -63,14 +63,14 @@ const UserSettings = () => {
         localStorage.setItem(
           'auth',
           JSON.stringify({
-            // token: token,
+            token: token,
             user: updateUser,
             id: updateUser._id,
           }),
         );
 
         setCookie('auth', {
-          // token: token,
+          token: token,
           user: updateUser,
           id: updateUser._id,
         });
@@ -217,6 +217,7 @@ const UserSettings = () => {
                         className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="email"
                         // name="email"
+                        disabled
                         id="email"
                         // placeholder="devidjond45@gmail.com"
                         defaultValue={`${user && user.email}`}

@@ -1,8 +1,105 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import useToast from '../hooks/useToast';
 import userThree from '../images/user/user-03.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
+type Inputs = {
+  name: string;
+  email: string;
+  bio: string;
+  phone: string;
+};
+
 const Settings = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const { displayToast } = useToast();
+  const [cookies, setCookie] = useCookies(['auth']);
+  const { user } = cookies.auth;
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
+    console.log(forData);
+
+    if (forData) {
+      if (!forData.name && !forData.email && !forData.phone && !forData.bio) {
+        displayToast({
+          status: 'error',
+          message: 'Please full fill all the fields.',
+        });
+        return;
+      }
+    }
+    try {
+      setLoading(true);
+      const apiUrl = `http://localhost:6060/api/v1/user/details/${user?._id}`;
+      const response = await axios.put(apiUrl, forData);
+      const { updateUser, token } = response.data;
+
+      if (response.data.status === 'error') {
+        displayToast({
+          status: 'error',
+          message: response.data.message,
+        });
+        return;
+      }
+
+      if (updateUser.email) {
+        setLoading(false);
+        displayToast({
+          status: 'success',
+          message: 'Details update successfully!',
+        });
+
+        localStorage.setItem(
+          'auth',
+          JSON.stringify({
+            token: token,
+            user: updateUser,
+            id: updateUser._id,
+          }),
+        );
+
+        setCookie('auth', {
+          token: token,
+          user: updateUser,
+          id: updateUser._id,
+        });
+
+        // navigate('/');
+      } else {
+        displayToast({
+          status: 'error',
+          message: 'Server error! Please try again.',
+        });
+      }
+
+      // reset();
+    } catch (error: any) {
+      // console.log('error', error.response);
+      setLoading(false);
+      if (error.response.data.status === 'error') {
+        displayToast({
+          status: 'error',
+          message: error.response.data.message,
+        });
+      } else {
+        displayToast({
+          status: 'error',
+          message: 'Server error! Please try again.',
+        });
+      }
+    }
+  };
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
@@ -17,7 +114,7 @@ const Settings = () => {
                 </h3>
               </div>
               <div className="p-7">
-                <form action="#">
+                <form action="#" onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                     <div className="w-full sm:w-1/2">
                       <label
@@ -52,13 +149,14 @@ const Settings = () => {
                             </g>
                           </svg>
                         </span>
+
                         <input
                           className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                           type="text"
-                          name="fullName"
-                          id="fullName"
-                          placeholder="Devid Jhon"
-                          defaultValue="Devid Jhon"
+                          // name="name"
+                          id="name"
+                          {...register('name')}
+                          defaultValue={`${user && user.name}`}
                         />
                       </div>
                     </div>
@@ -73,10 +171,11 @@ const Settings = () => {
                       <input
                         className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="phoneNumber"
-                        id="phoneNumber"
-                        placeholder="+990 3343 7865"
-                        defaultValue="+990 3343 7865"
+                        // name="phone"
+                        id="Phone"
+                        {...register('phone')}
+                        placeholder="Add a phone number"
+                        defaultValue={`${user?.phone ? user.phone : ''}`}
                       />
                     </div>
                   </div>
@@ -117,10 +216,12 @@ const Settings = () => {
                       <input
                         className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="email"
-                        name="emailAddress"
-                        id="emailAddress"
-                        placeholder="devidjond45@gmail.com"
-                        defaultValue="devidjond45@gmail.com"
+                        // name="email"
+                        disabled
+                        id="email"
+                        // placeholder="devidjond45@gmail.com"
+                        defaultValue={`${user && user.email}`}
+                        {...register('email')}
                       />
                     </div>
                   </div>
@@ -183,11 +284,12 @@ const Settings = () => {
 
                       <textarea
                         className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                        name="bio"
+                        // name="bio"
                         id="bio"
                         rows={6}
+                        {...register('bio')}
                         placeholder="Write your bio here"
-                        defaultValue="Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"
+                        defaultValue={`${user && user?.bio ? user?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
                       ></textarea>
                     </div>
                   </div>
@@ -224,7 +326,10 @@ const Settings = () => {
                       <img src={userThree} alt="User" />
                     </div>
                     <div>
-                      <span className="mb-1.5 text-black dark:text-white">
+                      <span
+                        className="mb-1.5 text-black dar
+                      k:text-white"
+                      >
                         Edit your photo
                       </span>
                       <span className="flex gap-2.5">

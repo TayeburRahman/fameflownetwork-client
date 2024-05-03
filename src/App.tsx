@@ -46,6 +46,7 @@ const App = () => {
         <Route path="/user-dashboard" element={<Dashboard />} />
         <Route path="/user-dashboard/settings" element={<UserSettings />} />
         <Route path="/user-dashboard/billing-reports" element={<BillInfo />} />
+
         <Route
           path="/dashboard"
           index
@@ -65,6 +66,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/dashboard/calendar"
           element={
@@ -74,6 +76,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/user-dashboard/profile"
           element={
@@ -143,6 +146,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/dashboard/tables"
           element={
@@ -152,6 +156,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/dashboard/settings"
           element={
