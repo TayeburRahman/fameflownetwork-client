@@ -41,7 +41,7 @@ const UserSettings = () => {
     }
     try {
       setLoading(true);
-      const apiUrl = `http://localhost:6060/api/v1/user/details/${user?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${user?._id}`;
       const response = await axios.put(apiUrl, forData);
       const { updateUser, token } = response.data;
 
