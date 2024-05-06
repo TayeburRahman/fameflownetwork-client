@@ -14,6 +14,7 @@ import ECommerce from './pages/Dashboard/ECommerce';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
 import UserDetails from './pages/Dashboard/admin/UserDetails';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
+import PublicationDetails from './pages/Dashboard/users/PublicationDetails';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Home from './pages/Home';
@@ -36,14 +37,16 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/sample-reports" element={<Sample />} /> */}
         <Route path="/user-dashboard" element={<Dashboard />} />
-        <Route path="/user-settings" element={<UserSettings />} />
-        <Route path="/billing-info" element={<BillInfo />} />
+        <Route path="/user-dashboard/settings" element={<UserSettings />} />
+        <Route path="/user-dashboard/billing-reports" element={<BillInfo />} />
+
         <Route
           path="/dashboard"
           index
@@ -63,6 +66,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/dashboard/calendar"
           element={
@@ -72,8 +76,9 @@ const App = () => {
             </>
           }
         />
+
         <Route
-          path="/dashboard/profile"
+          path="/user-dashboard/profile"
           element={
             <PrivateRoute>
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
@@ -89,6 +94,16 @@ const App = () => {
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
               <Admin />
             </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/user-dashboard/user/:id/publication"
+          element={
+            <PrivateRoute>
+              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
+              <PublicationDetails />
+            </PrivateRoute>
           }
         />
 
@@ -131,8 +146,9 @@ const App = () => {
             </>
           }
         />
+
         <Route
-          path="/tables"
+          path="/dashboard/tables"
           element={
             <>
               <PageTitle title="Tables | FameFlow - Go Viral With Massive Exposure" />
@@ -140,8 +156,9 @@ const App = () => {
             </>
           }
         />
+
         <Route
-          path="/settings"
+          path="/dashboard/settings"
           element={
             <>
               <PageTitle title="Settings | FameFlow - Go Viral With Massive Exposure" />
@@ -150,7 +167,7 @@ const App = () => {
           }
         />
         <Route
-          path="/chart"
+          path="/dashboard/chart"
           element={
             <>
               <PageTitle title="Basic Chart | FameFlow - Go Viral With Massive Exposure" />

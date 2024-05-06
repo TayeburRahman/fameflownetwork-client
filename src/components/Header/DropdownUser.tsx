@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useCookies } from 'react-cookie';
+import useAdmin from '../../hooks/useAdmin';
 import UserOne from '../../images/user/user-01.png';
 
 interface UserDetailsProps {
@@ -11,6 +12,9 @@ interface UserDetailsProps {
 const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['auth']);
+  const { isLoggedIn: isAdmin } = useAdmin();
+
+  const { user } = cookies.auth;
 
   const navigate = useNavigate();
   const trigger = useRef<any>(null);
@@ -60,7 +64,7 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
           <span className="block text-sm font-medium text-black dark:text-white">
             {userdata?.user?.name}
           </span>
-          <span className="block text-xs">Admin/User</span>
+          <span className="block text-xs uppercase">{user.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -96,7 +100,7 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              to="/dashboard/admin"
+              to={`${isAdmin ? '/dashboard/admin' : '/user-dashboard/profile'}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -122,7 +126,7 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
 
           <li>
             <Link
-              to="/pages/settings"
+              to={`${isAdmin ? '/dashboard/settings' : '/user-dashboard/settings'}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg

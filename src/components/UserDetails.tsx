@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+import useAdmin from '../hooks/useAdmin';
 
 interface UserDetailsProps {
   userdata: any; // Replace 'any' with the actual type of 'loggedIn' data
@@ -9,6 +10,7 @@ interface UserDetailsProps {
 const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['auth']);
+  const { isLoggedIn } = useAdmin();
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -91,7 +93,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              to="/dashboard/profile"
+              to={`${isLoggedIn ? '/dashboard/admin' : '/dashboard/profile'}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -116,8 +118,8 @@ const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
           </li>
           <li>
             <Link
-              // to="/user-dashboard"
-              to="/dashboard"
+              // to=/user-dashboard"
+              to={`${isLoggedIn ? '/dashboard' : '/user-dashboard'}`}
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg

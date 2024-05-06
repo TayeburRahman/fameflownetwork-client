@@ -6,7 +6,7 @@ import ProductThree from '../../../../images/product/product-03.png';
 import ProductFour from '../../../../images/product/product-04.png';
 import DefaultLayout from '../../../../layout/DefaultLayout';
 import { Product } from '../../../../types/product';
-import Publications from '../../Publications';
+import Table from './Table';
 
 interface User {
   _id: string;
@@ -66,7 +66,7 @@ const SampolReports = () => {
     <DefaultLayout>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark pt-5">
         <div className="py-6 px-4 md:px-6 xl:px-7.5">
-          <Publications userData={userData} mType="admin" />
+          <Table userData={userData} mType="admin" />
         </div>
       </div>
     </DefaultLayout>

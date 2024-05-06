@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TableLoader from '../../components/TableLoader';
-import BrandOne from '../../images/brand/brand-01.svg';
-import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import { BRAND, PUBLICATION } from '../../types/brand';
-import DeleteModal from './DeleteModal';
-import LinkModal from './admin/LinkModal';
+import TableLoader from '../../../../components/TableLoader';
+import BrandOne from '../../../../images/brand/brand-01.svg';
+import BrandTwo from '../../../../images/brand/brand-02.svg';
+import BrandThree from '../../../../images/brand/brand-03.svg';
+import BrandFour from '../../../../images/brand/brand-04.svg';
+import { BRAND, SITES } from '../../../../types/brand';
+import DeleteModal from '../../DeleteModal';
+import PublicationModal from './package/PublicationModal';
 
 interface UserDetailsProps {
   userData: any; // Replace 'any' with the actual type of 'loggedIn' data
@@ -114,7 +114,7 @@ const brandData: BRAND[] = [
   },
 ];
 
-const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
+const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -122,7 +122,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
 
   const [status, setStatus] = useState<string>('');
   const [updateValue, setUpdateValue] = useState<object>();
-  const [publication, setPublication] = useState<PUBLICATION[]>();
+  const [sites, setSites] = useState<SITES[]>();
 
   const localAuth = localStorage?.getItem('auth');
   const { token } = JSON.parse(localAuth || '{}');
@@ -132,18 +132,18 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
     if (userData._id) {
       const publicationDataApi = async () => {
         try {
-          const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/get/${userData?._id}`;
+          const apiUrl = `http://localhost:6060/api/v1/package/get`;
 
           const response = await axios.get(apiUrl, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          const { publications, status } = response.data;
-          // console.log(publications);
+          const { sites, status } = response.data;
+          console.log('publications', sites);
 
           if (status === 'success') {
-            setPublication(publications?.publication);
+            setSites(sites);
             setLoading(false);
           } else {
             setLoading(false);
@@ -206,7 +206,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
         <TableLoader />
       ) : (
         <div className="">
-          <div className="grid grid-cols-4 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6 mt-4">
+          <div className="grid grid-cols-5 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-7 mt-4">
             <div className="p-2.5 xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 News Sites
@@ -238,6 +238,12 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
               </h5>
             </div>
 
+            <div className="hidden p-2.5 text-center sm:block xl:p-5">
+              <h5 className="text-sm font-medium uppercase xsm:text-base">
+                PACKAGES
+              </h5>
+            </div>
+
             {/* <div className="hidden p-2.5 text-center sm:block xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 Action
@@ -245,10 +251,10 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
             </div> */}
           </div>
 
-          {publication?.length ? (
-            publication.map((brand, key) => (
+          {sites?.length ? (
+            sites.map((brand, key) => (
               <div
-                className={`grid grid-cols-3 sm:grid-cols-6 ${
+                className={`grid grid-cols-5 sm:grid-cols-7 ${
                   key === brandData.length - 1
                     ? ''
                     : 'border-b border-stroke dark:border-strokedark'
@@ -259,13 +265,13 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
                   href={brand.news_link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline"
+                  className="hover:underline flex items-center"
                 >
                   <div className="flex items-center gap-2 p-2.2 xl:p-1">
-                    <div className="flex-shrink-0">
-                      <img src={BrandOne} alt="Brand" />
+                    <div className="flex-shrink-0 w-5/12">
+                      <img className="w-full" src={brand.image} alt="Brand" />
                     </div>
-                    <p className="hidden text-black dark:text-white sm:block text-[12px]">
+                    <p className="hidden text-black dark:text-white sm:block text-[12px] w-1/12	">
                       {brand.news_name}
                     </p>
                   </div>
@@ -330,6 +336,22 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
                   >
                     <p className="text-meta-5">{brand.traffic}k</p>
                   </a>
+                </div>
+                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                  <p className="text-meta-5">
+                    {brand.package.map((data, key) => (
+                      <span
+                        style={{
+                          background: '#8595951c',
+                          padding: '4px',
+                          borderRadius: '87px',
+                          margin: '2px',
+                        }}
+                      >
+                        {data}
+                      </span>
+                    ))}
+                  </p>
                 </div>
 
                 {mType === 'admin' && (
@@ -438,7 +460,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
       )}
 
       {isOpen && (
-        <LinkModal
+        <PublicationModal
           isOpen={isOpen}
           onClose={handleOnClose}
           status={status}
@@ -461,4 +483,4 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   );
 };
 
-export default Publications;
+export default Table;
