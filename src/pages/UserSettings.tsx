@@ -53,6 +53,8 @@ const UserSettings = () => {
         return;
       }
 
+      console.log('updateUser', updateUser);
+
       if (updateUser.email) {
         setLoading(false);
         displayToast({
@@ -100,6 +102,7 @@ const UserSettings = () => {
       }
     }
   };
+
   return (
     <UserLayout>
       <div className="mx-auto max-w-270">
