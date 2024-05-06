@@ -5,7 +5,6 @@ import ChartThree from '../../components/Charts/ChartThree';
 import ChartTwo from '../../components/Charts/ChartTwo';
 import MapOne from '../../components/Maps/MapOne';
 import UserLayout from '../../layout/UserLayout';
-import Publications from './Publications';
 
 const UserDashboard: React.FC = () => {
   return (
@@ -112,7 +111,7 @@ const UserDashboard: React.FC = () => {
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           Publications
         </h4>
-        <Publications data="" mType="" />
+        {/* <Publications data="" mType="" /> */}
       </div>
       {/* lists end */}
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
