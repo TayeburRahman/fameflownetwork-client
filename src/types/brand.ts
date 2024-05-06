@@ -31,3 +31,21 @@ export type USER = {
   sales: number;
   conversion: number;
 };
+
+export type SITES = {
+  authority: string;
+  authority_link: string;
+  global_rank: string;
+  global_rank_link: string;
+  moz_rank: string;
+  moz_rank_link: string;
+  news_link: string;
+  news_name: string;
+  social: string;
+  social_link: string;
+  traffic: string;
+  traffic_link: string;
+  _id: any;
+  image: string;
+  package: Array<any>;
+};

@@ -1,6 +1,5 @@
-import React, { useState, ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Header from '../components/Header/index';
-import Sidebar from '../components/Sidebar/index';
 import Sidebar2 from '../components/Sidebar/index2';
 
 const UserLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
