@@ -6,7 +6,7 @@ import BrandTwo from '../images/brand/brand-02.svg';
 import BrandThree from '../images/brand/brand-03.svg';
 import BrandFour from '../images/brand/brand-04.svg';
 import BrandFive from '../images/brand/brand-05.svg';
-import { BRAND, PUBLICATION } from '../types/brand';
+import { BRAND, SITES } from '../types/brand';
 
 const brandData: BRAND[] = [
   {
@@ -453,21 +453,21 @@ const brandData: BRAND[] = [
 
 const Sample = () => {
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [publication, setPublication] = useState<PUBLICATION[]>();
+  const [publication, setPublication] = useState<SITES[]>();
 
   console.log('publication', publication);
 
   useEffect(() => {
     const publicationDataApi = async () => {
       try {
-        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/get/r/sampolreports`;
+        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/get`;
 
         const response = await axios.get(apiUrl);
-        const { publications, status } = response.data;
+        const { sites, status } = response.data;
         console.log(response.data);
 
         if (status === 'success') {
-          setPublication(publications?.publication);
+          setPublication(sites);
           setLoading(false);
         } else {
           setLoading(false);
@@ -541,10 +541,10 @@ const Sample = () => {
                     className="hover:underline"
                   >
                     <div className="flex items-center gap-2 p-2.2 xl:p-1">
-                      <div className="flex-shrink-0">
-                        <img src={BrandOne} alt="Brand" />
+                      <div className="flex-shrink-0 w-5/12">
+                        <img className="w-full" src={brand.image} alt="Brand" />
                       </div>
-                      <p className="hidden text-black dark:text-white sm:block text-[12px]">
+                      <p className="hidden text-black dark:text-white sm:block text-[12px] w-1/12	">
                         {brand.news_name}
                       </p>
                     </div>
