@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useToast from '../../../../../hooks/useToast';
 
@@ -60,11 +60,17 @@ const PublicationModal: React.FC<ModalProps> = ({
   const [price, setPricing] = useState([]);
   const { displayToast } = useToast();
 
+  useEffect(() => {
+    if (status === 'Update') {
+      setPricing(uValue.package);
+    }
+  }, [status]);
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log('ddd', data);
     try {
-      const apiUrl = `http://localhost:6060/api/v1/package/add_new`;
-      const apiUrl2 = `http://localhost:6060/api/v1/package/update/${uValue?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/add_new`;
+      const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/update/${uValue?._id}`;
       const response = await axios.post(
         status === 'Update' ? apiUrl2 : apiUrl,
         {
@@ -181,7 +187,7 @@ const PublicationModal: React.FC<ModalProps> = ({
             <input
               id="moz_rank"
               required
-              defaultValue={uValue ? uValue.moz_rank : ''}
+              defaultValue={uValue ? uValue.image : ''}
               className="border-solid border-2 border-blue-600 rounded h-10 ps-2"
               type="text"
               style={{ width: '100%' }}

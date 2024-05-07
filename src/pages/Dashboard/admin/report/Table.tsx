@@ -2,119 +2,17 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TableLoader from '../../../../components/TableLoader';
-import BrandOne from '../../../../images/brand/brand-01.svg';
-import BrandTwo from '../../../../images/brand/brand-02.svg';
-import BrandThree from '../../../../images/brand/brand-03.svg';
-import BrandFour from '../../../../images/brand/brand-04.svg';
-import { BRAND, SITES } from '../../../../types/brand';
+import { SITES } from '../../../../types/brand';
 import DeleteModal from '../../DeleteModal';
 import PublicationModal from './package/PublicationModal';
 
 interface UserDetailsProps {
   userData: any; // Replace 'any' with the actual type of 'loggedIn' data
   mType: string;
+  name: string;
 }
 
-const brandData: BRAND[] = [
-  {
-    logo: BrandOne,
-    name: 'Benzinga',
-    visitors: 88,
-    revenues: '6.3',
-    sales: 67.5,
-    conversion: 23.3,
-  },
-  {
-    logo: BrandTwo,
-    name: 'My Mother Lode',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: BrandThree,
-    name: 'FOX 40',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: BrandFour,
-    name: 'FOX 28',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
-  },
-  {
-    logo: BrandOne,
-    name: 'Benzinga',
-    visitors: 88,
-    revenues: '6.3',
-    sales: 67.5,
-    conversion: 23.3,
-  },
-  {
-    logo: BrandTwo,
-    name: 'My Mother Lode',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: BrandThree,
-    name: 'FOX 40',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: BrandFour,
-    name: 'FOX 28',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
-  },
-  {
-    logo: BrandOne,
-    name: 'Benzinga',
-    visitors: 88,
-    revenues: '6.3',
-    sales: 67.5,
-    conversion: 23.3,
-  },
-  {
-    logo: BrandTwo,
-    name: 'My Mother Lode',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: BrandThree,
-    name: 'FOX 40',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: BrandFour,
-    name: 'FOX 28',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
-  },
-];
-
-const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
+const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -128,19 +26,23 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   const { token } = JSON.parse(localAuth || '{}');
   const navigate = useNavigate();
 
+  console.log(JSON.stringify(sites));
+
   useEffect(() => {
     if (userData._id) {
       const publicationDataApi = async () => {
         try {
-          const apiUrl = `http://localhost:6060/api/v1/package/get`;
+          const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/get`;
+          const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/get/r/${name}`;
 
-          const response = await axios.get(apiUrl, {
+          const response = await axios.get(name ? apiUrl2 : apiUrl, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
           const { sites, status } = response.data;
-          console.log('publications', sites);
+
+          console.log('sites', sites);
 
           if (status === 'success') {
             setSites(sites);
@@ -158,7 +60,7 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
       };
       publicationDataApi();
     }
-  }, [resStatus, userData]);
+  }, [resStatus, userData, name]);
 
   const handleOnClose = () => {
     setOpen(false);
@@ -175,7 +77,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
   };
 
   const handelOpenModal = (action: string, brand: any) => {
-    console.log('brand', brand);
     setOpen(true);
     setStatus(action);
     setUpdateValue(brand);
@@ -190,7 +91,7 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
     <div className="flex flex-col  ">
       <div className="flex items-center justify-between ">
         <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
-          Publications
+          {name ? name : 'Sample Reports'}
         </h4>
         {mType === 'admin' && (
           <button
@@ -237,7 +138,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
                 TRAFFIC
               </h5>
             </div>
-
             <div className="hidden p-2.5 text-center sm:block xl:p-5">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 PACKAGES
@@ -253,14 +153,7 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
 
           {sites?.length ? (
             sites.map((brand, key) => (
-              <div
-                className={`grid grid-cols-5 sm:grid-cols-7 ${
-                  key === brandData.length - 1
-                    ? ''
-                    : 'border-b border-stroke dark:border-strokedark'
-                }`}
-                key={key}
-              >
+              <div className={`grid grid-cols-5 sm:grid-cols-7`} key={key}>
                 <a
                   href={brand.news_link}
                   target="_blank"
@@ -268,10 +161,10 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
                   className="hover:underline flex items-center"
                 >
                   <div className="flex items-center gap-2 p-2.2 xl:p-1">
-                    <div className="flex-shrink-0 w-5/12">
+                    <div className="flex-shrink-0 w-4/12">
                       <img className="w-full" src={brand.image} alt="Brand" />
                     </div>
-                    <p className="hidden text-black dark:text-white sm:block text-[12px] w-1/12	">
+                    <p className="hidden text-black dark:text-white sm:block">
                       {brand.news_name}
                     </p>
                   </div>
@@ -474,7 +367,7 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType }) => {
           dValue={updateValue}
           onCloseDelete={onCloseDelete}
           isDelete={isDelete}
-          status={status}
+          status="package"
           userData={userData}
           setReqStatus={setResStatus}
         />
