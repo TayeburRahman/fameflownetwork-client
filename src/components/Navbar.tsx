@@ -61,7 +61,7 @@ const Navbar = () => {
       </a>
 
       <NavLink
-        to="/sample-reports"
+        to="/reports/sample"
         spy={true}
         // smooth={true}
         offset={-40}

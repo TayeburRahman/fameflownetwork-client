@@ -188,7 +188,7 @@ const App = () => {
         />
 
         <Route
-          path="/sample-reports"
+          path="/reports/:name"
           element={
             <>
               <PageTitle title="Report | FameFlow - Go Viral With Massive Exposure" />

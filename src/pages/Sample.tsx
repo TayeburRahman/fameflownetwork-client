@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import TableLoader from '../components/TableLoader';
 import { SITES } from '../types/brand';
 
-const Sample = () => {
+interface props {
+  name: any;
+}
+
+const Sample: React.FC<props> = ({ name }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [publication, setPublication] = useState<SITES[]>();
 
@@ -13,8 +17,9 @@ const Sample = () => {
     const publicationDataApi = async () => {
       try {
         const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/get`;
+        const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/get/r/${name}`;
 
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(name === 'sample' ? apiUrl : apiUrl2);
         const { sites, status } = response.data;
 
         if (status === 'success') {
