@@ -9,8 +9,10 @@ export default function useAdmin() {
       const localAuth = localStorage?.getItem('auth');
       if (localAuth) {
         const { user, token } = JSON.parse(localAuth);
-        if (token && user?.email && user?.role === 'admin') {
-          setIsLoggedIn(true);
+        if (token && user?.email) {
+          if (user.role === 'admin') {
+            setIsLoggedIn(true);
+          }
         }
       }
       setIsLoading(false);

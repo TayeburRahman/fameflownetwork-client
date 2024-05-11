@@ -53,7 +53,7 @@ const productData: Product[] = [
   },
 ];
 
-const UserDetails = () => {
+const AdminDetails = () => {
   const [userData, setUserData] = useState({
     _id: '',
     name: '',
@@ -189,4 +189,4 @@ const UserDetails = () => {
   );
 };
 
-export default UserDetails;
+export default AdminDetails;

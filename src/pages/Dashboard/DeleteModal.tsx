@@ -32,10 +32,11 @@ const DeleteModal: React.FC<ModalProps> = ({
   const deleteOnHandel = async () => {
     try {
       const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/publication/delete/${userData._id}/${dValue._id}`;
+      const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/delete/${dValue._id}`;
 
-      const response = await axios.delete(apiUrl);
-
-      console.log('response.data', response.data);
+      const response = await axios.delete(
+        status === 'package' ? apiUrl2 : apiUrl,
+      );
 
       if (response.data.status === 'success') {
         setReqStatus((e: any) => !e);
@@ -79,7 +80,7 @@ const DeleteModal: React.FC<ModalProps> = ({
       >
         <div className="flex justify-between mb-5">
           <h2 className="text-xl font-bold mb-4">
-            {status === ' ' ? ' ' : ' '}
+            {/* {status === ' ' ? ' ' : ' '} */}
           </h2>
           <button
             className="px-4 py-2 font-bold text-black rounded-md bg-blue-100 hover:bg-blue-200 transition-colors"

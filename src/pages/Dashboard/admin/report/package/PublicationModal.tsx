@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useToast from '../../../../../hooks/useToast';
 
@@ -59,6 +59,12 @@ const PublicationModal: React.FC<ModalProps> = ({
   const { register, handleSubmit, reset, setValue } = useForm<FormValues>();
   const [price, setPricing] = useState([]);
   const { displayToast } = useToast();
+
+  useEffect(() => {
+    if (status === 'Update') {
+      setPricing(uValue.package);
+    }
+  }, [status]);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log('ddd', data);
@@ -181,7 +187,7 @@ const PublicationModal: React.FC<ModalProps> = ({
             <input
               id="moz_rank"
               required
-              defaultValue={uValue ? uValue.moz_rank : ''}
+              defaultValue={uValue ? uValue.image : ''}
               className="border-solid border-2 border-blue-600 rounded h-10 ps-2"
               type="text"
               style={{ width: '100%' }}

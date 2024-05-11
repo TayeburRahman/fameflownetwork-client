@@ -9,7 +9,7 @@ export default function useAuth() {
       const localAuth = localStorage?.getItem('auth');
       if (localAuth) {
         const { user, token } = JSON.parse(localAuth);
-        if (token && user?.email) {
+        if (token && user) {
           setIsLoggedIn(true);
         }
       }

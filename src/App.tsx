@@ -11,9 +11,10 @@ import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
+import UserDetails from './pages/Dashboard/admin/AdminDetails';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
-import UserDetails from './pages/Dashboard/admin/UserDetails';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
+import Package from './pages/Dashboard/admin/report/package/Package';
 import PublicationDetails from './pages/Dashboard/users/PublicationDetails';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
@@ -57,6 +58,16 @@ const App = () => {
             </AdminRoute>
           }
         />
+
+        <Route
+          path="/dashboard/admin"
+          element={
+            <AdminRoute>
+              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
+              <Admin />
+            </AdminRoute>
+          }
+        />
         <Route
           path="/dashboard/manage-users"
           element={
@@ -84,16 +95,6 @@ const App = () => {
               <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
               <Profile />
             </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/dashboard/admin"
-          element={
-            <AdminRoute>
-              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
-              <Admin />
-            </AdminRoute>
           }
         />
 
@@ -133,6 +134,16 @@ const App = () => {
             <AdminRoute>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
               <SampolReports />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/r/:name"
+          element={
+            <AdminRoute>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <Package />
             </AdminRoute>
           }
         />
