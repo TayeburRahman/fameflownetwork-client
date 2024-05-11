@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import PackageReport from '../../../../components/PackageReport';
 import TableLoader from '../../../../components/TableLoader';
 import useToast from '../../../../hooks/useToast';
 import { SITES } from '../../../../types/brand';
@@ -9,7 +10,7 @@ import DeleteModal from '../../DeleteModal';
 import PublicationModal from './package/PublicationModal';
 
 interface UserDetailsProps {
-  userData: any; // Replace 'any' with the actual type of 'loggedIn' data
+  userData: any;
   mType: string;
   name: string;
 }
@@ -63,8 +64,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
             },
           });
           const { sites, status } = response.data;
-
-          console.log('sites', sites);
 
           if (status === 'success') {
             setSites(sites);
@@ -187,7 +186,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
 
       <div className="  mb-5">
         <form onSubmit={handleSubmit(onSubmit)} className="grid">
-          {/* register your input into the hook by invoking the "register" function */}
           <input
             defaultValue={isTexts && isTexts?.image}
             type="text"
@@ -246,6 +244,10 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
             className="border-solid border-2 border-blue-600 rounded px-4 py-2 bg-blue-600 text-white submit_button"
           />
         </form>
+      </div>
+
+      <div>
+        <PackageReport report={sites} isLoading={isLoading} />
       </div>
 
       <div className="flex items-center justify-between mt-5">

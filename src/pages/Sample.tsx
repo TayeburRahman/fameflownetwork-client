@@ -1,41 +1,12 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import TableLoader from '../components/TableLoader';
-import { SITES } from '../types/brand';
 
 interface props {
   name: any;
+  isLoading: boolean;
+  publication: any;
 }
 
-const Sample: React.FC<props> = ({ name }) => {
-  const [isLoading, setLoading] = useState<boolean>(true);
-  const [publication, setPublication] = useState<SITES[]>();
-
-  console.log('publication', publication);
-
-  useEffect(() => {
-    const publicationDataApi = async () => {
-      try {
-        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/get`;
-        const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/get/r/${name}`;
-
-        const response = await axios.get(name === 'sample' ? apiUrl : apiUrl2);
-        const { sites, status } = response.data;
-
-        if (status === 'success') {
-          setPublication(sites);
-          setLoading(false);
-        } else {
-          setLoading(false);
-        }
-      } catch (error: any) {
-        console.log('error', error.response);
-        setLoading(false);
-      }
-    };
-    publicationDataApi();
-  }, []);
-
+const Sample: React.FC<props> = ({ name, isLoading, publication }) => {
   return (
     <div className="section-padding" id="publication">
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 sm:px-7.5 xl:pb-1">

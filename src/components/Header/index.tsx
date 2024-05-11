@@ -3,15 +3,30 @@ import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 // import LogoIcon from '../../images/logo/logo-icon.svg';
-import { useCookies } from 'react-cookie';
+import { useEffect, useState } from 'react';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
-  const [cookies, removeCookie] = useCookies(['auth']);
-  const loggedIn = cookies.auth;
+  const [userData, setUserState] = useState<any>();
+
+  useEffect(() => {
+    try {
+      const localAuth = localStorage?.getItem('auth');
+      if (localAuth) {
+        const { user, token } = JSON.parse(localAuth);
+
+        if (token && user?.email) {
+          setUserState(user);
+        }
+      }
+    } catch (error) {
+      // console.error('Error retrieving user from local storage:', error);
+    }
+  }, []);
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -119,7 +134,7 @@ const Header = (props: {
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser userdata={loggedIn} />
+          <DropdownUser userdata={userData} />
           {/* <!-- User Area --> */}
         </div>
       </div>

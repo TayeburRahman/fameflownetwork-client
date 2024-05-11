@@ -6,14 +6,13 @@ import useAdmin from '../../hooks/useAdmin';
 import UserOne from '../../images/user/user-01.png';
 
 interface UserDetailsProps {
-  userdata: any; // Replace 'any' with the actual type of 'loggedIn' data
+  userdata: any;
 }
 
 const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['auth']);
   const { isLoggedIn: isAdmin } = useAdmin();
-
   const { user } = cookies.auth;
 
   const navigate = useNavigate();
@@ -48,6 +47,9 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
 
   const handleLogOut = () => {
     localStorage.removeItem('auth');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
     removeCookie('auth');
     navigate('/');
   };
@@ -62,9 +64,9 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userdata?.user?.name}
+            {userdata?.name}
           </span>
-          <span className="block text-xs uppercase">{user.role}</span>
+          <span className="block text-xs uppercase">{userdata?.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
