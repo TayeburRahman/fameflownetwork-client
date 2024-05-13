@@ -1,32 +1,55 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import PackageReport from '../../../../components/PackageReport';
 import TableLoader from '../../../../components/TableLoader';
+import useToast from '../../../../hooks/useToast';
 import { SITES } from '../../../../types/brand';
 import DeleteModal from '../../DeleteModal';
 import PublicationModal from './package/PublicationModal';
 
 interface UserDetailsProps {
-  userData: any; // Replace 'any' with the actual type of 'loggedIn' data
+  userData: any;
   mType: string;
   name: string;
 }
 
+type Inputs = {
+  sub_title: string;
+  title: string;
+  p1: string;
+  p2: string;
+  p3: string;
+  p4: string;
+  image: string;
+  package: string;
+  _id: any;
+};
+
 const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
   const [isOpen, setOpen] = useState<boolean>(false);
   const [isDelete, setOpenDelete] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [reqStatus, setReqStatus] = useState<boolean>(true);
   const [resStatus, setResStatus] = useState<any>(false);
+  const [isTexts, setTexts] = useState<Inputs>();
 
   const [status, setStatus] = useState<string>('');
   const [updateValue, setUpdateValue] = useState<object>();
   const [sites, setSites] = useState<SITES[]>();
 
+  const { displayToast } = useToast();
+
   const localAuth = localStorage?.getItem('auth');
   const { token } = JSON.parse(localAuth || '{}');
   const navigate = useNavigate();
-
-  console.log(JSON.stringify(sites));
 
   useEffect(() => {
     if (userData._id) {
@@ -41,8 +64,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
             },
           });
           const { sites, status } = response.data;
-
-          console.log('sites', sites);
 
           if (status === 'success') {
             setSites(sites);
@@ -60,6 +81,30 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
       };
       publicationDataApi();
     }
+
+    const textDataApi = async () => {
+      setTexts();
+      try {
+        const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/get/text/${name ? name : 'Sample Reports'}`;
+
+        const response = await axios.get(apiUrl);
+        const { texts, status } = response.data;
+
+        if (status === 'success') {
+          setTexts(texts);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      } catch (error: any) {
+        console.log('error', error.response);
+        setLoading(false);
+        if (error.response.status === 400) {
+          navigate('/auth/signin');
+        }
+      }
+    };
+    textDataApi();
   }, [resStatus, userData, name]);
 
   const handleOnClose = () => {
@@ -87,12 +132,129 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
     setStatus(action);
     setUpdateValue(brand);
   };
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (
+      !data.image ||
+      !data.sub_title ||
+      !data.title ||
+      !data.p1 ||
+      !data.p2 ||
+      !data.p3 ||
+      !data.p4
+    ) {
+      displayToast({
+        status: 'error',
+        message: 'All fields are required',
+      });
+      return;
+    }
+    try {
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/package/add/text/${name ? name : 'Sample Reports'}`;
+      const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/update/text/${name ? name : 'Sample Reports'}`;
+      const response = await axios.post(isTexts ? apiUrl2 : apiUrl, {
+        text: data,
+      });
+
+      if (response.data.status === 'success') {
+        setReqStatus((ra: any) => !ra);
+        displayToast({
+          status: 'success',
+          message: `Site Successfully!`,
+        });
+      } else {
+        displayToast({
+          status: 'error',
+          message: 'There is something wrong! Please try again.',
+        });
+      }
+    } catch (error: any) {
+      console.error('Submission error:', error.response?.data || error.message);
+      displayToast({
+        status: 'error',
+        message:
+          'An error occurred while processing your request. Please try again later.',
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col  ">
-      <div className="flex items-center justify-between ">
+      <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
+        {name ? name : 'Sample Reports'}
+      </h4>
+
+      <div className="  mb-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid">
+          <input
+            defaultValue={isTexts && isTexts?.image}
+            type="text"
+            id="image"
+            required
+            className="border-solid border-2 border-blue-600 rounded h-10 mb-2 w-full ps-2"
+            {...register('image')}
+          />
+          <input
+            defaultValue={isTexts && isTexts?.sub_title}
+            id="sub_title"
+            type="text"
+            required
+            className="border-solid border-2 border-blue-600 rounded h-10 mb-2 w-full ps-2"
+            {...register('sub_title')}
+          />
+
+          <textarea
+            defaultValue={isTexts && isTexts?.title}
+            id="title"
+            required
+            className=" border-solid border-2 border-blue-600 rounded h-20 mb-2 w-full ps-2 "
+            {...register('title')}
+          />
+          <textarea
+            id="p1"
+            defaultValue={isTexts && isTexts?.p1}
+            required
+            className=" border-solid border-2 border-blue-600 rounded h-20 mb-2 w-full ps-2 "
+            {...register('p1')}
+          />
+          <textarea
+            defaultValue={isTexts && isTexts?.p2}
+            required
+            className=" border-solid border-2 border-blue-600 rounded h-20 mb-2 w-full ps-2 "
+            {...register('p2')}
+          />
+          <textarea
+            defaultValue={isTexts && isTexts?.p3}
+            required
+            className=" border-solid border-2 border-blue-600 rounded h-20 mb-2 w-full ps-2 "
+            {...register('p3')}
+          />
+          <textarea
+            defaultValue={isTexts ? isTexts?.p4 : ''}
+            required
+            className=" border-solid border-2 border-blue-600 rounded h-20 mb-2 w-full ps-2 "
+            {...register('p4')}
+          />
+
+          {/* errors will return when field validation fails  */}
+
+          <input
+            type="submit"
+            value={isTexts ? 'Update' : 'Add new'}
+            className="border-solid border-2 border-blue-600 rounded px-4 py-2 bg-blue-600 text-white submit_button"
+          />
+        </form>
+      </div>
+
+      <div>
+        <PackageReport report={sites} isLoading={isLoading} />
+      </div>
+
+      <div className="flex items-center justify-between mt-5">
         <h4 className="text-xl font-semibold text-black dark:text-white mb-4">
-          {name ? name : 'Sample Reports'}
+          -
         </h4>
+
         {mType === 'admin' && (
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -143,12 +305,6 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
                 PACKAGES
               </h5>
             </div>
-
-            {/* <div className="hidden p-2.5 text-center sm:block xl:p-5">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                Action
-              </h5>
-            </div> */}
           </div>
 
           {sites?.length ? (

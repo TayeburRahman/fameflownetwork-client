@@ -1,8 +1,19 @@
 import { useEffect, useState } from 'react';
 
+type USER = {
+  bio: string;
+  createdAt: string;
+  email: string;
+  name: string;
+  phone: string;
+  role: string;
+  status: string;
+  _id: string;
+};
 export default function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUser, setUsers] = useState<USER>();
 
   useEffect(() => {
     try {
@@ -11,6 +22,7 @@ export default function useAuth() {
         const { user, token } = JSON.parse(localAuth);
         if (token && user) {
           setIsLoggedIn(true);
+          setUsers(user);
         }
       }
       setIsLoading(false);
@@ -20,5 +32,5 @@ export default function useAuth() {
     }
   }, []);
 
-  return { isLoggedIn, isLoading };
+  return { isLoggedIn, isLoading, isUser };
 }

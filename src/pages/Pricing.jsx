@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Pricing = () => {
     return (
@@ -568,25 +568,25 @@ const Pricing = () => {
                         
                     </div>
                     <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                        <a href="/reports/sample" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
                     <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                        <a href="/reports/POPULAR" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
                     <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                        <a href="/reports/ULTIMATE" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
                     <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                        <a href="/reports/LIMITED" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>

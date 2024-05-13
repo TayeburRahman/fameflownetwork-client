@@ -11,7 +11,7 @@ import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
-import UserDetails from './pages/Dashboard/admin/AdminDetails';
+import AdminDetails from './pages/Dashboard/admin/AdminDetails';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
 import Package from './pages/Dashboard/admin/report/package/Package';
@@ -68,6 +68,36 @@ const App = () => {
             </AdminRoute>
           }
         />
+
+        <Route
+          path="/dashboard/admin/user/:id"
+          element={
+            <AdminRoute>
+              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
+              <AdminDetails />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/dashboard/sample-reports"
+          element={
+            <AdminRoute>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <SampolReports />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/r/:name"
+          element={
+            <AdminRoute>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <Package />
+            </AdminRoute>
+          }
+        />
+
         <Route
           path="/dashboard/manage-users"
           element={
@@ -97,7 +127,6 @@ const App = () => {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/user-dashboard/user/:id/publication"
           element={
@@ -109,42 +138,12 @@ const App = () => {
         />
 
         <Route
-          path="/dashboard/admin/user/:id"
-          element={
-            <AdminRoute>
-              <PageTitle title="Profile | FameFlow - Go Viral With Massive Exposure" />
-              <UserDetails />
-            </AdminRoute>
-          }
-        />
-
-        <Route
           path="/dashboard/forms/form-elements"
           element={
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
               <FormElements />
             </>
-          }
-        />
-
-        <Route
-          path="/dashboard/sample-reports"
-          element={
-            <AdminRoute>
-              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
-              <SampolReports />
-            </AdminRoute>
-          }
-        />
-
-        <Route
-          path="/dashboard/r/:name"
-          element={
-            <AdminRoute>
-              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
-              <Package />
-            </AdminRoute>
           }
         />
 
@@ -188,7 +187,7 @@ const App = () => {
         />
 
         <Route
-          path="/sample-reports"
+          path="/reports/:name"
           element={
             <>
               <PageTitle title="Report | FameFlow - Go Viral With Massive Exposure" />

@@ -43,6 +43,9 @@ const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
 
   const handleLogOut = () => {
     localStorage.removeItem('auth');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
     removeCookie('auth');
   };
 

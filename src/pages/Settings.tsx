@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import useAdmin from '../hooks/useAdmin';
 import useToast from '../hooks/useToast';
-import userThree from '../images/user/user-03.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
 type Inputs = {
@@ -17,19 +17,27 @@ type Inputs = {
 const Settings = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { displayToast } = useToast();
+  const { isAdmin } = useAdmin();
+  const [userData, setUserState] = useState<any>({});
+
   const [cookies, setCookie] = useCookies(['auth']);
   const { user } = cookies.auth;
+
+  useEffect(() => {
+    if (isAdmin) {
+      setUserState({ ...isAdmin });
+    }
+  }, [isAdmin]);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
-    console.log(forData);
+  console.log('isAdmin..', userData?.name);
 
+  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     if (forData) {
       if (!forData.name && !forData.email && !forData.phone && !forData.bio) {
         displayToast({
@@ -41,7 +49,7 @@ const Settings = () => {
     }
     try {
       setLoading(true);
-      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${user?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${userData?._id}`;
       const response = await axios.put(apiUrl, forData);
       const { updateUser, token } = response.data;
 
@@ -85,7 +93,6 @@ const Settings = () => {
 
       // reset();
     } catch (error: any) {
-      // console.log('error', error.response);
       setLoading(false);
       if (error.response.data.status === 'error') {
         displayToast({
@@ -105,7 +112,7 @@ const Settings = () => {
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
-        <div className="grid grid-cols-5 gap-8">
+        <div className="grid grid-cols-4 gap-8">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
@@ -156,7 +163,11 @@ const Settings = () => {
                           // name="name"
                           id="name"
                           {...register('name')}
-                          defaultValue={`${user && user.name}`}
+                          placeholder="Write your name"
+                          value={userData?.name && userData.name}
+                          onChange={(e) =>
+                            setUserState({ name: e.target.value })
+                          }
                         />
                       </div>
                     </div>
@@ -175,7 +186,10 @@ const Settings = () => {
                         id="Phone"
                         {...register('phone')}
                         placeholder="Add a phone number"
-                        defaultValue={`${user?.phone ? user.phone : ''}`}
+                        value={userData?.phone && userData.phone}
+                        onChange={(e) =>
+                          setUserState({ phone: e.target.value })
+                        }
                       />
                     </div>
                   </div>
@@ -220,7 +234,7 @@ const Settings = () => {
                         disabled
                         id="email"
                         // placeholder="devidjond45@gmail.com"
-                        defaultValue={`${user && user.email}`}
+                        defaultValue={userData && userData.email}
                         {...register('email')}
                       />
                     </div>
@@ -289,7 +303,8 @@ const Settings = () => {
                         rows={6}
                         {...register('bio')}
                         placeholder="Write your bio here"
-                        defaultValue={`${user && user?.bio ? user?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
+                        onChange={(e) => setUserState({ bio: e.target.value })}
+                        value={`${userData && userData?.bio ? userData?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
                       ></textarea>
                     </div>
                   </div>
@@ -312,7 +327,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5 xl:col-span-2">
+          {/* <div className="col-span-5 xl:col-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
@@ -407,7 +422,7 @@ const Settings = () => {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </DefaultLayout>
