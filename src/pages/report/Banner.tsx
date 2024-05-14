@@ -24,8 +24,6 @@ const Banner: React.FC<props> = ({ name }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isTexts, setTexts] = useState<Inputs>();
 
-  console.log('name', name);
-
   useEffect(() => {
     const textDataApi = async () => {
       try {

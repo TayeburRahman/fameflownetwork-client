@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+
+import { useGetUserInfoQuery } from '../features/auth/authApi';
 import useAdmin from '../hooks/useAdmin';
 import DefaultLayout from '../layout/DefaultLayout';
 import UserDataForm from './UserDataForm';
@@ -14,6 +16,8 @@ type Inputs = {
 const Settings = () => {
   const { isAdmin } = useAdmin();
   const [userData, setUserState] = useState<any>({});
+  const localAuth = localStorage?.getItem('auth');
+  const { user, token } = JSON.parse(localAuth);
 
   useEffect(() => {
     if (isAdmin) {
@@ -21,11 +25,12 @@ const Settings = () => {
     }
   }, [isAdmin]);
 
+  useGetUserInfoQuery(user?._id);
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
-
         <div className="grid grid-cols-4 gap-8">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from '../features/auth/authSlice';
 import useAdmin from '../hooks/useAdmin';
 import useToast from '../hooks/useToast';
 
@@ -15,11 +17,14 @@ type Inputs = {
   phone: string;
 };
 
-const UserDataForm: React.FC<Props> = () => {
+const UserDataForm: React.FC<Props> = ({ userData }) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { displayToast } = useToast();
   const { isAdmin } = useAdmin();
-  const [userData, setUserState] = useState<any>({});
+
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -67,6 +72,13 @@ const UserDataForm: React.FC<Props> = () => {
           }),
         );
 
+        const data = {
+          token: token,
+          user: updateUser,
+          id: updateUser._id,
+        };
+        dispatch(setUserInfo(data));
+
         // navigate('/');
       } else {
         displayToast({
@@ -91,6 +103,9 @@ const UserDataForm: React.FC<Props> = () => {
       }
     }
   };
+
+  console.log('user', user);
+
   return (
     <>
       <form action="#" onSubmit={handleSubmit(onSubmit)}>
@@ -136,8 +151,8 @@ const UserDataForm: React.FC<Props> = () => {
                 id="name"
                 {...register('name')}
                 placeholder="Write your name"
-                value={userData?.name && userData.name}
-                onChange={(e) => setUserState({ name: e.target.value })}
+                defaultValue={user?.name && user.name}
+                // onChange={(e) => setUserState({ name: e.target.value })}
               />
             </div>
           </div>
@@ -156,8 +171,8 @@ const UserDataForm: React.FC<Props> = () => {
               id="Phone"
               {...register('phone')}
               placeholder="Add a phone number"
-              value={userData?.phone && userData.phone}
-              onChange={(e) => setUserState({ phone: e.target.value })}
+              defaultValue={user?.phone && user.phone}
+              // onChange={(e) => setUserState({ phone: e.target.value })}
             />
           </div>
         </div>
@@ -202,7 +217,7 @@ const UserDataForm: React.FC<Props> = () => {
               disabled
               id="email"
               // placeholder="devidjond45@gmail.com"
-              defaultValue={userData && userData.email}
+              defaultValue={user && user.email}
               {...register('email')}
             />
           </div>
@@ -254,8 +269,8 @@ const UserDataForm: React.FC<Props> = () => {
               rows={6}
               {...register('bio')}
               placeholder="Write your bio here"
-              onChange={(e) => setUserState({ bio: e.target.value })}
-              value={`${userData && userData?.bio ? userData?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
+              // onChange={(e) => setUserState({ bio: e.target.value })}
+              defaultValue={`${user && user?.bio ? user?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
             ></textarea>
           </div>
         </div>
