@@ -30,11 +30,11 @@ const Home = () => {
       <Highlights />
       <OneReview />
       <HowItWorks />
-      <Recommend />
-      <Case />
+      {/* <Recommend /> */}
+      {/* <Case /> */}
       <Packages/>
       <Publications />
-      <Trusted />
+      {/* <Trusted /> */}
       <Pricing />
       <Part />
       <MoneyBack />
