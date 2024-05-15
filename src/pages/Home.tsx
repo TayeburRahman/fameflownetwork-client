@@ -1,26 +1,20 @@
-import Navbar from '../components/Navbar'
-import Hero from "../components/Hero";
+import Hero from '../components/Hero';
+import Navbar from '../components/Navbar';
+import Faq from './Faq';
 import Featured from './Featured';
-import Overview from './Overview';
 import Highlights from './Highlights';
-import OneReview from './OneReview';
 import HowItWorks from './HowItWorks';
-import Recommend from './Recommend';
-import Case from './Case';
+import MoneyBack from './MoneyBack';
+import OneReview from './OneReview';
+import Overview from './Overview';
+import Packages from './Packages';
+import Part from './Part';
+import Pricing from './Pricing';
+import Publications from './Publications';
 import Ready from './Ready';
 import Whyuse from './Whyuse';
-import MoneyBack from './MoneyBack';
-import Publications from './Publications';
-import Trusted from './Trusted';
-import Pricing from './Pricing';
-import Part from './Part';
-import Faq from './Faq';
-import { useState } from 'react';
-import Packages from './Packages';
-import Tabs from '../components/Tabs';
 
 const Home = () => {
-  
   return (
     <main className="px-auto mx-auto overflow-x-hidden max-md:mx-2">
       <Navbar />
@@ -32,7 +26,7 @@ const Home = () => {
       <HowItWorks />
       {/* <Recommend /> */}
       {/* <Case /> */}
-      <Packages/>
+      <Packages />
       <Publications />
       {/* <Trusted /> */}
       <Pricing />

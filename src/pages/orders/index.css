@@ -1,0 +1,77 @@
+.text_h3 {
+  color: #1d1d1d;
+  font-family: poppins, sans-serif !important;
+  font-size: calc(1.1875rem + 0.45vw);
+  font-weight: 500;
+}
+
+.text_h4 {
+  color: #1d1d1d;
+  font-family: poppins, sans-serif !important;
+  font-size: calc(1rem + 0.45vw);
+  font-weight: 500;
+}
+
+.text_p {
+  font-size: 1.0546875rem;
+  color: #737373;
+}
+.nav_link {
+  font-size: 1.0546875rem;
+  font-weight: 600;
+  color: #737373ce;
+  transition: 0.5ms;
+}
+
+#nav_link {
+  color: rgb(55, 151, 225);
+}
+
+#nav_link:hover {
+  text-decoration: underline;
+}
+
+.order_box_xs {
+  display: flex;
+  justify-content: space-between;
+  color: #737373;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(104, 104, 104, 0.415);
+}
+.text_price {
+  display: flex;
+  justify-content: space-between;
+  color: #737373;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-weight: 600;
+}
+.box_svg {
+  display: flex;
+  align-items: center;
+}
+
+.box_svg svg {
+  width: 15px;
+  margin-right: 5px;
+}
+
+.border_left {
+  border-left: 1px solid rgba(104, 104, 104, 0.285);
+}
+
+.accordion_head {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: #1d1d1dc5;
+}
+
+.accordion {
+  box-shadow: none !important;
+  border: 1px solid #d4d8dc6e !important;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
+  background: none !important;
+}

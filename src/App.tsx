@@ -25,6 +25,10 @@ import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import UserSettings from './pages/UserSettings';
+import OrderLayout from './pages/orders/OrderLayout';
+import Orders from './pages/orders/Orders';
+import Payment from './pages/orders/Payment';
+import Review from './pages/orders/Review';
 import LandingPage from './pages/report/LandingPage';
 
 const App = () => {
@@ -136,6 +140,22 @@ const App = () => {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/packages/order"
+          element={
+            <>
+              <PageTitle title="Tables | FameFlow - Go Viral With Massive Exposure" />
+              <Tables />
+            </>
+          }
+        />
+
+        <Route path="/packages" element={<OrderLayout />}>
+          <Route index path="order" element={<Orders />} />
+          <Route path="review" element={<Review />} />
+          <Route path="payment" element={<Payment />} />
+        </Route>
 
         <Route
           path="/dashboard/forms/form-elements"
