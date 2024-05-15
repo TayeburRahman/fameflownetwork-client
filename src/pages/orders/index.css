@@ -75,3 +75,7 @@
 .css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
   background: none !important;
 }
+
+.css-1aj41gs::before {
+  background: none !important;
+}
