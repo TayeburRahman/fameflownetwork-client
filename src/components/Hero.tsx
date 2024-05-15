@@ -53,18 +53,13 @@ const Hero = () => {
       </div>
 
       {/* video */}
+      {/* video */}
       <div className="video col-span-2 max-md:w-[100%]">
-        <video
-          autoPlay
-          loop
-          // controls
-          // muted
-          controlsList="nodownload"
-          className="aspect-video max-md:aspect-auto brightness-90 rounded-[10%] max-md:w-full"
+        <img
+          className="aspect-video max-md:aspect-auto brightness-90 rounded-[10%] max-md:w-full max-md:w-full"
           data-aos="fade-left"
-        >
-          <source type="video/mp4" src='https://www.brandpush.co/assets/vid/BrandPush-News-Card-Publishing-Video3.mp4' className="max-md:w-full"/>
-        </video>
+          src='https://img001.prntscr.com/file/img001/9SO1QOlsQpW87SgVW1kXfQ.png'
+        />
       </div>
     </section>
   );

@@ -1,599 +1,911 @@
-import React from 'react';
+import React, { useState } from 'react'
+import pricingDatas1 from "./data/data"
 
 const Pricing = () => {
+    const [displayedData, setDisplayedData] = useState('');
+    const [activeButton, setActiveButton] = useState(1); // Set "None" button as default active
+
+
+    const handleButtonClick = (data) => {
+        setDisplayedData(data);
+        setActiveButton(data.id);
+
+    };
     return (
         <section className='grid place-items-center my-20' id="pricing">
             <h1 className='text-6xl leading-normal text-center font-bold'>Grow Your Brand Today</h1>
-            <p className='text-slate-400 text-[22px] w-[60%] py-7 font-[400] leading-8 text-center max-md:w-full'>Get featured on <span className='text-sky-600 '>major news sites</span> to drive visitors and<br />  customers to your website, all for <span className="font-semibold text-zinc-700">a one-time payment.</span>
+            <p className='text-slate-400 text-[22px] w-[60%] py-2 font-[400] leading-8 text-center max-md:w-full'>Get featured on <span className='text-sky-600 '>major news sites</span> to drive visitors and<br />  customers to your website, all for <span className="font-semibold text-zinc-700">a one-time payment.</span>
             </p>
-            <div className="drop-shadow-2xl bg-white rounded-2xl h-[160vh] max-md:h-[350vh] w-[90vw] p-10 bg-slate-300">
-                <div className="grid grid-cols-12 text-[14px]  my-14 gap-5 text-center max-md:block">
+            {console.log(displayedData && displayedData.datas.li1.title)}
+            <div className="drop-shadow-2xl bg-white rounded-2xl block max-md:hidden mt-[3rem] border-2 border-black w-[90vw] p-10 bg-slate-300 h-[140vh]">
+                <div className="grid grid-cols-12 text-[14px]  my-4 gap-5 text-center max-md:block">
                     <div className="col-span-4">
                         <p className='text-2xl font-bold'>Pricing & Packages</p>
                         <p className='text-[17px] mt-2 font-semibold text-slate-400'>One time payment, years <br /> of benefits</p>
                     </div>
-                    <div className="col-span-2 ">
+                    <div className="col-span-2 mx-auto ">
                         <p className='text-2xl font-bold'>LIMITED</p>
-                        <p className='text-[18px] font-bold text-slate-400  mb-5'>$165 USD</p>
-                        <button className='px-6 py-3 text-[17px] font-medium bg-black text-white rounded-[50px]'>Order Now</button>
+                        <p className='text-[18px] font-bold text-slate-400  mb-5'>${displayedData ? displayedData.price1 : "165"} USD</p>
+                        <button className='px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]'>Order Now</button>
                     </div>
-                    <div className="col-span-2">
-                        <p className='text-2xl font-bold'>LIMITED</p>
-                        <p className='text-[18px] font-bold text-slate-400  mb-5'>$165 USD</p>
-                        <button className='px-6 py-3 text-[17px] font-medium bg-black text-white rounded-[50px]'>Order Now</button>
+                    <div className="col-span-2 mx-auto">
+                        <p className='text-2xl font-bold'>POPULAR</p>
+                        <p className='text-[18px] font-bold text-slate-400  mb-5'>${displayedData ? displayedData.price2 : "195"} USD</p>
+                        <button className='px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]'>Order Now</button>
                     </div>
-                    <div className="col-span-2">
-                        <p className='text-2xl font-bold'>LIMITED</p>
-                        <p className='text-[18px] font-bold text-slate-400  mb-5'>$165 USD</p>
-                        <button className='px-6 py-3 text-[17px] font-medium bg-black text-white rounded-[50px]'>Order Now</button>
+                    <div className="col-span-2 mx-auto">
+                        <p className='text-2xl font-bold'>AUTHORITY</p>
+                        <p className='text-[18px] font-bold text-slate-400  mb-5'>${displayedData ? displayedData.price3 : "565"} USD</p>
+                        <button className='px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]'>Order Now</button>
                     </div>
-                    <div className="col-span-2">
-                        <p className='text-2xl font-bold'>LIMITED</p>
-                        <p className='text-[18px] font-bold text-slate-400  mb-5'>$165 USD</p>
-                        <button className='px-6 py-3 text-[17px] font-medium bg-black text-white rounded-[50px]'>Order Now</button>
+                    <div className="col-span-2 mx-auto">
+                        <p className='text-2xl font-bold'>ULTIMATE</p>
+                        <p className='text-[18px] font-bold text-slate-400  mb-5'>${displayedData ? displayedData.price4 : "695 "} USD</p>
+                        <button className='px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]'>Order Now</button>
                     </div>
                 </div>
-                <div className="grid grid-cols-12 justify-between text-[14px] max-md:block  mt-14 gap-5 bg-white p-5 rounded-2xl text-center  overflow-y-scroll  scrollbar-hidden border-t-2 border-slate-600 h-[70%]">
-                    <div className="col-span-4 text-left">
-                        <p className='text-[20px] font-semibold my-3'>Writing Packages</p>
-                        <nav aria-label="Page navigation example">
-                            <ul class="flex items-center -space-x-px h-10 text-base font-semibold">
+                <div className="grid space-y-10 my-5 text-center  overflow-y-scroll  scrollbar-hidden h-[70%]">
+                    <p className='text-[20px] font-semibold text-left'>Writing Packages</p>
+                    <nav aria-label="Page navigation example">
+                        <ul className="flex items-center -space-x-px h-10 text-base font-semibold">
+                            {pricingDatas1.pricingDatas1.map((data) => (
+                                <li key={data.id}>
+                                    <button
+                                        className={`${data.class} ${activeButton === data.id ? 'bg-blue-700 text-white' : ''}`}
+                                        onClick={() => handleButtonClick(data)}
+                                    >
+                                        {data.title}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                    <h1 className='text-left font-bold text-xl'>Overview</h1>
+                    {/* changing side */}
 
-                                <li>
-                                    <a href="#" class="flex items-center justify-center rounded-s-lg px-4 h-10 leading-tight text-gray-500  dark:hover:text-white text-white border border-blue-300 bg-blue-700 hover:bg-blue-100 hover:text-blue-700 ">None</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-blue-900 bg-white border border-blue-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Small</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 leading-tight text-blue-900 bg-white border border-blue-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Regular</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center rounded-e-lg px-4 h-10 leading-tight text-blue-900 bg-white border border-blue-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Long</a>
-                                </li>
-
+                    {displayedData ?
+                        <>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                    {console.log(displayedData.datas.li1.title)}
+                                </svg>{displayedData.datas.li1.title}</li>
+                                <li className='col-span-2 mx-auto'>{displayedData.datas.li1.col1}</li>
+                                <li className='col-span-2 mx-auto'>{displayedData.datas.li1.col2}</li>
+                                <li className='col-span-2 mx-auto'>{displayedData.datas.li1.col3}</li>
+                                <li className='col-span-2 mx-auto'>{displayedData.datas.li1.col4}</li>
                             </ul>
-                        </nav>
-                        <div className="py-10 text-left space-y-5 ">
-                            <p className='text-[20px] font-semibold my-2'>Overview</p>
-                            <ul className='space-y-10 text-[16px]'>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Total News Outlets</p>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                {displayedData && <>
+                                    <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg>{displayedData.datas.li2.title}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li2.col1}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li2.col2}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li2.col3}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li2.col4}</li>
+                                </>
+                                }
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                {displayedData && <>
+                                    <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg>{displayedData.datas.li3.title}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li3.col1}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li3.col2}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li3.col3}</li>
+                                    <li className='col-span-2 mx-auto'>{displayedData.datas.li3.col4}</li>
+                                </>
+                                }
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium text-center items-center'>
+                                {displayedData && <>
+                                    <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg>{displayedData.datas.li4.title}</li>
+                                    <li className='col-span-2 mx-auto grid items-center mx-auto'>
+                                        {displayedData.datas.li4.col1}
+                                        {/* {displayedData.datas.li4.shouldDisplaySVG && (
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                        <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                    </svg>
+                                )} */}
+                                    </li>
+                                    <li className='col-span-2 mx-auto'>
+                                        {displayedData.datas.li4.col2}
+                                    </li>
+                                    <li className='col-span-2 mx-auto'>
+                                        {displayedData.datas.li4.col3}
+                                        {/* <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                    <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                </svg> */}
+                                    </li>
+                                    <li className='col-span-2 mx-auto'>
+                                        {displayedData.datas.li4.col4}
+                                        {/* <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                    <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                </svg> */}
+                                    </li>
+                                </>
+                                }
+                            </ul>
+                            <div className="parentspart">
+                                <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                    <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg>"As Seen on" Trust Badge</li>
+                                    <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                    <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                                    <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                    <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                </ul>
+                                <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                    <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg>Published In</li>
+                                    <li className='col-span-2 mx-auto'>5 days</li>
+                                    <li className='col-span-2 mx-auto'>5 days</li>
+                                    <li className='col-span-2 mx-auto'>5 days</li>
+                                    <li className='col-span-2 mx-auto'>5 days</li>
+                                </ul>
+                            </div>
+                            {/* <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>"As Seen on" Trust Badge</li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>Published In</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                            </ul> */}
+
+                        </>
+                        :
+                        <>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Total News Outlets</li>
+                                <li className='col-span-2 mx-auto'>250</li>
+                                <li className='col-span-2 mx-auto'>300</li>
+                                <li className='col-span-2 mx-auto'>6</li>
+                                <li className='col-span-2 mx-auto'>400</li>
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Max Domain Authority</li>
+                                <li className='col-span-2 mx-auto'>67</li>
+                                <li className='col-span-2 mx-auto'>89</li>
+                                <li className='col-span-2 mx-auto'>94</li>
+                                <li className='col-span-2 mx-auto'>94</li>
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg> Monthly Visitors
                                 </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Max Domain Authority</p>
+                                <li className='col-span-2 mx-auto'>3.3m</li>
+                                <li className='col-span-2 mx-auto'>28.1m</li>
+                                <li className='col-span-2 mx-auto'>218.4m</li>
+                                <li className='col-span-2 mx-auto'>228.3</li>
+                            </ul>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium text-center items-center'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Accepts Most Topics</li>
+                                <li className='col-span-2 mx-auto grid items-center mx-auto'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                        <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                    </svg>
                                 </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Monthly Visitors</p>
+                                <li className='col-span-2 mx-auto grid items-center mx-auto'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                        <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                    </svg>
                                 </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Accepts Most Topics</p>
+                                <li className='col-span-2 mx-auto'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                        <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                    </svg>
                                 </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>"As Seen on" Trust Badge	</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Published In</p>
+                                <li className='col-span-2 mx-auto'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512">
+                                        <path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                    </svg>
                                 </li>
                             </ul>
-                        </div>
-                        <div className="py-10 text-left space-y-5 ">
-                            <p className='text-[20px] font-semibold my-4'>Included Outlets</p>
-                            <ul className='space-y-10 text-[16px] text-slate-600 font-700'>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  Indexed on Search</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  Business Insider</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  Benzinga</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  Newsmax</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>Street Insider</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  Asia One</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>   FOX 40</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>NCN</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>Suncoast News Network</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>FOX 43</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Minyanville</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  FOX 28</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  The Chronicle Journal</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>  My Mother Lode</p>
-                                </li>
-
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>Starkville Daily News</p>
-                                </li>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>"As Seen on" Trust Badge</li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                                <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
                             </ul>
-                        </div>
-                        <div className="py-10 text-left space-y-5 ">
-                            <p className='text-[20px] font-semibold my-4'>Accepted topics</p>
-                            <ul className='space-y-10 text-[16px]'>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Betting & Sports Picks</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>Blockchain</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Cryptocurrency (Buying / Trading)</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p>Financial Trading</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Legal Marijuana / CBD</p>
-                                </li>
-                                <li className='flex items-center text-normal text-left font-medium'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-                                    <p> Supplements</p>
-                                </li>
+                            <ul className='grid grid-flow-row grid-cols-12 gap-24 text-xl font-medium'>
+                                <li className='col-span-4 text-left flex text-[17px]'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>Published In</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
+                                <li className='col-span-2 mx-auto'>5 days</li>
                             </ul>
-                        </div>
-                    </div>
-                    <div className="col-span-2 bg-purple-500 text-white text-xl space-y-10 font-bold rounded-2xl p-3">
-                        <div className="mt-39">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p>250</p>
-                        </div>
-                        <div className="">
-                            <p>67</p>
-                        </div>
-                        <div className="">
-                            <p>3.3m</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>5 days</p>
-                        </div>
-                        <div className="">
-                            <p><span>|-----------|</span></p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
+                        </>
+                    }
 
-                    </div>
-                    <div className="col-span-2 text-xl space-y-10 font-bold  p-3">
-                        <div className="mt-39">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p>300</p>
-                        </div>
-                        <div className="">
-                            <p>89</p>
-                        </div>
-                        <div className="">
-                            <p>28.1m</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>5 days</p>
-                        </div>
-                        <div className="">
-                            <p><span>|-----------|</span></p>
-                        </div>
-                        <div className="">
-                            <p>250</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
 
-                    </div>
-                    <div className="col-span-2 text-xl space-y-10 font-bold  p-3">
-                        <div className="mt-39">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p>6</p>
-                        </div>
-                        <div className="">
-                            <p>94</p>
-                        </div>
-                        <div className="">
-                            <p>218.4m</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>5 days</p>
-                        </div>
-                        <div className="">
-                            <p><span>|-----------|</span></p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
+                    {/* not changing side */}
+                    <div className="space-y-7 text-[17px]">
+                        <h1 className='text-left font-bold'>Included Outlets</h1>
 
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Indexed on Search
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/google-icon-brandpush.svg" width="25" height="25" alt="" />
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/yahoo-icon-brandpush.svg" width="28" height="28" alt="" />
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/bing-icon-brandpush.svg" width="22" height="22" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Business Insider
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Publish-On-Business-Insider-With-BrandPush.svg" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Associated Press</div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Publish-On-Associated-Press-With-BrandPush.svg" width="25" height="25" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'>
+                                <div className="flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg> The Globe And Mail
+                                </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/f9dbe44e-bb02-46f8-072d-fb0ad5d69900/public" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Benzinga
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Publish-On-Benzinga-With-BrandPush.svg" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Newsmax</div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Publish-On-Newsmax-With-BrandPush.svg" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'><div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Street Insider
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Publish-On-Street-Insider-With-Brand-Push.svg" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'><div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Asia One
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/aacb5fa2-8d6c-4cfa-d4b6-e8337d30bc00/public" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> FOX 40
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/website-logos/fox40.png" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>
+                                NCN
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/NCN-Publish-Press-Release-BrandPush2.svg" width="50" height="50" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'>
+                                <div className="flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 17l5-5-5-5v10z" />
+                                    </svg> Suncoast News Network</div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/42dd62de-1d6e-4a6c-8a3d-2faf51882c00/public" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'><div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> openPR
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/56996788-8986-423a-6d6f-32c0361a7300/public" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left justify-between flex'><div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>Minyanville
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/Minyanville%20copy-Press-Release-Publishing.svg" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left justify-between flex'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> BarChart
+                            </div>
+                                <div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/560447f7-1628-479c-f6e8-0ccaeaef5a00/public" width="100" height="100" alt="" />
+                                </div>
+                            </li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg>My Mother Lode </div><div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/cdn-cgi/imagedelivery/gKm6BYVdHCj_SVQET_Msrw/2978a322-df89-4552-291e-b9a242ae9f00/public" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex justify-between '> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> The Chronicle Journal</div><div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/the-chronicle-journal-brandpush-PR-publishing.svg" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24 font-medium'>
+                            <li className='col-span-4 text-left flex'> <div className="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 17l5-5-5-5v10z" />
+                                </svg> Starkville Daily News </div><div className="relative -right-15 flex gap-2">
+                                    <img src="https://www.brandpush.co/assets/img/news-logos/starkville-daily-news-PR-distribution-by-brandpush.svg" width="100" height="100" alt="" />
+                                </div></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
                     </div>
-                    <div className="col-span-2 text-xl space-y-10 font-bold  p-3">
-                        <div className="mt-39">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p></p>
-                        </div>
-                        <div className="">
-                            <p>400</p>
-                        </div>
-                        <div className="">
-                            <p>94</p>
-                        </div>
-                        <div className="">
-                            <p>228.3m</p>
-                        </div>
-                        <div className="">
-                            <p>❌</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>5 days</p>
-                        </div>
-                        <div className="">
-                            <p><span>|-----------|</span></p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>.</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
-                        <div className="">
-                            <p>✅</p>
-                        </div>
+                    <div className="space-y-7 text-[17px]">
+                        <h1 className='text-left font-bold text-xl'>Included Outlets</h1>
+
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>Acquisitions & Partnerships</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Adult Content</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Aesthetic Surgeries</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Alcohol</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Alternative Medicine / Metaphysical</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Betting & Sports Picks</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Blockchain</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Cryptocurrency (Buying / Trading)</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Dating</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Financial Trading</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Government / Politics / Politicians</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Legal Cases</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>  Legal Marijuana / CBD</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>   Live Streaming & Broadcasting</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>   Music with Explicit Content Labels</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> NFTs / Metaverse</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>  Negative Press</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Pharmacy / Legal Drugs</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Politics / Political Candidates</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Religion</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>  Rewards & Play-to-earn</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>   Scam & Fraud Recovery Services</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Selling Social Media Interactions</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg> Supplements</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>  Swimwear / Underwear / Leggings</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>  Third-Party Companies & People</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>   Weapons / Guns</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
+                        <ul className='grid grid-flow-row grid-cols-12 gap-24  font-medium'>
+                            <li className='col-span-4 text-left flex'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 17l5-5-5-5v10z" />
+                            </svg>    Topics not listed above	</li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#ff0000" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                            <li className='col-span-2 mx-auto'><svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 512 512"><path fill="#00a876" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" /></svg></li>
+                        </ul>
                     </div>
                 </div>
                 <div className="grid grid-cols-12 text-center justify-between my-3 items-center max-md:hidden">
                     <div className="col-span-4">
-                        
+
                     </div>
-                    <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/reports/sample" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                    <div className="col-span-2 mx-auto font-medium text-[15px] space-y-10">
+                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
-                    <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/reports/POPULAR" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                    <div className="col-span-2 mx-auto font-medium text-[15px] space-y-10">
+                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
-                    <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/reports/ULTIMATE" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                    <div className="col-span-2 mx-auto font-medium text-[15px] space-y-10">
+                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
-                    <div className="col-span-2 font-medium text-[15px] space-y-10">
-                        <a href="/reports/LIMITED" target='_blank'><p className='text-purple-500 my-2'>↗Sample Report</p></a>
+                    <div className="col-span-2 mx-auto font-medium text-[15px] space-y-10">
+                        <a href="/sample-reports"><p className='text-purple-500 my-2'>↗Sample Report</p></a>
                         <a href="https://www.brandpush.co/order/?network=limited">
                             <p className='text-purple-500'>Order Now</p>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
+            <section className='mx-20 my-20 max-md:mx-2  hidden max-md:block'>
+                <div className='gap-5  max-md:space-y-10 '>
+                    <div className="col-span-7 space-y-5 bg-white p-10 rounded-2xl border-gray-300 border-[1px]">
+                        <h1 className='text-2xl leading-normal font-bold'>Limited Package</h1>
+                        <p className='text-gray-500 text-[16px] font-[500] leading-8'>Publish almost any topic, this package provides basic exposure & reach.</p>
+                        <div className="flex justify-between gap-40 items-center mx-5 col-span-5">
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                        </div>
+                        <button className='bg-black text-white text-[15px] px-10 py-5 rounded-[50px] w-full'>Order Now</button>
+                    </div>
+                    <div className="col-span-5 space-y-4 bg-white p-10 rounded-2xl border-gray-300 border-[1px]">
+                        <h1 className='text-2xl leading-normal font-bold'>Popular Package</h1>
+                        <p className='text-gray-500 text-[16px] font-[500] leading-8'>Great for most brands, includes Fox & Google News, but accepts fewer topics.</p>
+                        <div className="flex justify-between gap-40 items-center mx-5 col-span-5">
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                        </div>
+                        <button className='bg-black text-white mt-2 text-[15px] px-10 py-5 rounded-[50px]  w-full'> Order Now</button>
+                    </div>
+                    <div className="col-span-2 space-y-5 bg-white p-10 rounded-2xl border-gray-300 border-[1px]">
+                        <h1 className='text-2xl leading-normal font-bold'>Authority Package</h1>
+                        <p className='text-gray-500 text-[16px] font-[500] leading-8'>We support Marketing Agencies and Resellers. Contact us to find out how we can provide your clients with industry leading press.</p>
+                        <div className="flex justify-between gap-40 items-center mx-5 col-span-5">
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                        </div>
+                        <button className='bg-black text-white text-[15px] px-10 py-5 rounded-[50px] w-full'>Order Now</button>
+                    </div>
+                    <div className="col-span-2 space-y-4 bg-white p-10 rounded-2xl border-gray-300 border-[1px]">
+                        <h1 className='text-2xl leading-normal font-bold'>Ultimate Package</h1>
+                        <p className='text-gray-500 text-[16px] font-[500] leading-8'>Save up to 30% on bulk orders. Our discounts start from just five orders.</p>
+                        <div className="flex justify-between gap-40 items-center mx-5 col-span-5">
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                            <div>
+                                <p className="text-orange-600">689.1m</p>
+                                <p>visitors</p>
+                            </div>
+                        </div>
+                        <button className='bg-black text-white mt-2 text-[15px] px-10 py-5 rounded-[50px]  w-full'>Order Now</button>
+                    </div>
+                </div>
+            </section>
         </section >
     )
 }
