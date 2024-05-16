@@ -2,20 +2,23 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../features/apiSlice';
 import authSliceReducer from '../features/auth/authSlice';
 
-// Import any other reducers if needed
-// import eventSliceReducer from '../features/event/eventSlice';
-
-// Create the store
 export const store = configureStore({
+  // included fetcher reducer
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSliceReducer,
-    // Add other reducers here
-    // event: eventSliceReducer,
+    //  event: eventSliceReducer,
   },
-  // Enable Redux DevTools extension in development mode
+  // redux devTools false for production
   devTools: process.env.NODE_ENV !== 'production',
-  // Add API middleware
-  middleware: (getDefaultMiddlewares: any) =>
+  middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares().concat(apiSlice.middleware),
 });
+
+export interface RootState {
+  auth: {
+    token: string;
+  };
+  /* Type of your auth slice state */
+  // Add other slices if any
+}
