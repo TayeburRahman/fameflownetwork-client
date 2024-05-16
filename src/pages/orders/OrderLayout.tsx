@@ -52,9 +52,9 @@ const OrderLayout = () => {
         </div>
         <div className="col-span-5 px-10 border_left" style={{ width: '100%' }}>
           <h4 className="text_h4">Order Details</h4>
-          <div>
+          <div className="order_summery mt-4">
             <div className="">
-              <p className="mt-5">Order Summary</p>
+              <p className="mt-1">Order Summary</p>
             </div>
             <div className="order_box_xs">
               <div className="box_svg">

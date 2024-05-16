@@ -79,3 +79,62 @@
 .css-1aj41gs::before {
   background: none !important;
 }
+
+.order_summery {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.text-less-w {
+  color: #737373ba;
+  margin-top: 7px !important;
+  margin-bottom: 12px !important;
+}
+
+.label_text {
+  font-size: 13px;
+  color: #737373;
+}
+
+.d-flex-t {
+  display: flex !important;
+  align-items: flex-start;
+}
+
+.checkedbox {
+  color: #4666d6cd !important;
+  margin-top: -7px;
+  top: 0;
+  left: 0;
+}
+.checkbox {
+  color: #6d6d6d76 !important;
+  margin-top: -7px;
+}
+
+.checkedbox svg {
+  margin-top: -7px;
+}
+.checkbox svg {
+  margin-top: -7px;
+}
+
+.text_p_s {
+  /* font-size: 16px !important; */
+  color: #737373;
+}
+.d-flex-c {
+  display: flex;
+  align-items: center;
+}
+
+.mui_icon {
+  font-size: 18px !important;
+}
+.Email_me_cb {
+  margin-left: -10px !important;
+}
+.Email_me {
+  margin-top: -6px !important;
+}
