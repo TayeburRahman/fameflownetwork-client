@@ -11,7 +11,7 @@ const HowItWorks = () => {
             <p className='bg-cyan-300 rounded-[50%] text-center py-[10px] px-[20px]'>1</p>
             <p className='text-2xl max-md:text-xl font-bold'>Writing <span className='text-4xl max-md:text-2xl'>.............</span></p>
           </div>
-          <img src="https://www.brandpush.co/assets/img/BrandPush-Write-A-Press-Release-295.jpg" alt="" className='rounded-[20px]' />
+          <img src="https://www.brandpush.co/assets/img/Brand-Push-Results-And-Report-295-2.png" alt="" className='rounded-[20px]' />
           <p className="font-semibold text-[17px] text-gray-500 max-md:text-[13px]">Our expert team of human writers craft the perfect news story to promote your brand.</p>
 
         </div>

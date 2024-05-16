@@ -18,7 +18,7 @@ const Highlights = () => {
         </div>
         <div>
           <img
-            src="https://www.brandpush.co/assets/img/BrandPush-Publish-On-Benzinga.jpg"
+            src="https://www.brandpush.co/assets/img/Brand-Push-News-Card-10.jpg"
             alt=""
             width={370}
             height={470}
@@ -66,7 +66,7 @@ const Highlights = () => {
         </div>
         <div>
           <img
-            src="https://www.brandpush.co/assets/img/Brand-Push-Publish-On-DigitalJournal.jpg"
+            src="https://www.brandpush.co/assets/img/Brand-Push-News-Card-10.jpg"
             alt=""
             width={370}
             height={470}

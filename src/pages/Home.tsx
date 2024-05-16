@@ -14,7 +14,6 @@ import Pricing from './Pricing';
 import Publications from './Publications';
 import Ready from './Ready';
 import Recommend from './Recommend';
-import Trusted from './Trusted';
 import Whyuse from './Whyuse';
 
 const Home = () => {
@@ -31,7 +30,7 @@ const Home = () => {
       <Case />
       <Packages />
       <Publications />
-      <Trusted />
+      {/* <Trusted /> */}
       <Pricing />
       <Part />
       <MoneyBack />
