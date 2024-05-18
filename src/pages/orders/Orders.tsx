@@ -8,6 +8,7 @@ import * as React from 'react';
 import Account from './components/Account';
 import BrandDetails from './components/BrandDetails';
 import WritingPackage from './components/WritingPackage';
+import PublishingPackages from './components/PublishingPackages';
 
 const Orders = () => {
   const [expanded, setExpanded] = React.useState(true);
@@ -50,15 +51,24 @@ const Orders = () => {
             id="panel2-header"
           >
             <Typography className="accordion_head">
-              Publishing Package
+              <div className="flex items-center gap-3">
+                Publishing Package  <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  width="20"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    fill="#00a876"
+                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                  />
+                </svg>{' '}
+                <p className='text-[13px]'>limited packages</p>
+              </div>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <PublishingPackages />
           </AccordionDetails>
         </Accordion>
         <Accordion className="mt-3 pb-2 pt-2 accordion">
