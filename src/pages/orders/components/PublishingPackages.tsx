@@ -77,6 +77,7 @@ export default function PublishingPackages() {
             </Typography>
           </Box>
         </button>
+
         <button
           onClick={(e) => handleClick('Short News Story')}
           id={`${selectedValue === 'Short News Story' && 'active-re'}`}
@@ -115,7 +116,6 @@ export default function PublishingPackages() {
             </Typography>
           </Box>
         </button>
-
 
         <button
           onClick={(e) => handleClick('Long News Story')}
@@ -277,6 +277,8 @@ export default function PublishingPackages() {
             </button>
           </div>
         )}
+
+
         <button
           onClick={(e) => setResearch((e) => !e)}
           className="d-flex-c upgrades"
@@ -284,6 +286,9 @@ export default function PublishingPackages() {
           <span className="span_plus">{isResearch ? '-' : '+'}</span>
           {isResearch ? 'Less' : 'More'} Option
         </button>
+
+
+
       </Box>
     </div>
   )
