@@ -5,13 +5,37 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { setStateWritingPackage } from '../../features/order/orderSlice';
 import Account from './components/Account';
 import BrandDetails from './components/BrandDetails';
-import WritingPackage from './components/WritingPackage';
 import PublishingPackages from './components/PublishingPackages';
+import WritingPackage from './components/WritingPackage';
+
+type InputF = {
+  name: string;
+  price: number;
+};
 
 const Orders = () => {
+  // const dispuse =  useDi
   const [expanded, setExpanded] = React.useState(true);
+  const [writeChecked, setWriteChecked] = React.useState<InputF | undefined>();
+  const [writePackage, setSelectedValue] = React.useState({
+    title: '',
+    price: '',
+    value: '',
+  });
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(
+      setStateWritingPackage({
+        writingPackage: writePackage,
+        detailedResearch: writeChecked,
+      }),
+    );
+  }, [writePackage, writeChecked]);
 
   const handleExpansion = () => {
     setExpanded((prevExpanded) => !prevExpanded);
@@ -52,7 +76,8 @@ const Orders = () => {
           >
             <Typography className="accordion_head">
               <div className="flex items-center gap-3">
-                Publishing Package  <svg
+                Publishing Package{' '}
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="20"
                   width="20"
@@ -63,7 +88,7 @@ const Orders = () => {
                     d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
                   />
                 </svg>{' '}
-                <p className='text-[13px]'>limited packages</p>
+                <p className="text-[13px]">limited packages</p>
               </div>
             </Typography>
           </AccordionSummary>
@@ -80,7 +105,12 @@ const Orders = () => {
             <Typography className="accordion_head">Writing Package</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <WritingPackage />
+            <WritingPackage
+              selectedValue={writePackage}
+              setSelectedValue={setSelectedValue}
+              setChecked={setWriteChecked}
+              checked={writeChecked}
+            />
           </AccordionDetails>
         </Accordion>
 

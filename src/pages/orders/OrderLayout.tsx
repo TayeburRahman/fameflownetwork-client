@@ -1,8 +1,36 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import './index.css';
 
 const OrderLayout = () => {
   const { pathname } = useLocation();
+  const { writingPackage, detailedResearch, publishPackage } = useSelector(
+    (state) => state?.order,
+  );
+  const [totalprice, setTotalPrice] = useState<number>(0);
+
+  console.log('LL', publishPackage);
+
+  useEffect(() => {
+    let total = 0;
+    let writing = 0;
+    let research = 0;
+    let publish = 0;
+    if (publishPackage?.price) {
+      publish = Number(publishPackage?.price);
+    }
+    if (detailedResearch?.price) {
+      research = Number(detailedResearch?.price);
+    }
+    if (writingPackage?.price && writingPackage?.price !== 'Free') {
+      writing = Number(writingPackage?.price);
+    }
+
+    total = Number(writing) + Number(research) + Number(publish);
+    console.log('tt', total);
+    setTotalPrice(total);
+  }, [publishPackage, detailedResearch, writingPackage]);
 
   return (
     <div className=" container mx-auto">
@@ -50,7 +78,11 @@ const OrderLayout = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-5 px-10 border_left" style={{ width: '100%' }}>
+        <div
+          className="col-span-5 px-10 border_left"
+          id="sticky"
+          style={{ width: '100%' }}
+        >
           <h4 className="text_h4">Order Details</h4>
           <div className="order_summery mt-4">
             <div className="">
@@ -68,45 +100,95 @@ const OrderLayout = () => {
                     fill="#00a876"
                     d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
                   />
-                </svg>{' '}
-                Upload Your Own Story
-              </div>
-              <p>FREE</p>
-            </div>
-            <div className="order_box_xs">
-              <div className="box_svg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="30"
-                  width="30"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="#00a876"
-                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
-                  />
                 </svg>
-                Publishing on 250+ Limited News Outlets
+                {!writingPackage?.value
+                  ? 'Upload Your Own Story'
+                  : writingPackage?.value}
               </div>
-              <p>$165.00</p>
+              <p>
+                {writingPackage?.price === 'Free' || !writingPackage?.price
+                  ? ''
+                  : '$'}
+                {!writingPackage?.price ? 'Free' : writingPackage?.price}
+              </p>
             </div>
-            <div className="order_box_xs">
-              <div className="box_svg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="30"
-                  width="30"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="#00a876"
-                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
-                  />
-                </svg>
-                Publishing on Minyanville & Financial Content
+            {publishPackage?.value && (
+              <div className="order_box_xs">
+                <div className="box_svg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30"
+                    width="30"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="#00a876"
+                      d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                    />
+                  </svg>
+                  {publishPackage?.value}
+                </div>
+                <p>${publishPackage?.price}</p>
               </div>
-              <p>Included</p>
-            </div>
+            )}
+
+            {publishPackage?.included && (
+              <div className="order_box_xs">
+                <div className="box_svg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30"
+                    width="30"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="#00a876"
+                      d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                    />
+                  </svg>
+                  {publishPackage?.included}
+                </div>
+                <p>Included</p>
+              </div>
+            )}
+            {publishPackage?.included_02 && (
+              <div className="order_box_xs">
+                <div className="box_svg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30"
+                    width="30"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="#00a876"
+                      d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                    />
+                  </svg>
+                  {publishPackage?.included_02}
+                </div>
+                <p>Included</p>
+              </div>
+            )}
+            {detailedResearch?.name && (
+              <div className="order_box_xs">
+                <div className="box_svg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="30"
+                    width="30"
+                    viewBox="0 0 512 512"
+                  >
+                    <path
+                      fill="#00a876"
+                      d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                    />
+                  </svg>
+                  {detailedResearch?.name}
+                </div>
+                <p>${detailedResearch?.price}</p>
+              </div>
+            )}
             <div className="order_box_xs">
               <div className="box_svg">
                 {' '}
@@ -121,18 +203,18 @@ const OrderLayout = () => {
                     d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
                   />
                 </svg>{' '}
-                Upload Your Own Story
+                Detailed Report with Links
               </div>
-              <p>FREE</p>
+              <p>Included</p>
             </div>
 
-            <div className="order_box_xs">
+            {/* <div className="order_box_xs">
               <div> Publishing on 250+ Limited News Outlets</div>
               <p>$165.00</p>
-            </div>
+            </div> */}
             <div className="text_price">
               <div> Total Price</div>
-              <p>$165.00</p>
+              <p>${totalprice}</p>
             </div>
           </div>
         </div>

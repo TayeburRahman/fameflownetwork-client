@@ -289,3 +289,9 @@
     rgba(0, 0, 0, 0.12) 0 3px 14px 2px;
   background: #4c01c4d2;
 }
+
+#sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: -100px !important;
+}

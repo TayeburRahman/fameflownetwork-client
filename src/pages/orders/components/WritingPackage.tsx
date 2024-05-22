@@ -14,28 +14,47 @@ type InputF = {
   price: number;
 };
 
-export default function WritingPackage() {
-  const [selectedValue, setSelectedValue] = React.useState('');
-  const [checked, setChecked] = React.useState<InputF | undefined>();
+type SelectedValueType = {
+  title: string;
+  price: number | string;
+  value: string;
+};
+
+type PropsL = {
+  selectedValue: SelectedValueType;
+  setSelectedValue: React.Dispatch<React.SetStateAction<SelectedValueType>>;
+  checked: InputF;
+  setChecked: React.Dispatch<React.SetStateAction<InputF>>;
+};
+
+export default function WritingPackage({
+  selectedValue,
+  setSelectedValue,
+  checked,
+  setChecked,
+}: PropsL) {
   const [isResearch, setResearch] = React.useState<boolean>(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
-
-  const handleClick = (event: string) => {
-    setSelectedValue(event);
+  const handleClick = (title: string, price: any, value: string) => {
+    setSelectedValue({
+      title: title,
+      price: price,
+      value: value,
+    });
+    if (price === 'Free') {
+      setChecked({ name: '', price: 0 });
+    }
   };
 
   const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedValue) {
-      setChecked(
-        checked ? undefined : { name: 'Detailed Research', price: 77 },
-      );
+      if (!checked?.name) {
+        setChecked({ name: 'Detailed Research', price: 77 });
+      } else {
+        setChecked({ name: '', price: 0 });
+      }
     }
   };
-
-  console.log('checked', checked);
 
   return (
     <div>
@@ -45,8 +64,10 @@ export default function WritingPackage() {
       </p>
       <Box className="mt-5">
         <button
-          onClick={(e) => handleClick('Write Your Own Story')}
-          id={`${selectedValue === 'Write Your Own Story' && 'active-re'}`}
+          onClick={(e) =>
+            handleClick('Write Your Own Story', 'Free', 'Upload Your Own Story')
+          }
+          id={`${selectedValue.title === 'Write Your Own Story' && 'active-re'}`}
           className="d-flex-c w-full writing_box"
         >
           <img
@@ -63,8 +84,8 @@ export default function WritingPackage() {
               <div className="d-flex-c both-side">
                 <Typography>FREE</Typography>
                 <Radio
-                  checked={selectedValue === 'Write Your Own Story'}
-                  onChange={handleChange}
+                  checked={selectedValue.title === 'Write Your Own Story'}
+                  // onChange={handleChange}
                   value="Write Your Own Story"
                   name="radio-buttons"
                   className="radio-writings"
@@ -85,8 +106,10 @@ export default function WritingPackage() {
         </div>
 
         <button
-          onClick={(e) => handleClick('Short News Story')}
-          id={`${selectedValue === 'Short News Story' && 'active-re'}`}
+          onClick={(e) =>
+            handleClick('Short News Story', 40, '350 Word News Story')
+          }
+          id={`${selectedValue.title === 'Short News Story' && 'active-re'}`}
           className="d-flex-c w-full writing_box mt-2"
         >
           <img
@@ -103,8 +126,8 @@ export default function WritingPackage() {
               <div className="d-flex-c both-side">
                 <Typography>$40.00</Typography>
                 <Radio
-                  checked={selectedValue === 'Short News Story'}
-                  onChange={handleChange}
+                  checked={selectedValue.title === 'Short News Story'}
+                  // onChange={handleChange}
                   value="Short News Story"
                   className="radio-writings"
                   name="radio-buttons"
@@ -121,9 +144,11 @@ export default function WritingPackage() {
         </button>
 
         <button
-          onClick={(e) => handleClick('Regular News Story')}
+          onClick={(e) =>
+            handleClick('Regular News Story', 40, '500 Word News Story')
+          }
           className="d-flex-c w-full writing_box mt-2"
-          id={`${selectedValue === 'Regular News Story' && 'active-re'}`}
+          id={`${selectedValue.title === 'Regular News Story' && 'active-re'}`}
         >
           <img
             src={Regular}
@@ -139,8 +164,8 @@ export default function WritingPackage() {
               <div className="d-flex-c both-side">
                 <Typography>$88</Typography>
                 <Radio
-                  checked={selectedValue === 'Regular News Story'}
-                  onChange={handleChange}
+                  checked={selectedValue.title === 'Regular News Story'}
+                  // onChange={handleChange}
                   value="Regular News Story"
                   className="radio-writings"
                   name="radio-buttons"
@@ -157,9 +182,11 @@ export default function WritingPackage() {
         </button>
 
         <button
-          onClick={(e) => handleClick('Long News Story')}
+          onClick={(e) =>
+            handleClick('Long News Story', 40, '700+ Word News Story')
+          }
           className="d-flex-c w-full writing_box mt-2"
-          id={`${selectedValue === 'Long News Story' && 'active-re'}`}
+          id={`${selectedValue.title === 'Long News Story' && 'active-re'}`}
         >
           <img
             src={News}
@@ -177,8 +204,8 @@ export default function WritingPackage() {
               <div className="d-flex-c both-side">
                 <Typography>$99</Typography>
                 <Radio
-                  checked={selectedValue === 'Long News Story'}
-                  onChange={handleChange}
+                  checked={selectedValue.title === 'Long News Story'}
+                  // onChange={handleChange}
                   value="Long News Story"
                   name="radio-buttons"
                   inputProps={{ 'aria-label': 'Long News Story' }}
@@ -200,7 +227,7 @@ export default function WritingPackage() {
             <button
               onClick={handleCheckBox}
               className="d-flex-c w-full writing_box mt-2"
-              id={`${checked?.name === 'Detailed Research' && 'active-re'}`}
+              id={`${selectedValue?.price !== 'Free' && checked?.name === 'Detailed Research' && 'active-re'}`}
             >
               <img
                 src={Detailed}
@@ -219,9 +246,12 @@ export default function WritingPackage() {
                   <div className="d-flex-c both-side">
                     <Typography>$77</Typography>
                     <Checkbox
-                      className={`${checked ? 'checkedbox' : 'checkbox'} Email_me_cb`}
-                      checked={checked?.name === 'Detailed Research'}
-                      onChange={handleCheckBox}
+                      className={`${selectedValue?.price !== 'Free' && checked?.name === 'Detailed Research' ? 'checkedbox' : 'checkbox'} Email_me_cb`}
+                      checked={
+                        selectedValue.price !== 'Free' &&
+                        checked?.name === 'Detailed Research'
+                      }
+                      // onChange={handleCheckBox}
                       inputProps={{ 'aria-label': 'controlled' }}
                       style={{
                         marginTop: '6px',
