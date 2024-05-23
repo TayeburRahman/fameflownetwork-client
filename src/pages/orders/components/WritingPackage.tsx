@@ -23,7 +23,7 @@ export default function WritingPackage() {
                   <div>Short News Story</div>
                   <div>
                     <Typography>FREE</Typography>
-                    <FormControlLabel
+                    <FormControlLabelss
                       value="Write Your Own Story"
                       control={<Radio />}
                     />
