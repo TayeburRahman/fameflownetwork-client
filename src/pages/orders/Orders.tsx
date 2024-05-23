@@ -27,6 +27,9 @@ const Orders = () => {
   const [expandedWriting, setExpandedWriting] = React.useState(false);
   const [openWriting, setOpenWriting] = React.useState(false);
 
+  const [expandedBrand, setExpandedBrand] = React.useState(false);
+  const [openBrand, setOpenBrand] = React.useState(false);
+
   const [writeChecked, setWriteChecked] = React.useState<InputF | undefined>();
   const [writePackage, setSelectedValue] = React.useState({
     title: 'Write Your Own Story',
@@ -58,11 +61,18 @@ const Orders = () => {
     setOpenWriting(true);
   };
 
+  const handleExpansionBrand = () => {
+    setExpandedBrand((prevExpanded) => !prevExpanded);
+    setOpenBrand(true);
+  };
+
   const accountOnClose = () => {
     // console.log('llrrrrr');
   };
 
-  console.log('publishPackage-r', publishPackage);
+  const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
+
+  // console.log('jnj', data);
 
   return (
     <div className="">
@@ -254,13 +264,59 @@ const Orders = () => {
           </AccordionDetails>
         </Accordion>
 
-        <Accordion className="mt-3 pb-2 pt-2 accordion">
+        <Accordion
+          className="mt-3 pb-2 pt-2 accordion"
+          onChange={handleExpansionBrand}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2-content"
             id="panel2-header"
           >
-            <Typography className="accordion_head">Brand Details</Typography>
+            <Typography className="accordion_head">
+              <div className="flex items-center gap-3">
+                Brand Details
+                {!expandedBrand && openBrand && (
+                  <>
+                    {brandEmtry !== 0 ? (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20"
+                          width="20"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="#ff0000"
+                            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"
+                          ></path>
+                        </svg>{' '}
+                        <p className="text-[13px]">
+                          {brandEmtry === 6
+                            ? 'Please enter your brand select'
+                            : `Missing ${brandEmtry} fields`}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="20"
+                          width="20"
+                          viewBox="0 0 512 512"
+                        >
+                          <path
+                            fill="#00a876"
+                            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"
+                          />
+                        </svg>
+                        <p className="text-success">{brand?.brand_name}</p>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <BrandDetails />

@@ -5,7 +5,14 @@ const initialState = {
   detailedResearch: undefined,
   publishPackage: undefined,
   account: undefined,
-  brand: undefined,
+  brand: {
+    brand_name: '',
+    brand_country: '',
+    website_link: '',
+    representative_name: '',
+    representative_email: '',
+    agree: false,
+  },
 };
 
 const orderSlice = createSlice({

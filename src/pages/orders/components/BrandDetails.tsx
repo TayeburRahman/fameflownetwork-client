@@ -13,7 +13,7 @@ const BrandDetails = () => {
   const { pathname } = useLocation();
   const [value, setValue] = useState('');
   const options = useMemo(() => countryList().getData(), []);
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
     brand_name: '',
