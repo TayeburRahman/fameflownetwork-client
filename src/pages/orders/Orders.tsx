@@ -293,7 +293,7 @@ const Orders = () => {
                         </svg>{' '}
                         <p className="text-[13px]">
                           {brandEmtry === 6
-                            ? 'Please enter your brand select'
+                            ? 'Please enter your brand details'
                             : `Missing ${brandEmtry} fields`}
                         </p>
                       </>
