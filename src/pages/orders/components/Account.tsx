@@ -1,3 +1,4 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -6,11 +7,28 @@ import { Grid, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Tab from '@mui/material/Tab';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setStateAccount } from '../../../features/order/orderSlice';
 
 const Account = () => {
   const [value, setValue] = React.useState('1');
+  const [isName, setName] = React.useState('');
+  const [isEmail, setEmail] = React.useState('');
   const [checked, setChecked] = React.useState(true);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (emailPattern.test(isEmail) && isName) {
+      let accounts = { email: '', name: '' };
+      accounts.email = isEmail;
+      accounts.name = isName;
+      dispatch(setStateAccount({ account: accounts }));
+    } else {
+      dispatch(setStateAccount({ account: '' }));
+    }
+  }, [isName, isEmail]);
 
   const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -39,11 +57,10 @@ const Account = () => {
                 <div className="relative">
                   <input
                     type="text"
+                    required
                     placeholder="Enter your Full Name"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
-                    //   {...register('email', {
-                    //     required: true,
-                    //   })}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </Grid>
@@ -52,10 +69,9 @@ const Account = () => {
                   <input
                     type="email"
                     placeholder="Enter your email"
+                    required
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
-                    //   {...register('email', {
-                    //     required: true,
-                    //   })}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <span className="absolute right-4 top-3">
                     <svg
@@ -164,6 +180,9 @@ const Account = () => {
             </Grid>
           </TabPanel>
         </TabContext>
+        <button className="button-next " role="button">
+          Next Step <ArrowForwardIcon />
+        </button>
       </Box>
     </div>
   );

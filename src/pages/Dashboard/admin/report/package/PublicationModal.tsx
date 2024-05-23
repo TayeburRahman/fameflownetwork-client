@@ -141,7 +141,7 @@ const PublicationModal: React.FC<ModalProps> = ({
       >
         <div className="flex justify-between">
           <h2 className="text-xl font-bold mb-4">
-            {status === 'Update' ? 'Update' : 'Add a new link'} 11
+            {status === 'Update' ? 'Update' : 'Add a new link'}
           </h2>
           <button
             className="px-4 py-2 font-bold text-black rounded-md hover:bg-blue-100 transition-colors"

@@ -1,5 +1,6 @@
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
+import Case from './Case';
 import Faq from './Faq';
 import Featured from './Featured';
 import Highlights from './Highlights';
@@ -12,6 +13,7 @@ import Part from './Part';
 import Pricing from './Pricing';
 import Publications from './Publications';
 import Ready from './Ready';
+import Recommend from './Recommend';
 import Whyuse from './Whyuse';
 
 const Home = () => {
@@ -24,8 +26,8 @@ const Home = () => {
       <Highlights />
       <OneReview />
       <HowItWorks />
-      {/* <Recommend /> */}
-      {/* <Case /> */}
+      <Recommend />
+      <Case />
       <Packages />
       <Publications />
       {/* <Trusted /> */}

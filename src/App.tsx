@@ -82,6 +82,7 @@ const App = () => {
             </AdminRoute>
           }
         />
+
         <Route
           path="/dashboard/sample-reports"
           element={
@@ -131,6 +132,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
+
         <Route
           path="/user-dashboard/user/:id/publication"
           element={
@@ -196,6 +198,7 @@ const App = () => {
             </>
           }
         />
+
         <Route
           path="/dashboard/chart"
           element={

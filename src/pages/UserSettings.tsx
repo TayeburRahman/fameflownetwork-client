@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import useAuth from '../hooks/useAuth';
 import useToast from '../hooks/useToast';
 import userThree from '../images/user/user-03.png';
 import UserLayout from '../layout/UserLayout';
@@ -19,6 +20,7 @@ const UserSettings = () => {
   const { displayToast } = useToast();
   const [cookies, setCookie] = useCookies(['auth']);
   const { user } = cookies.auth;
+  const { isUser } = useAuth();
 
   const {
     register,
@@ -27,9 +29,9 @@ const UserSettings = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
-    console.log(forData);
+  // console.log(isUser && isUser._id);
 
+  const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     if (forData) {
       if (!forData.name && !forData.email && !forData.phone && !forData.bio) {
         displayToast({
@@ -41,7 +43,7 @@ const UserSettings = () => {
     }
     try {
       setLoading(true);
-      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${user?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${isUser?._id}`;
       const response = await axios.put(apiUrl, forData);
       const { updateUser, token } = response.data;
 
@@ -100,6 +102,9 @@ const UserSettings = () => {
       }
     }
   };
+
+  window.location.reload();
+
   return (
     <UserLayout>
       <div className="mx-auto max-w-270">
@@ -156,7 +161,7 @@ const UserSettings = () => {
                           // name="name"
                           id="name"
                           {...register('name')}
-                          defaultValue={`${user && user.name}`}
+                          defaultValue={`${isUser && isUser.name}`}
                         />
                       </div>
                     </div>
@@ -175,7 +180,7 @@ const UserSettings = () => {
                         id="Phone"
                         {...register('phone')}
                         placeholder="Add a phone number"
-                        defaultValue={`${user?.phone ? user.phone : ''}`}
+                        defaultValue={`${isUser?.phone ? isUser.phone : ''}`}
                       />
                     </div>
                   </div>
@@ -220,7 +225,7 @@ const UserSettings = () => {
                         disabled
                         id="email"
                         // placeholder="devidjond45@gmail.com"
-                        defaultValue={`${user && user.email}`}
+                        defaultValue={`${isUser && isUser.email}`}
                         {...register('email')}
                       />
                     </div>
@@ -289,7 +294,7 @@ const UserSettings = () => {
                         rows={6}
                         {...register('bio')}
                         placeholder="Write your bio here"
-                        defaultValue={`${user && user?.bio ? user?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
+                        defaultValue={`${isUser && isUser?.bio ? isUser?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
                       ></textarea>
                     </div>
                   </div>
