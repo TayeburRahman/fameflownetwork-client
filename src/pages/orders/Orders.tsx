@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setStateWritingPackage } from '../../features/order/orderSlice';
 import Account from './components/Account';
 import BrandDetails from './components/BrandDetails';
+import NewsStory from './components/NewsStory';
 import PublishingPackages from './components/PublishingPackages';
 import WritingPackage from './components/WritingPackage';
 
@@ -21,6 +22,7 @@ const Orders = () => {
   const { writingPackage, detailedResearch, publishPackage, account, brand } =
     useSelector((state) => state?.order);
   const [expanded, setExpanded] = React.useState(true);
+  const [nextSteps, setNextSteps] = React.useState('1st');
   const [expandedPublishing, setExpandedPublishing] = React.useState(false);
   const [openPublishing, setOpenPublishing] = React.useState(false);
 
@@ -28,7 +30,10 @@ const Orders = () => {
   const [openWriting, setOpenWriting] = React.useState(false);
 
   const [expandedBrand, setExpandedBrand] = React.useState(false);
-  const [openBrand, setOpenBrand] = React.useState(false);
+  const [openBrand, setOpenBrand] = React.useState(0);
+
+  const [expandedNews, setExpandedNews] = React.useState(false);
+  const [openNews, setOpenNews] = React.useState(false);
 
   const [writeChecked, setWriteChecked] = React.useState<InputF | undefined>();
   const [writePackage, setSelectedValue] = React.useState({
@@ -37,6 +42,34 @@ const Orders = () => {
     value: '',
   });
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (nextSteps === '1st') {
+      setExpanded(true);
+    } else {
+      setExpanded(false);
+    }
+    if (nextSteps === 'account') {
+      setExpandedPublishing(true);
+    } else {
+      setExpandedPublishing(false);
+    }
+    if (nextSteps === 'publishing') {
+      setExpandedWriting(true);
+    } else {
+      setExpandedWriting(false);
+    }
+    if (nextSteps === 'writing') {
+      setExpandedBrand(true);
+    } else {
+      setExpandedBrand(false);
+    }
+    if (nextSteps === 'brand') {
+      setExpandedNews(true);
+    } else {
+      setExpandedNews(false);
+    }
+  }, [nextSteps]);
 
   React.useEffect(() => {
     dispatch(
@@ -49,21 +82,61 @@ const Orders = () => {
 
   const handleExpansion = () => {
     setExpanded((prevExpanded) => !prevExpanded);
+
+    if (!expanded) {
+      setNextSteps('1st');
+    }
+    if (expanded) {
+      setNextSteps('');
+    }
   };
 
   const handleExpansionPublishing = () => {
     setExpandedPublishing((prevExpanded) => !prevExpanded);
     setOpenPublishing(true);
+
+    if (!expandedPublishing) {
+      setNextSteps('account');
+    }
+    if (expandedPublishing) {
+      setNextSteps('');
+    }
   };
 
   const handleExpansionWriting = () => {
     setExpandedWriting((prevExpanded) => !prevExpanded);
     setOpenWriting(true);
+
+    if (!expandedWriting) {
+      setNextSteps('publishing');
+    }
+    if (expandedWriting) {
+      setNextSteps('');
+    }
   };
 
   const handleExpansionBrand = () => {
     setExpandedBrand((prevExpanded) => !prevExpanded);
-    setOpenBrand(true);
+    setOpenBrand(openBrand + 1);
+
+    if (!expandedBrand) {
+      setNextSteps('writing');
+    }
+    if (expandedBrand) {
+      setNextSteps('');
+    }
+  };
+
+  const handleExpansionNews = () => {
+    setExpandedNews((prevExpanded) => !prevExpanded);
+    setOpenNews(true);
+
+    if (!expandedNews) {
+      setNextSteps('brand');
+    }
+    if (expandedNews) {
+      setNextSteps('');
+    }
   };
 
   const accountOnClose = () => {
@@ -79,7 +152,7 @@ const Orders = () => {
       <div className="pt-5">
         <Accordion
           className="mt-3 pb-2 pt-2 accordion"
-          expanded={expanded}
+          expanded={nextSteps === '1st' ? true : false}
           onChange={handleExpansion}
           onFocus={accountOnClose}
           slots={{ transition: Fade as AccordionSlots['transition'] }}
@@ -141,13 +214,24 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Account />
+            <Account setNextSteps={setNextSteps} />
           </AccordionDetails>
         </Accordion>
 
         <Accordion
           onChange={handleExpansionPublishing}
+          expanded={nextSteps === 'account' ? true : false}
           className="mt-3 pb-2 pt-2 accordion"
+          slots={{ transition: Fade as AccordionSlots['transition'] }}
+          slotProps={{ transition: { timeout: 400 } }}
+          sx={{
+            '& .MuiAccordion-region': {
+              height: expandedPublishing ? 'auto' : 0,
+            },
+            '& .MuiAccordionDetails-root': {
+              display: expandedPublishing ? 'block' : 'none',
+            },
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -198,13 +282,24 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <PublishingPackages />
+            <PublishingPackages setNextSteps={setNextSteps} />
           </AccordionDetails>
         </Accordion>
 
         <Accordion
           className="mt-3 pb-2 pt-2 accordion"
           onChange={handleExpansionWriting}
+          expanded={nextSteps === 'publishing' ? true : false}
+          slots={{ transition: Fade as AccordionSlots['transition'] }}
+          slotProps={{ transition: { timeout: 400 } }}
+          sx={{
+            '& .MuiAccordion-region': {
+              height: expandedWriting ? 'auto' : 0,
+            },
+            '& .MuiAccordionDetails-root': {
+              display: expandedWriting ? 'block' : 'none',
+            },
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -256,6 +351,7 @@ const Orders = () => {
           </AccordionSummary>
           <AccordionDetails>
             <WritingPackage
+              setNextSteps={setNextSteps}
               selectedValue={writePackage}
               setSelectedValue={setSelectedValue}
               setChecked={setWriteChecked}
@@ -267,6 +363,17 @@ const Orders = () => {
         <Accordion
           className="mt-3 pb-2 pt-2 accordion"
           onChange={handleExpansionBrand}
+          expanded={nextSteps === 'writing' ? true : false}
+          slots={{ transition: Fade as AccordionSlots['transition'] }}
+          slotProps={{ transition: { timeout: 400 } }}
+          sx={{
+            '& .MuiAccordion-region': {
+              height: expandedBrand ? 'auto' : 0,
+            },
+            '& .MuiAccordionDetails-root': {
+              display: expandedBrand ? 'block' : 'none',
+            },
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -276,7 +383,7 @@ const Orders = () => {
             <Typography className="accordion_head">
               <div className="flex items-center gap-3">
                 Brand Details
-                {!expandedBrand && openBrand && (
+                {!expandedBrand && openBrand ? (
                   <>
                     {brandEmtry !== 0 ? (
                       <>
@@ -314,16 +421,32 @@ const Orders = () => {
                       </>
                     )}
                   </>
+                ) : (
+                  ''
                 )}
               </div>
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <BrandDetails />
+            <BrandDetails openBrand={openBrand} setNextSteps={setNextSteps} />
           </AccordionDetails>
         </Accordion>
 
-        <Accordion className="mt-3 pb-2 pt-2 accordion">
+        <Accordion
+          className="mt-3 pb-2 pt-2 accordion"
+          onChange={handleExpansionNews}
+          expanded={nextSteps === 'brand' ? true : false}
+          slots={{ transition: Fade as AccordionSlots['transition'] }}
+          slotProps={{ transition: { timeout: 400 } }}
+          sx={{
+            '& .MuiAccordion-region': {
+              height: expandedNews ? 'auto' : 0,
+            },
+            '& .MuiAccordionDetails-root': {
+              display: expandedNews ? 'block' : 'none',
+            },
+          }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2-content"
@@ -334,11 +457,7 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <NewsStory />
           </AccordionDetails>
         </Accordion>
       </div>

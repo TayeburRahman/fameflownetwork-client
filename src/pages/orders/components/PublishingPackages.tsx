@@ -1,3 +1,4 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import { useEffect, useState } from 'react';
@@ -911,14 +912,14 @@ type Inputs = {
   price: number;
   value: any;
   imgSrc: string;
-  checked: boolean;
-  onChange: any;
   isExpanded: any;
   onExpand: any;
-  children: any;
   publishing: {
     title: string;
     price: number;
+    included: string;
+    value: string;
+    included_02: string;
   };
   index: number;
   included: any;
@@ -931,11 +932,8 @@ const PackageButton: React.FC<Inputs> = ({
   price,
   value,
   imgSrc,
-  checked,
-  onChange,
   isExpanded,
   onExpand,
-  children,
   publishing,
   index,
   included,
@@ -949,7 +947,7 @@ const PackageButton: React.FC<Inputs> = ({
         onClick={(e) =>
           onExpand(title, price, index, value, included, included_02)
         }
-        id={publishing?.title === title && 'active-re'}
+        id={`${publishing?.title === title && 'active-re'}`}
         className="d-flex-c w-full writing_box mt-2"
       >
         <img
@@ -999,12 +997,19 @@ const PackageButton: React.FC<Inputs> = ({
   );
 };
 
-const PublishingPackages = () => {
+type PropsSet = {
+  setNextSteps: any;
+};
+
+const PublishingPackages = ({ setNextSteps }: PropsSet) => {
   const [selectedValue, setSelectedValue] = useState('Write Your Own Story');
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [publishingPackage, setPublishingPackages] = useState({
     title: '',
-    price: '',
+    price: 0,
+    included: '',
+    value: '',
+    included_02: '',
   });
   const dispatch = useDispatch();
 
@@ -1030,7 +1035,6 @@ const PublishingPackages = () => {
     included: any,
     included_02: any,
   ) => {
-    console.log(title, price, index, value, included, included_02);
     setPublishingPackages({
       title: title,
       price: price,
@@ -1098,8 +1102,8 @@ const PublishingPackages = () => {
             price={pkg.price}
             value={pkg.value}
             imgSrc={pkg.imgSrc}
-            checked={selectedValue === pkg.value}
-            onChange={handleRadioChange}
+            // checked={selectedValue === pkg.value}
+            // onChange={handleRadioChange}
             isExpanded={expandedIndex === index}
             onExpand={handleExpand}
             publishing={publishingPackage}
@@ -1109,6 +1113,14 @@ const PublishingPackages = () => {
           />
         ))}
       </div>
+      <button
+        onClick={(e) => setNextSteps('publishing')}
+        className="button-next mt-5"
+        role="button"
+        disabled={publishingPackage.title ? false : true}
+      >
+        Next Step <ArrowForwardIcon />
+      </button>
     </Box>
   );
 };

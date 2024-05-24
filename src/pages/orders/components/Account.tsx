@@ -11,7 +11,11 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setStateAccount } from '../../../features/order/orderSlice';
 
-const Account = () => {
+type PropsO = {
+  setNextSteps: any;
+};
+
+const Account = ({ setNextSteps }: PropsO) => {
   const [value, setValue] = React.useState('1');
   const [isName, setName] = React.useState('');
   const [isEmail, setEmail] = React.useState('');
@@ -52,8 +56,8 @@ const Account = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <Grid container gap={2}>
-              <Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={{ mt: 1 }}>
                 <div className="relative">
                   <input
                     type="text"
@@ -64,7 +68,7 @@ const Account = () => {
                   />
                 </div>
               </Grid>
-              <Grid>
+              <Grid item xs={12} md={6} sx={{ mt: 1 }}>
                 <div className="relative">
                   <input
                     type="email"
@@ -180,7 +184,12 @@ const Account = () => {
             </Grid>
           </TabPanel>
         </TabContext>
-        <button className="button-next " role="button">
+        <button
+          onClick={(e) => setNextSteps('account')}
+          className="button-next"
+          role="button"
+          disabled={emailPattern.test(isEmail) && isName ? false : true}
+        >
           Next Step <ArrowForwardIcon />
         </button>
       </Box>

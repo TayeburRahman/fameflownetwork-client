@@ -1,4 +1,5 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Box, Grid, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
@@ -9,7 +10,12 @@ import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import { setStateBrandDetails } from '../../../features/order/orderSlice';
 
-const BrandDetails = () => {
+type PropsO = {
+  openBrand: number;
+  setNextSteps: any;
+};
+
+const BrandDetails = ({ openBrand, setNextSteps }: PropsO) => {
   const { pathname } = useLocation();
   const [value, setValue] = useState('');
   const options = useMemo(() => countryList().getData(), []);
@@ -45,14 +51,22 @@ const BrandDetails = () => {
     }));
   };
 
+  const brandEmtry = Object?.values(formData)?.filter(
+    (value) => !value,
+  )?.length;
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const validEmail = emailPattern.test(formData?.representative_email);
+
   return (
     <div className="">
       <p className="text_p">
         News sites require the following brand info to be displayed at the end
         of each publication. The email will be private behind a contact form.
       </p>
-      <Grid container gap={2}>
-        <Grid className="mt-4">
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
           <label className="label_text">BRAND NAME</label>
           <div className="relative">
             <input
@@ -68,8 +82,17 @@ const BrandDetails = () => {
               value={formData?.brand_name}
             />
           </div>
+          {openBrand > 1 && !formData.brand_name && (
+            <Typography
+              variant="body2"
+              className="text-less-w d-flex-c text-red"
+            >
+              <ErrorOutlineIcon className="mui_icon me-1" /> Please provide your
+              brand name
+            </Typography>
+          )}
         </Grid>
-        <Grid className="mt-4">
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
           <label className="label_text">WEBSITE & LINKS </label>
           <div className="relative">
             <input
@@ -85,6 +108,15 @@ const BrandDetails = () => {
               value={formData?.website_link}
             />
           </div>
+          {openBrand > 1 && !formData.website_link && (
+            <Typography
+              variant="body2"
+              className="text-less-w d-flex-c text-red"
+            >
+              <ErrorOutlineIcon className="mui_icon me-1" /> Please provide
+              brands website links
+            </Typography>
+          )}
         </Grid>
       </Grid>
 
@@ -97,10 +129,16 @@ const BrandDetails = () => {
           placeholder="Select country"
           onChange={changeHandler}
         />
+        {openBrand > 1 && !formData.brand_country && (
+          <Typography variant="body2" className="text-less-w d-flex-c text-red">
+            <ErrorOutlineIcon className="mui_icon me-1" /> Please select your
+            country
+          </Typography>
+        )}
       </Grid>
 
-      <Grid container gap={2}>
-        <Grid className="mt-4">
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
           <label className="label_text">REPRESENTATIVE NAME </label>
           <div className="relative">
             <input
@@ -116,8 +154,17 @@ const BrandDetails = () => {
               value={formData?.representative_name}
             />
           </div>
+          {openBrand > 1 && !formData.representative_name && (
+            <Typography
+              variant="body2"
+              className="text-less-w d-flex-c text-red"
+            >
+              <ErrorOutlineIcon className="mui_icon me-1" /> Please provide the
+              brand representative's name or title
+            </Typography>
+          )}
         </Grid>
-        <Grid className="mt-4">
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
           <label className="label_text">REPRESENTATIVE EMAIL</label>
           <div className="relative">
             <input
@@ -133,8 +180,18 @@ const BrandDetails = () => {
               value={formData?.representative_email}
             />
           </div>
+          {openBrand > 1 && !formData.representative_email && (
+            <Typography
+              variant="body2"
+              className="text-less-w d-flex-c text-red"
+            >
+              <ErrorOutlineIcon className="mui_icon me-1" /> Please provide the
+              brand representative's email
+            </Typography>
+          )}
         </Grid>
       </Grid>
+
       <Box className="d-flex-t mt-4">
         <Checkbox
           className={`${checked ? 'checkedbox' : 'checkbox'} Email_me_cb`}
@@ -142,14 +199,26 @@ const BrandDetails = () => {
           onChange={handleChange}
           inputProps={{ 'aria-label': 'controlled' }}
         />
+
         <Typography variant="body2" className="text_p_s">
           I agree for my Brand Details to be shown publicly at the end of my
           news story, with the representative email private behind a contact
           form.
         </Typography>
       </Box>
+      {openBrand > 1 && !formData.agree && (
+        <Typography variant="body2" className="text-less-w d-flex-c text-red">
+          <ErrorOutlineIcon className="mui_icon me-1" /> Please confirm that you
+          understand that the details will be made public
+        </Typography>
+      )}
 
-      <button className="button-next mt-5" role="button">
+      <button
+        className="button-next mt-5"
+        role="button"
+        onClick={(e) => setNextSteps('brand')}
+        disabled={brandEmtry === 0 && validEmail ? false : true}
+      >
         Next Step <ArrowForwardIcon />
       </button>
     </div>

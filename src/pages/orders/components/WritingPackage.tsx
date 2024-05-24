@@ -22,9 +22,10 @@ type SelectedValueType = {
 
 type PropsL = {
   selectedValue: SelectedValueType;
-  setSelectedValue: React.Dispatch<React.SetStateAction<SelectedValueType>>;
-  checked: InputF;
-  setChecked: React.Dispatch<React.SetStateAction<InputF>>;
+  setSelectedValue: any;
+  checked: any;
+  setChecked: any;
+  setNextSteps: any;
 };
 
 export default function WritingPackage({
@@ -32,6 +33,7 @@ export default function WritingPackage({
   setSelectedValue,
   checked,
   setChecked,
+  setNextSteps,
 }: PropsL) {
   const [isResearch, setResearch] = React.useState<boolean>(false);
 
@@ -46,7 +48,7 @@ export default function WritingPackage({
     }
   };
 
-  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckBox = () => {
     if (selectedValue) {
       if (!checked?.name) {
         setChecked({ name: 'Detailed Research', price: 77 });
@@ -276,7 +278,12 @@ export default function WritingPackage({
         </button>
       </Box>
 
-      <button className="button-next mt-4" role="button">
+      <button
+        className="button-next mt-4"
+        onClick={(e) => setNextSteps('writing')}
+        disabled={selectedValue.title ? false : true}
+        role="button"
+      >
         Next Step <ArrowForwardIcon />
       </button>
     </div>

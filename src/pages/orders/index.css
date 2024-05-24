@@ -264,7 +264,7 @@
   will-change: transform, opacity;
 }
 
-.button-next:hover {
+.button-next:hover:not(:disabled) {
   box-shadow:
     rgba(0, 0, 0, 0.2) 0 2px 4px -1px,
     rgba(0, 0, 0, 0.14) 0 4px 5px 0,
@@ -274,15 +274,11 @@
 .button-next:not(:disabled) {
   background-color: #3f03c0c9;
 }
-
-.button-next:focus {
-  box-shadow:
-    rgba(0, 0, 0, 0.2) 0 2px 4px -1px,
-    rgba(0, 0, 0, 0.14) 0 4px 5px 0,
-    rgba(0, 0, 0, 0.12) 0 1px 10px 0;
+.button-next:is(:disabled) {
+  background-color: #68559457;
 }
 
-.button-next:active {
+.button-next:active:not(:disabled) {
   box-shadow:
     rgba(0, 0, 0, 0.2) 0 5px 5px -3px,
     rgba(0, 0, 0, 0.14) 0 8px 10px 1px,
@@ -308,4 +304,12 @@
   border: 1px solid #4642c9bc !important;
   border-color: #4642c9bc !important;
   outline: #4642c9bc !important;
+}
+
+.text-red {
+  color: red !important;
+}
+
+.react_quill {
+  height: 200px;
 }
