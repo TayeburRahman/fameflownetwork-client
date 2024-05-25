@@ -1,15 +1,28 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Grid } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setStateNewsStory } from '../../../features/order/orderSlice';
 
 const NewsStory = () => {
+  const { writingPackage, detailedResearch, publishPackage, account, brand } =
+    useSelector((state) => state?.order);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     docs_link: '',
     details: '',
   });
 
-  const [value, setValue] = useState('');
+  useEffect(() => {
+    dispatch(setStateNewsStory({ news: formData }));
+  }, [formData]);
+
+  const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
+
   return (
     <div className="">
       <p className="text_p">
@@ -33,16 +46,34 @@ const NewsStory = () => {
             value={formData?.docs_link}
           />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 pb-5 mb-5">
           <label className="label_text">DESCRIPTION</label>
           <ReactQuill
             theme="snow"
             className="mt-2 react_quill"
-            value={value}
-            onChange={setValue}
+            value={formData?.details}
+            onChange={(value) =>
+              setFormData((prevState) => ({
+                ...prevState,
+                details: value,
+              }))
+            }
           />
         </div>
       </Grid>
+
+      <button
+        className="button-next mt-5"
+        role="button"
+        onClick={(e) => navigate('/packages/review')}
+        disabled={
+          writingPackage && publishPackage?.title && account && brandEmtry === 0
+            ? false
+            : true
+        }
+      >
+        Review Order <ArrowForwardIcon />
+      </button>
     </div>
   );
 };

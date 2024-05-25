@@ -180,7 +180,7 @@ const BrandDetails = ({ openBrand, setNextSteps }: PropsO) => {
               value={formData?.representative_email}
             />
           </div>
-          {openBrand > 1 && !formData.representative_email && (
+          {openBrand > 1 && !validEmail && (
             <Typography
               variant="body2"
               className="text-less-w d-flex-c text-red"

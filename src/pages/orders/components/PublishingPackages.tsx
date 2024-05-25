@@ -945,7 +945,7 @@ const PackageButton: React.FC<Inputs> = ({
     <div>
       <button
         onClick={(e) =>
-          onExpand(title, price, index, value, included, included_02)
+          onExpand(title, price, index, value, included, included_02, imgSrc)
         }
         id={`${publishing?.title === title && 'active-re'}`}
         className="d-flex-c w-full writing_box mt-2"
@@ -1010,6 +1010,7 @@ const PublishingPackages = ({ setNextSteps }: PropsSet) => {
     included: '',
     value: '',
     included_02: '',
+    image: '',
   });
   const dispatch = useDispatch();
 
@@ -1034,6 +1035,7 @@ const PublishingPackages = ({ setNextSteps }: PropsSet) => {
     value: any,
     included: any,
     included_02: any,
+    imgSrc: any,
   ) => {
     setPublishingPackages({
       title: title,
@@ -1041,6 +1043,7 @@ const PublishingPackages = ({ setNextSteps }: PropsSet) => {
       value,
       included,
       included_02,
+      image: imgSrc,
     });
     setExpandedIndex(expandedIndex === index ? null : index);
   };

@@ -311,5 +311,36 @@
 }
 
 .react_quill {
-  height: 200px;
+  height: 180px;
+}
+
+/* ----------- */
+.review_box {
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border: 1px solid #acacac75;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+.review_title {
+  font-weight: 500 !important;
+  color: #666473 !important;
+}
+.review_package {
+  font-weight: 400 !important;
+  color: #909090 !important;
+  font-size: 14px !important;
+}
+
+.between {
+  justify-content: space-between !important;
+}
+.editButton {
+  color: rgb(57, 151, 246);
+  margin-right: 10px;
+}
+
+.editButton:hover {
+  text-decoration: underline;
 }

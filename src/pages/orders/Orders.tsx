@@ -19,8 +19,14 @@ type InputF = {
 };
 
 const Orders = () => {
-  const { writingPackage, detailedResearch, publishPackage, account, brand } =
-    useSelector((state) => state?.order);
+  const {
+    writingPackage,
+    detailedResearch,
+    publishPackage,
+    account,
+    brand,
+    nextState,
+  } = useSelector((state) => state?.order);
   const [expanded, setExpanded] = React.useState(true);
   const [nextSteps, setNextSteps] = React.useState('1st');
   const [expandedPublishing, setExpandedPublishing] = React.useState(false);
@@ -70,6 +76,10 @@ const Orders = () => {
       setExpandedNews(false);
     }
   }, [nextSteps]);
+
+  React.useEffect(() => {
+    setNextSteps(nextState);
+  }, [nextState]);
 
   React.useEffect(() => {
     dispatch(
