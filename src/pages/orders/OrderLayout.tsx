@@ -8,7 +8,6 @@ import './index.css';
 const OrderLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
   const {
     writingPackage,
     detailedResearch,
@@ -52,8 +51,11 @@ const OrderLayout = () => {
         newsStory: newsStory,
       }),
     );
-
     navigate('/packages/review');
+  };
+
+  const updateUll = () => {
+    'const';
   };
 
   return (
