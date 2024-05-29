@@ -29,7 +29,6 @@ import OrderLayout from './pages/orders/OrderLayout';
 import Orders from './pages/orders/Orders';
 import Payment from './pages/orders/Payment';
 import Review from './pages/orders/Review';
-import Sorry from './pages/orders/components/Sorry';
 import LandingPage from './pages/report/LandingPage';
 
 const App = () => {
@@ -166,16 +165,6 @@ const App = () => {
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
               <FormElements />
-            </>
-          }
-        />
-
-        <Route
-          path="/sorry"
-          element={
-            <>
-              <PageTitle title="Sadia Arfin | FameFlow - Go Viral With Massive Exposure" />
-              <Sorry />
             </>
           }
         />
