@@ -13,17 +13,18 @@ import { setStateBrandDetails } from '../../../features/order/orderSlice';
 type PropsO = {
   openBrand: number;
   setNextSteps: any;
+  brandLoc: any;
 };
 
-const BrandDetails = ({ openBrand, setNextSteps }: PropsO) => {
+const BrandDetails = ({ openBrand, setNextSteps, brandLoc }: PropsO) => {
   const { pathname } = useLocation();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState();
   const options = useMemo(() => countryList().getData(), []);
   const [checked, setChecked] = React.useState(false);
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
     brand_name: '',
-    brand_country: '',
+    brand_country: {},
     website_link: '',
     representative_name: '',
     representative_email: '',
@@ -31,8 +32,23 @@ const BrandDetails = ({ openBrand, setNextSteps }: PropsO) => {
   });
 
   React.useEffect(() => {
+    if (brandLoc) {
+      setFormData({
+        brand_name: brandLoc?.brand_name,
+        brand_country: brandLoc?.brand_country,
+        website_link: brandLoc?.website_link,
+        representative_name: brandLoc?.representative_name,
+        representative_email: brandLoc?.representative_email,
+        agree: brandLoc?.agree,
+      });
+      setChecked(brandLoc?.agree ? true : false);
+      setValue(brandLoc?.brand_country);
+    }
+  }, [brandLoc]);
+
+  React.useEffect(() => {
     dispatch(setStateBrandDetails({ brands: formData }));
-  }, [formData]);
+  }, [formData, brandLoc]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -45,9 +61,11 @@ const BrandDetails = ({ openBrand, setNextSteps }: PropsO) => {
   const changeHandler = (value: any) => {
     setValue(value);
 
+    console.log('changeHandler', value);
+
     setFormData((prevState) => ({
       ...prevState,
-      brand_country: value?.label,
+      brand_country: value,
     }));
   };
 

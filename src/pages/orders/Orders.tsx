@@ -27,6 +27,7 @@ const Orders = () => {
     brand,
     nextState,
   } = useSelector((state) => state?.order);
+
   const [expanded, setExpanded] = React.useState(true);
   const [nextSteps, setNextSteps] = React.useState('1st');
   const [expandedPublishing, setExpandedPublishing] = React.useState(false);
@@ -47,7 +48,65 @@ const Orders = () => {
     price: 'Free',
     value: '',
   });
+
+  const [writingPackageLoc, setWriting] = React.useState();
+  const [detailedResearchLoc, setResearch] = React.useState();
+  const [publishPackageLoc, setPublish] = React.useState();
+  const [accountLoc, setAccount] = React.useState();
+  const [brandLoc, setBrand] = React.useState();
+  const [news_story, setNewsStory] = React.useState();
+
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    try {
+      const localOder = localStorage?.getItem('order');
+      if (localOder) {
+        const {
+          writingPackage,
+          detailedResearch,
+          publishPackage,
+          account,
+          brand,
+          newsStory,
+        } = JSON.parse(localOder);
+        if (
+          writingPackage?.title ||
+          publishPackage?.title ||
+          account ||
+          brand
+        ) {
+          setWriting(writingPackage);
+          setResearch(detailedResearch);
+          setPublish(publishPackage);
+          setAccount(account);
+          setBrand(brand);
+          setNewsStory(newsStory);
+        } else {
+          // navigate('/packages/order');
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving user from local storage:', error);
+    }
+  }, []);
+
+  console.log('writingPackageLoc', writingPackageLoc);
+
+  React.useEffect(() => {
+    if (publishPackageLoc?.title) {
+      setOpenPublishing(true);
+    }
+    if (writingPackageLoc?.title) {
+      setOpenWriting(true);
+    }
+    if (accountLoc) {
+      setOpenPublishing(true);
+    }
+    if (brandLoc) {
+      setOpenBrand(true);
+    }
+  }, [accountLoc, brandLoc, writingPackageLoc, publishPackageLoc]);
 
   React.useEffect(() => {
     if (nextSteps === '1st') {
@@ -155,7 +214,7 @@ const Orders = () => {
 
   const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
 
-  // console.log('jnj', data);
+  console.log('jnj', nextState);
 
   return (
     <div className="">
@@ -224,7 +283,7 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Account setNextSteps={setNextSteps} />
+            <Account accountLoc={accountLoc} setNextSteps={setNextSteps} />
           </AccordionDetails>
         </Accordion>
 
@@ -292,7 +351,10 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <PublishingPackages setNextSteps={setNextSteps} />
+            <PublishingPackages
+              publishPackageLoc={publishPackageLoc}
+              setNextSteps={setNextSteps}
+            />
           </AccordionDetails>
         </Accordion>
 
@@ -361,6 +423,8 @@ const Orders = () => {
           </AccordionSummary>
           <AccordionDetails>
             <WritingPackage
+              detailedResearchLoc={detailedResearchLoc}
+              writingPackageLoc={writingPackageLoc}
               setNextSteps={setNextSteps}
               selectedValue={writePackage}
               setSelectedValue={setSelectedValue}
@@ -438,7 +502,11 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <BrandDetails openBrand={openBrand} setNextSteps={setNextSteps} />
+            <BrandDetails
+              brandLoc={brandLoc}
+              openBrand={openBrand}
+              setNextSteps={setNextSteps}
+            />
           </AccordionDetails>
         </Accordion>
 
@@ -467,7 +535,7 @@ const Orders = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <NewsStory />
+            <NewsStory news_story={news_story} />
           </AccordionDetails>
         </Accordion>
       </div>

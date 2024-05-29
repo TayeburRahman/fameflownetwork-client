@@ -56,7 +56,6 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(query, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(result.data);
           dispatch(setUserInfo(result.data));
         } catch (error) {
           console.log('redux store error', error);

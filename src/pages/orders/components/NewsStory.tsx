@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setStateNewsStory } from '../../../features/order/orderSlice';
 
-const NewsStory = () => {
+type PropsSet = {
+  news_story: any;
+};
+
+const NewsStory = ({ news_story }: PropsSet) => {
   const { writingPackage, detailedResearch, publishPackage, account, brand } =
     useSelector((state) => state?.order);
   const navigate = useNavigate();
@@ -17,11 +21,44 @@ const NewsStory = () => {
     details: '',
   });
 
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setFormData((prevState) => ({
+      ...prevState,
+      details: value,
+    }));
+  }, [value]);
+  console.log('news_story', value);
+
+  useEffect(() => {
+    if (news_story) {
+      setFormData(news_story);
+      setValue(news_story?.details);
+    }
+  }, [news_story]);
+
   useEffect(() => {
     dispatch(setStateNewsStory({ news: formData }));
   }, [formData]);
 
   const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
+
+  const handleSaveToNext = () => {
+    localStorage.setItem(
+      'order',
+      JSON.stringify({
+        writingPackage: writingPackage,
+        detailedResearch: detailedResearch,
+        publishPackage: publishPackage,
+        account: account,
+        brand: brand,
+        newsStory: formData,
+      }),
+    );
+
+    navigate('/packages/review');
+  };
 
   return (
     <div className="">
@@ -37,6 +74,7 @@ const NewsStory = () => {
             type="text"
             placeholder="http://"
             className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+            value={formData?.docs_link}
             onChange={(e) =>
               setFormData((prevState) => ({
                 ...prevState,
@@ -51,13 +89,8 @@ const NewsStory = () => {
           <ReactQuill
             theme="snow"
             className="mt-2 react_quill"
-            value={formData?.details}
-            onChange={(value) =>
-              setFormData((prevState) => ({
-                ...prevState,
-                details: value,
-              }))
-            }
+            value={value}
+            onChange={(value) => setValue(value)}
           />
         </div>
       </Grid>
@@ -65,7 +98,7 @@ const NewsStory = () => {
       <button
         className="button-next mt-5"
         role="button"
-        onClick={(e) => navigate('/packages/review')}
+        onClick={handleSaveToNext}
         disabled={
           writingPackage && publishPackage?.title && account && brandEmtry === 0
             ? false

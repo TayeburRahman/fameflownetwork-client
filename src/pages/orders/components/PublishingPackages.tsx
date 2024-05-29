@@ -999,9 +999,10 @@ const PackageButton: React.FC<Inputs> = ({
 
 type PropsSet = {
   setNextSteps: any;
+  publishPackageLoc: any;
 };
 
-const PublishingPackages = ({ setNextSteps }: PropsSet) => {
+const PublishingPackages = ({ setNextSteps, publishPackageLoc }: PropsSet) => {
   const [selectedValue, setSelectedValue] = useState('Write Your Own Story');
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [publishingPackage, setPublishingPackages] = useState({
@@ -1014,11 +1015,7 @@ const PublishingPackages = ({ setNextSteps }: PropsSet) => {
   });
   const dispatch = useDispatch();
 
-  // console.log('publishingPackages', publishingPackage);
-
-  const handleRadioChange = (event: any) => {
-    setSelectedValue(event.target.value);
-  };
+  console.log('publishingPackages', publishingPackage);
 
   useEffect(() => {
     dispatch(
@@ -1027,6 +1024,19 @@ const PublishingPackages = ({ setNextSteps }: PropsSet) => {
       }),
     );
   }, [publishingPackage]);
+
+  useEffect(() => {
+    if (publishPackageLoc) {
+      setPublishingPackages({
+        title: publishPackageLoc?.title,
+        price: publishPackageLoc?.price,
+        value: publishPackageLoc?.value,
+        included: publishPackageLoc?.included,
+        included_02: publishPackageLoc?.included_02,
+        image: publishPackageLoc?.image,
+      });
+    }
+  }, [publishPackageLoc]);
 
   const handleExpand = (
     title: any,

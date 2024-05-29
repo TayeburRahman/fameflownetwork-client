@@ -17,7 +17,7 @@
   color: #737373;
 }
 .nav_link {
-  font-size: 1.0546875rem;
+  font-size: 15px !important;
   font-weight: 600;
   color: #737373ce;
   transition: 0.5ms;
@@ -232,12 +232,12 @@
 .button-next {
   align-items: center;
   appearance: none;
-  border-radius: 4px;
+  border-radius: 10px;
   border-style: none;
   box-shadow:
-    rgba(0, 0, 0, 0.2) 0 3px 1px -2px,
-    rgba(0, 0, 0, 0.14) 0 2px 2px 0,
-    rgba(0, 0, 0, 0.12) 0 1px 5px 0;
+    rgba(0, 0, 0, 0.081) 0 3px 1px -2px,
+    rgba(0, 0, 0, 0.078) 0 2px 2px 0,
+    rgba(0, 0, 0, 0.067) 0 1px 5px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -245,7 +245,7 @@
   /* font-family: Roboto, sans-serif; */
   font-size: 0.875rem;
   font-weight: 500;
-  height: 35px;
+  height: 40px;
   justify-content: center;
   letter-spacing: 0.0892857em;
   line-height: normal;
@@ -343,4 +343,28 @@
 
 .editButton:hover {
   text-decoration: underline;
+}
+
+.data_name_ {
+  font-family: poppins, sans-serif;
+  color: #737373;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 500;
+}
+
+.span_data {
+  font-family: poppins, sans-serif;
+  color: #737373;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+.span_data_quill {
+  color: #737373 !important;
+  font-weight: 400 !important;
+}
+.review_order_ {
+  color: #516377 !important;
+  font-size: 1.1rem;
+  font-weight: 500;
 }

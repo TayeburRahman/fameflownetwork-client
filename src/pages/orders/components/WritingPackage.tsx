@@ -2,7 +2,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Detailed from '../../../assets/BrandPush-Detailed-Research.png';
 import News from '../../../assets/Long-News-Story.png';
 import Regular from '../../../assets/Regular-News-Story.png';
@@ -26,6 +26,8 @@ type PropsL = {
   checked: any;
   setChecked: any;
   setNextSteps: any;
+  writingPackageLoc: any;
+  detailedResearchLoc: any;
 };
 
 export default function WritingPackage({
@@ -34,8 +36,24 @@ export default function WritingPackage({
   checked,
   setChecked,
   setNextSteps,
+  writingPackageLoc,
+  detailedResearchLoc,
 }: PropsL) {
   const [isResearch, setResearch] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    if (writingPackageLoc) {
+      setSelectedValue({
+        title: writingPackageLoc?.title,
+        price: writingPackageLoc?.price,
+        value: writingPackageLoc?.value,
+      });
+    }
+
+    if (detailedResearchLoc) {
+      setResearch(detailedResearchLoc.value);
+    }
+  }, [writingPackageLoc, detailedResearchLoc]);
 
   const handleClick = (title: string, price: any, value: string) => {
     setSelectedValue({

@@ -13,21 +13,31 @@ import { setStateAccount } from '../../../features/order/orderSlice';
 
 type PropsO = {
   setNextSteps: any;
+  accountLoc: any;
 };
 
-const Account = ({ setNextSteps }: PropsO) => {
+const Account = ({ setNextSteps, accountLoc }: PropsO) => {
   const [value, setValue] = React.useState('1');
   const [isName, setName] = React.useState('');
   const [isEmail, setEmail] = React.useState('');
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (accountLoc) {
+      setName(accountLoc?.name);
+      setEmail(accountLoc?.email);
+      setChecked(accountLoc?.email_confirmation);
+    }
+  }, [accountLoc]);
+
+  useEffect(() => {
     if (emailPattern.test(isEmail) && isName) {
-      let accounts = { email: '', name: '' };
+      let accounts = { email: '', name: '', email_confirmation: false };
       accounts.email = isEmail;
       accounts.name = isName;
+      accounts.email_confirmation = checked;
       dispatch(setStateAccount({ account: accounts }));
     } else {
       dispatch(setStateAccount({ account: '' }));
@@ -62,8 +72,9 @@ const Account = ({ setNextSteps }: PropsO) => {
                   <input
                     type="text"
                     required
+                    value={isName}
                     placeholder="Enter your Full Name"
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
@@ -74,7 +85,8 @@ const Account = ({ setNextSteps }: PropsO) => {
                     type="email"
                     placeholder="Enter your email"
                     required
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    className="w-full rounded-lg border border-stroke bg-transparent py-0 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    value={isEmail}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <span className="absolute right-4 top-3">
