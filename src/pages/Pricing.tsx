@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import pricingDatas1 from './data/data';
 
 const Pricing = () => {
   const [displayedData, setDisplayedData] = useState<any>('');
+  const navigate = useNavigate();
 
   const handleButtonClick = (data: any) => {
     setDisplayedData(data);
@@ -33,7 +35,10 @@ const Pricing = () => {
             <p className="text-[18px] font-bold text-slate-400  mb-5">
               ${displayedData ? displayedData.price1 : '165'} USD
             </p>
-            <button className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]">
+            <button
+              onClick={(e) => navigate('/packages/order')}
+              className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]"
+            >
               Order Now
             </button>
           </div>
@@ -42,7 +47,10 @@ const Pricing = () => {
             <p className="text-[18px] font-bold text-slate-400  mb-5">
               ${displayedData ? displayedData.price2 : '195'} USD
             </p>
-            <button className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]">
+            <button
+              onClick={(e) => navigate('/packages/order')}
+              className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]"
+            >
               Order Now
             </button>
           </div>
@@ -51,7 +59,10 @@ const Pricing = () => {
             <p className="text-[18px] font-bold text-slate-400  mb-5">
               ${displayedData ? displayedData.price3 : '565'} USD
             </p>
-            <button className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]">
+            <button
+              onClick={(e) => navigate('/packages/order')}
+              className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]"
+            >
               Order Now
             </button>
           </div>
@@ -60,7 +71,10 @@ const Pricing = () => {
             <p className="text-[18px] font-bold text-slate-400  mb-5">
               ${displayedData ? displayedData.price4 : '695 '} USD
             </p>
-            <button className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]">
+            <button
+              onClick={(e) => navigate('/packages/order')}
+              className="px-6 py-3 text-[17px] font-medium bg-orange-500 text-white rounded-[50px]"
+            >
               Order Now
             </button>
           </div>

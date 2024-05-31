@@ -11,19 +11,33 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setStateAccount } from '../../../features/order/orderSlice';
 
-const Account = () => {
+type PropsO = {
+  setNextSteps: any;
+  accountLoc: any;
+};
+
+const Account = ({ setNextSteps, accountLoc }: PropsO) => {
   const [value, setValue] = React.useState('1');
   const [isName, setName] = React.useState('');
   const [isEmail, setEmail] = React.useState('');
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(false);
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (accountLoc) {
+      setName(accountLoc?.name);
+      setEmail(accountLoc?.email);
+      setChecked(accountLoc?.email_confirmation);
+    }
+  }, [accountLoc]);
+
+  useEffect(() => {
     if (emailPattern.test(isEmail) && isName) {
-      let accounts = { email: '', name: '' };
+      let accounts = { email: '', name: '', email_confirmation: false };
       accounts.email = isEmail;
       accounts.name = isName;
+      accounts.email_confirmation = checked;
       dispatch(setStateAccount({ account: accounts }));
     } else {
       dispatch(setStateAccount({ account: '' }));
@@ -52,25 +66,27 @@ const Account = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <Grid container gap={2}>
-              <Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6} sx={{ mt: 1 }}>
                 <div className="relative">
                   <input
                     type="text"
                     required
+                    value={isName}
                     placeholder="Enter your Full Name"
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </Grid>
-              <Grid>
+              <Grid item xs={12} md={6} sx={{ mt: 1 }}>
                 <div className="relative">
                   <input
                     type="email"
                     placeholder="Enter your email"
                     required
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    className="w-full rounded-lg border border-stroke bg-transparent py-0 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
+                    value={isEmail}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <span className="absolute right-4 top-3">
@@ -180,7 +196,12 @@ const Account = () => {
             </Grid>
           </TabPanel>
         </TabContext>
-        <button className="button-next " role="button">
+        <button
+          onClick={(e) => setNextSteps('account')}
+          className="button-next"
+          role="button"
+          disabled={emailPattern.test(isEmail) && isName ? false : true}
+        >
           Next Step <ArrowForwardIcon />
         </button>
       </Box>

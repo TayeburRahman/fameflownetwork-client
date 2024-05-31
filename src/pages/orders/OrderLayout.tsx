@@ -1,14 +1,71 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import Tooltip from '@mui/material/Tooltip';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {
+  setStateAccount,
+  setStateBrandDetails,
+  setStateNewsStory,
+  setStatePublishPackage,
+  setStateTotalPrice,
+  setStateWritingPackage,
+} from '../../features/order/orderSlice';
 import './index.css';
 
 const OrderLayout = () => {
   const { pathname } = useLocation();
-  const { writingPackage, detailedResearch, publishPackage } = useSelector(
-    (state) => state?.order,
-  );
-  const [totalprice, setTotalPrice] = useState<number>(0);
+  const navigate = useNavigate();
+  const {
+    writingPackage,
+    detailedResearch,
+    publishPackage,
+    account,
+    brand,
+    newsStory,
+    price,
+  } = useSelector((state) => state?.order);
+
+  // const [totalprice, setTotalPrice] = useState<number>(0);
+  const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    try {
+      const localOder = localStorage?.getItem('order');
+      if (localOder) {
+        const {
+          writingPackage,
+          detailedResearch,
+          publishPackage,
+          account,
+          brand,
+          newsStory,
+        } = JSON.parse(localOder);
+        if (
+          writingPackage?.title ||
+          publishPackage?.title ||
+          account ||
+          brand
+        ) {
+          dispatch(setStateAccount({ account: account }));
+          dispatch(setStateBrandDetails({ brands: brand }));
+          dispatch(setStateNewsStory({ news: newsStory }));
+          dispatch(setStatePublishPackage({ publishPackage: publishPackage }));
+          dispatch(
+            setStateWritingPackage({
+              writingPackage: writingPackage,
+              detailedResearch: detailedResearch,
+            }),
+          );
+        } else {
+          // navigate('/packages/order');
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving user from local storage:', error);
+    }
+  }, []);
 
   useEffect(() => {
     let total = 0;
@@ -26,13 +83,32 @@ const OrderLayout = () => {
     }
 
     total = Number(writing) + Number(research) + Number(publish);
-    console.log('tt', total);
-    setTotalPrice(total);
+    // setTotalPrice(total);
+    dispatch(setStateTotalPrice({ total }));
   }, [publishPackage, detailedResearch, writingPackage]);
+
+  const handleSaveToNext = () => {
+    localStorage.setItem(
+      'order',
+      JSON.stringify({
+        writingPackage: writingPackage,
+        detailedResearch: detailedResearch,
+        publishPackage: publishPackage,
+        account: account,
+        brand: brand,
+        newsStory: newsStory,
+      }),
+    );
+    navigate('/packages/review');
+  };
+
+  const updateUll = () => {
+    'const';
+  };
 
   return (
     <div className=" container mx-auto">
-      <div className="grid grid-cols-12   mt-[17vh]">
+      <div className="grid grid-cols-12   mt-[10vh]">
         <div className="col-span-7 px-10">
           <div>
             <img src="" />
@@ -46,29 +122,59 @@ const OrderLayout = () => {
           </div>
           <div className="mt-5">
             <div className="flex text_p">
-              <Link
-                className="nav_link me-3"
-                to="/packages/order"
-                id={`${pathname === '/packages/order' && 'nav_link'}`}
-              >
-                Order Form{' '}
-              </Link>{' '}
-              {' > '}
-              <Link
-                className="nav_link me-3 ms-3"
-                to="/packages/review"
-                id={`${pathname === '/packages/review' && 'nav_link'}`}
-              >
-                Review
-              </Link>{' '}
-              {' > '}
-              <Link
-                className="nav_link me-3 ms-3"
-                to="/packages/payment"
-                id={`${pathname === '/packages/payment' && 'nav_link'}`}
-              >
-                Payment
-              </Link>
+              <div className="me-3  ">
+                <Link
+                  className="nav_link "
+                  to="/packages/order"
+                  id={`${pathname === '/packages/order' && 'nav_link'}`}
+                >
+                  Order Form{' '}
+                </Link>
+              </div>
+              <NavigateNextIcon />
+
+              <div className="me-3 ms-3">
+                {pathname !== '/packages/order' ? (
+                  <Link
+                    className="nav_link "
+                    to="/packages/review"
+                    id={`${pathname === '/packages/review' && 'nav_link'}`}
+                  >
+                    Review
+                  </Link>
+                ) : (
+                  <p className="nav_link ">
+                    {' '}
+                    <Tooltip
+                      title="Before you proceed, Please complete all the necessary part of the order form"
+                      placement="top"
+                    >
+                      Review{' '}
+                    </Tooltip>
+                  </p>
+                )}
+              </div>
+              <NavigateNextIcon />
+              <div className="me-3 ms-3">
+                {pathname === '/packages/payment' ? (
+                  <Link
+                    className="nav_link  "
+                    to="/packages/payment"
+                    id={`${pathname === '/packages/payment' && 'nav_link'}`}
+                  >
+                    Payment
+                  </Link>
+                ) : (
+                  <p className="nav_link">
+                    <Tooltip
+                      title="Before you proceed, Please complete all the necessary part of the Payments form"
+                      placement="top"
+                    >
+                      Payment{' '}
+                    </Tooltip>
+                  </p>
+                )}
+              </div>
             </div>
             <div></div>
             <div>
@@ -212,8 +318,76 @@ const OrderLayout = () => {
             </div> */}
             <div className="text_price">
               <div> Total Price</div>
-              <p>${totalprice}</p>
+              <p>${price}</p>
             </div>
+
+            {pathname === '/packages/order' && (
+              <div
+                className=" mt-2"
+                style={{
+                  width: '100%',
+                }}
+              >
+                <button
+                  className="button-next mb-5"
+                  role="button"
+                  onClick={handleSaveToNext}
+                  style={{
+                    width: '100%',
+                  }}
+                  disabled={
+                    writingPackage &&
+                    publishPackage?.title &&
+                    account &&
+                    brandEmtry === 0
+                      ? false
+                      : true
+                  }
+                >
+                  Review Order
+                </button>
+              </div>
+            )}
+
+            {pathname === '/packages/review' && (
+              <div
+                className=" mt-2"
+                style={{
+                  width: '100%',
+                }}
+              >
+                <button
+                  className="button-next mb-5"
+                  role="button"
+                  onClick={(e) => navigate('/packages/payment')}
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  Continue to Payment Method
+                </button>
+              </div>
+            )}
+
+            {pathname === '/packages/payment' && (
+              <div
+                className=" mt-2"
+                style={{
+                  width: '100%',
+                }}
+              >
+                <button
+                  className="button-next mb-5"
+                  role="button"
+                  onClick={(e) => navigate('/packages/payments')}
+                  style={{
+                    width: '100%',
+                  }}
+                >
+                  Continue to Payment
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

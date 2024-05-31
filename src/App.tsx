@@ -29,6 +29,7 @@ import OrderLayout from './pages/orders/OrderLayout';
 import Orders from './pages/orders/Orders';
 import Payment from './pages/orders/Payment';
 import Review from './pages/orders/Review';
+import SuccessPayment from './pages/orders/pay/Success';
 import LandingPage from './pages/report/LandingPage';
 
 const App = () => {
@@ -158,6 +159,16 @@ const App = () => {
           <Route path="review" element={<Review />} />
           <Route path="payment" element={<Payment />} />
         </Route>
+
+        <Route
+          path="/pay/success"
+          element={
+            <>
+              <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />
+              <SuccessPayment />
+            </>
+          }
+        />
 
         <Route
           path="/dashboard/forms/form-elements"

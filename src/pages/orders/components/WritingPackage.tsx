@@ -2,7 +2,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Detailed from '../../../assets/BrandPush-Detailed-Research.png';
 import News from '../../../assets/Long-News-Story.png';
 import Regular from '../../../assets/Regular-News-Story.png';
@@ -22,9 +22,12 @@ type SelectedValueType = {
 
 type PropsL = {
   selectedValue: SelectedValueType;
-  setSelectedValue: React.Dispatch<React.SetStateAction<SelectedValueType>>;
-  checked: InputF;
-  setChecked: React.Dispatch<React.SetStateAction<InputF>>;
+  setSelectedValue: any;
+  checked: any;
+  setChecked: any;
+  setNextSteps: any;
+  writingPackageLoc: any;
+  detailedResearchLoc: any;
 };
 
 export default function WritingPackage({
@@ -32,8 +35,25 @@ export default function WritingPackage({
   setSelectedValue,
   checked,
   setChecked,
+  setNextSteps,
+  writingPackageLoc,
+  detailedResearchLoc,
 }: PropsL) {
   const [isResearch, setResearch] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    if (writingPackageLoc) {
+      setSelectedValue({
+        title: writingPackageLoc?.title,
+        price: writingPackageLoc?.price,
+        value: writingPackageLoc?.value,
+      });
+    }
+
+    if (detailedResearchLoc) {
+      setResearch(detailedResearchLoc.value);
+    }
+  }, [writingPackageLoc, detailedResearchLoc]);
 
   const handleClick = (title: string, price: any, value: string) => {
     setSelectedValue({
@@ -46,7 +66,7 @@ export default function WritingPackage({
     }
   };
 
-  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckBox = () => {
     if (selectedValue) {
       if (!checked?.name) {
         setChecked({ name: 'Detailed Research', price: 77 });
@@ -276,7 +296,12 @@ export default function WritingPackage({
         </button>
       </Box>
 
-      <button className="button-next mt-4" role="button">
+      <button
+        className="button-next mt-4"
+        onClick={(e) => setNextSteps('writing')}
+        disabled={selectedValue.title ? false : true}
+        role="button"
+      >
         Next Step <ArrowForwardIcon />
       </button>
     </div>

@@ -5,7 +5,7 @@ import { RootState } from '../app/store';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:6060',
+    baseUrl: 'https://fameflownetwork-server.vercel.app',
 
     prepareHeaders: async (headers, { getState, endpoint }) => {
       const token = await (getState() as RootState)?.auth?.token;

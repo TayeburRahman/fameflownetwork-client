@@ -5,6 +5,7 @@ const initialState = {
   detailedResearch: undefined,
   publishPackage: undefined,
   account: undefined,
+  nextState: '1st',
   brand: {
     brand_name: '',
     brand_country: '',
@@ -13,6 +14,11 @@ const initialState = {
     representative_email: '',
     agree: false,
   },
+  newsStory: {
+    docs_link: '',
+    details: '',
+  },
+  price: undefined,
 };
 
 const orderSlice = createSlice({
@@ -29,11 +35,18 @@ const orderSlice = createSlice({
     },
     setStatePublishPackage: (state, action) => {
       state.publishPackage = action.payload.publishPackage;
-      // state.detailedResearch = action.payload.detailedResearch;
     },
     setStateBrandDetails: (state, action) => {
       state.brand = action.payload.brands;
-      // state.detailedResearch = action.payload.detailedResearch;
+    },
+    setStateNewsStory: (state, action) => {
+      state.newsStory = action.payload.news;
+    },
+    setStateNext: (state, action) => {
+      state.nextState = action.payload.next;
+    },
+    setStateTotalPrice: (state, action) => {
+      state.price = action.payload.total;
     },
   },
 });
@@ -43,5 +56,8 @@ export const {
   setStatePublishPackage,
   setStateAccount,
   setStateBrandDetails,
+  setStateNewsStory,
+  setStateNext,
+  setStateTotalPrice,
 } = orderSlice.actions;
 export default orderSlice.reducer;
