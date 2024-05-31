@@ -73,6 +73,7 @@ const Payment = () => {
   };
 
   const handleOnPayment = async () => {
+    console.log('hello console');
     if (!checked) {
       setValue(true);
       return;
@@ -94,6 +95,7 @@ const Payment = () => {
       );
 
       console.log('response', response);
+
       if (response.statusText !== 'OK') {
         displayToast({
           status: 'error',
