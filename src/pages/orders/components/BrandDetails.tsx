@@ -61,8 +61,6 @@ const BrandDetails = ({ openBrand, setNextSteps, brandLoc }: PropsO) => {
   const changeHandler = (value: any) => {
     setValue(value);
 
-    console.log('changeHandler', value);
-
     setFormData((prevState) => ({
       ...prevState,
       brand_country: value,

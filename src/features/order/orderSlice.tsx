@@ -18,6 +18,7 @@ const initialState = {
     docs_link: '',
     details: '',
   },
+  price: undefined,
 };
 
 const orderSlice = createSlice({
@@ -44,6 +45,9 @@ const orderSlice = createSlice({
     setStateNext: (state, action) => {
       state.nextState = action.payload.next;
     },
+    setStateTotalPrice: (state, action) => {
+      state.price = action.payload.total;
+    },
   },
 });
 
@@ -54,5 +58,6 @@ export const {
   setStateBrandDetails,
   setStateNewsStory,
   setStateNext,
+  setStateTotalPrice,
 } = orderSlice.actions;
 export default orderSlice.reducer;

@@ -56,7 +56,6 @@ const NewsStory = ({ news_story }: PropsSet) => {
         newsStory: formData,
       }),
     );
-
     navigate('/packages/review');
   };
 
@@ -81,7 +80,6 @@ const NewsStory = ({ news_story }: PropsSet) => {
                 docs_link: e.target.value,
               }))
             }
-            value={formData?.docs_link}
           />
         </div>
         <div className="mt-4 pb-5 mb-5">

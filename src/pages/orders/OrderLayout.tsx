@@ -1,8 +1,16 @@
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Tooltip from '@mui/material/Tooltip';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {
+  setStateAccount,
+  setStateBrandDetails,
+  setStateNewsStory,
+  setStatePublishPackage,
+  setStateTotalPrice,
+  setStateWritingPackage,
+} from '../../features/order/orderSlice';
 import './index.css';
 
 const OrderLayout = () => {
@@ -19,6 +27,44 @@ const OrderLayout = () => {
 
   const [totalprice, setTotalPrice] = useState<number>(0);
   const brandEmtry = Object?.values(brand)?.filter((value) => !value)?.length;
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    try {
+      const localOder = localStorage?.getItem('order');
+      if (localOder) {
+        const {
+          writingPackage,
+          detailedResearch,
+          publishPackage,
+          account,
+          brand,
+          newsStory,
+        } = JSON.parse(localOder);
+        if (
+          writingPackage?.title ||
+          publishPackage?.title ||
+          account ||
+          brand
+        ) {
+          dispatch(setStateAccount({ account: account }));
+          dispatch(setStateBrandDetails({ brands: brand }));
+          dispatch(setStateNewsStory({ news: newsStory }));
+          dispatch(setStatePublishPackage({ publishPackage: publishPackage }));
+          dispatch(
+            setStateWritingPackage({
+              writingPackage: writingPackage,
+              detailedResearch: detailedResearch,
+            }),
+          );
+        } else {
+          // navigate('/packages/order');
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving user from local storage:', error);
+    }
+  }, []);
 
   useEffect(() => {
     let total = 0;
@@ -37,6 +83,7 @@ const OrderLayout = () => {
 
     total = Number(writing) + Number(research) + Number(publish);
     setTotalPrice(total);
+    dispatch(setStateTotalPrice({ total }));
   }, [publishPackage, detailedResearch, writingPackage]);
 
   const handleSaveToNext = () => {
@@ -331,12 +378,12 @@ const OrderLayout = () => {
                 <button
                   className="button-next mb-5"
                   role="button"
-                  onClick={(e) => navigate('/packages/payment')}
+                  onClick={(e) => navigate('/packages/payments')}
                   style={{
                     width: '100%',
                   }}
                 >
-                  Continue to Payment Method
+                  Continue to Payment
                 </button>
               </div>
             )}
