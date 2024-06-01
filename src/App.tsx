@@ -13,6 +13,9 @@ import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
 import AdminDetails from './pages/Dashboard/admin/AdminDetails';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
+import ActiveOrders from './pages/Dashboard/admin/order/ActiveOrder';
+import PaddingOrder from './pages/Dashboard/admin/order/PaddingOrder';
+import PaymentDetails from './pages/Dashboard/admin/order/PaymentDetails';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
 import Package from './pages/Dashboard/admin/report/package/Package';
 import PublicationDetails from './pages/Dashboard/users/PublicationDetails';
@@ -176,6 +179,36 @@ const App = () => {
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
               <FormElements />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/padding_orders"
+          element={
+            <>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <PaddingOrder />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/active_order"
+          element={
+            <>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <ActiveOrders />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/pay_details"
+          element={
+            <>
+              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
+              <PaymentDetails />
             </>
           }
         />
