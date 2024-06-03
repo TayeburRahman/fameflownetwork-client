@@ -92,7 +92,7 @@ const Payment = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:6060/api/v1/payment/oder',
+        'https://fameflownetwork-server.vercel.app/api/v1/payment/oder',
         { formData },
       );
 

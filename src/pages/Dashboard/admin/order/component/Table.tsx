@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TableLoader from '../../../../../components/TableLoader';
 
 type PropsS = {
@@ -6,6 +8,11 @@ type PropsS = {
 };
 
 const TableOrder = ({ orders, isLoading }: PropsS) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [status, setStatus] = useState<string>('');
+  const [openOrder, setOrders] = useState<object>();
+  const navigate = useNavigate();
+
   return (
     <div>
       {isLoading ? (
@@ -36,7 +43,13 @@ const TableOrder = ({ orders, isLoading }: PropsS) => {
             <tbody>
               {orders?.length ? (
                 orders.map((order, key) => (
-                  <tr key={key} style={{ cursor: 'pointer' }}>
+                  <tr
+                    onClick={(e) =>
+                      navigate(`/dashboard/admin/order/${order?._id}`)
+                    }
+                    key={key}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
                         {order.email}

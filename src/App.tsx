@@ -13,9 +13,9 @@ import Dashboard from './pages/Dashboard';
 import ECommerce from './pages/Dashboard/ECommerce';
 import AdminDetails from './pages/Dashboard/admin/AdminDetails';
 import ManageUsers from './pages/Dashboard/admin/ManageUsers';
-import ActiveOrders from './pages/Dashboard/admin/order/ActiveOrder';
-import PaddingOrder from './pages/Dashboard/admin/order/PaddingOrder';
+import AllOrders from './pages/Dashboard/admin/order/AllOrders';
 import PaymentDetails from './pages/Dashboard/admin/order/PaymentDetails';
+import OrderDetails from './pages/Dashboard/admin/order/component/OrderDetails';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
 import Package from './pages/Dashboard/admin/report/package/Package';
 import PublicationDetails from './pages/Dashboard/users/PublicationDetails';
@@ -188,17 +188,17 @@ const App = () => {
           element={
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
-              <PaddingOrder />
+              <AllOrders />
             </>
           }
         />
 
         <Route
-          path="/dashboard/admin/active_order"
+          path="/dashboard/admin/order/:id"
           element={
             <>
-              <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />
-              <ActiveOrders />
+              <PageTitle title="Order Details | FameFlow - Go Viral With Massive Exposure" />
+              <OrderDetails />
             </>
           }
         />
