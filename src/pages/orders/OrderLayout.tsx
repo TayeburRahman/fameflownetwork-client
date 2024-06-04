@@ -12,6 +12,7 @@ import {
   setStateWritingPackage,
 } from '../../features/order/orderSlice';
 import './index.css';
+import PayButton from './pay/Checkout.button';
 
 const OrderLayout = () => {
   const { pathname } = useLocation();
@@ -369,25 +370,7 @@ const OrderLayout = () => {
               </div>
             )}
 
-            {pathname === '/packages/payment' && (
-              <div
-                className=" mt-2"
-                style={{
-                  width: '100%',
-                }}
-              >
-                <button
-                  className="button-next mb-5"
-                  role="button"
-                  onClick={(e) => navigate('/packages/payments')}
-                  style={{
-                    width: '100%',
-                  }}
-                >
-                  Continue to Payment
-                </button>
-              </div>
-            )}
+            {pathname === '/packages/payment' && <PayButton></PayButton>}
           </div>
         </div>
       </div>
