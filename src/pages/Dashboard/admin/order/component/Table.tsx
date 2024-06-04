@@ -76,9 +76,9 @@ const TableOrder = ({ orders, isLoading }: PropsS) => {
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <button
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                          order.status === 'active'
+                          order.payment === 'Processing'
                             ? 'bg-success text-success'
-                            : order.status === 'padding'
+                            : order.payment === 'Pending'
                               ? 'bg-danger text-danger'
                               : 'bg-warning text-warning'
                         }`}
