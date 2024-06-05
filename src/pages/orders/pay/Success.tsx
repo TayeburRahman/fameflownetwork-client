@@ -60,9 +60,9 @@ export default function SuccessPayment() {
           <Typography variant="h5">Successfully pay</Typography>
           <button
             className="button-next mt-5 mb-5"
-            onClick={(e) => navigation('/')}
+            onClick={(e) => navigation('/user-dashboard/profile')}
           >
-            Go to Home page
+            Go to your profile
           </button>
         </div>
       </Container>
