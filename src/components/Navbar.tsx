@@ -12,7 +12,9 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState('home');
 
   const [cookies, removeCookie] = useCookies(['auth']);
-  const loggedIn = cookies.auth;
+
+  const localAuth = localStorage?.getItem('auth');
+  const loggedIn = JSON.parse(localAuth || '{}');
 
   const handleLinkClick = (link: any) => {
     setActiveLink(link);

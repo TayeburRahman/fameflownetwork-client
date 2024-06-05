@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TableLoader from '../../../../../components/TableLoader';
+import TableLoader from '../../../components/TableLoader';
 
 type PropsS = {
   isLoading: any;
@@ -8,9 +7,6 @@ type PropsS = {
 };
 
 const TableOrder = ({ orders, isLoading }: PropsS) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>('');
-  const [openOrder, setOrders] = useState<object>();
   const navigate = useNavigate();
 
   return (
@@ -45,7 +41,7 @@ const TableOrder = ({ orders, isLoading }: PropsS) => {
                 orders.map((order, key) => (
                   <tr
                     onClick={(e) =>
-                      navigate(`/dashboard/admin/order/${order?._id}`)
+                      navigate(`/user-dashboard/orders/${order?._id}`)
                     }
                     key={key}
                     style={{ cursor: 'pointer' }}

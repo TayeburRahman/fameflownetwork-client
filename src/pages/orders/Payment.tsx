@@ -96,6 +96,8 @@ const Payment = () => {
         { formData },
       );
 
+      console.log(response);
+
       if (response.status !== 200) {
         setLoading(false);
         displayToast({
@@ -107,7 +109,7 @@ const Payment = () => {
 
       if (response?.data?.session.url) {
         window.location.href = response.data.session.url;
-        localStorage.removeItem('order');
+        // localStorage.removeItem('order');
         setLoading(false);
       }
     } catch (error) {
