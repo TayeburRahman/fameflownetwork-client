@@ -65,6 +65,16 @@ const App = () => {
         />
 
         <Route
+          path="/pay/success/:email/order/:id"
+          element={
+            <>
+              <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />
+              <SuccessPayment />
+            </>
+          }
+        />
+
+        <Route
           path="/dashboard"
           index
           element={
@@ -170,16 +180,6 @@ const App = () => {
           <Route path="review" element={<Review />} />
           <Route path="payment" element={<Payment />} />
         </Route>
-
-        <Route
-          path="/pay/success/:email/order/:id"
-          element={
-            <>
-              <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />
-              <SuccessPayment />
-            </>
-          }
-        />
 
         <Route
           path="/dashboard/forms/form-elements"
