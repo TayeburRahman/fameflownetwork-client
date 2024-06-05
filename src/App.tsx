@@ -65,7 +65,7 @@ const App = () => {
         />
 
         <Route
-          path="/pay/success/:email/:id"
+          path="/pay/success/:user/:id"
           element={
             <>
               <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />

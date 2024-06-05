@@ -11,7 +11,7 @@ type PropsPay = {
 };
 
 export default function SuccessPayment() {
-  const { id, email } = useParams();
+  const { id, user: email } = useParams();
 
   const { displayToast } = useToast();
 
