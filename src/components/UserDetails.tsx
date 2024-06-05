@@ -43,6 +43,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
     localStorage.removeItem('auth');
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    setDropdownOpen(false);
   };
 
   return (
