@@ -16,10 +16,6 @@ export default function SuccessPayment() {
   const { displayToast } = useToast();
 
   useEffect(() => {
-    const data = {
-      id,
-    };
-
     const postData = async () => {
       try {
         const response = await axios.post(
@@ -27,6 +23,8 @@ export default function SuccessPayment() {
         );
 
         const { token, user } = response.data;
+
+        console.log('token', token, user);
         if (response.status === 204) {
           displayToast({
             status: 'error',

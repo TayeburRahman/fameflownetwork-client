@@ -169,6 +169,42 @@ const UserOrderDetails = () => {
                 </p>
               </Grid>
             </Grid>
+
+            <Box className="review_box mt-5">
+              <div className="d-flex-c between">
+                <Box className="d-flex-c">
+                  <Box className="">
+                    <Typography className="review_title p-2">
+                      {' '}
+                      News Story{' '}
+                    </Typography>
+                  </Box>
+                </Box>
+              </div>
+              <div className="p-2">
+                <p className="data_name_">Link: </p>
+                <span className="span_data ">
+                  {data?.news_story?.docs_link
+                    ? data?.news_story?.docs_link
+                    : 'No link provided'}
+                </span>
+                <p className="data_name_ mt-2">
+                  Description:{' '}
+                  <span className="span_data_quill">
+                    {data?.news_story?.details ? (
+                      <div
+                        className="span_data_quill"
+                        dangerouslySetInnerHTML={{
+                          __html: data?.news_story?.details,
+                        }}
+                      ></div>
+                    ) : (
+                      <p> No description provided</p>
+                    )}
+                  </span>
+                </p>
+              </div>
+            </Box>
           </div>
         </div>
       </UserLayout>
