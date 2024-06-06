@@ -2,15 +2,13 @@ import { Box, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import News from '../../../../../assets/Long-News-Story.png';
-import Regular from '../../../../../assets/Regular-News-Story.png';
-import Short from '../../../../../assets/Short-News-Story.png';
-import WriteYourOwnStory from '../../../../../assets/WriteYourOwnStory.png';
-import DefaultLayout from '../../../../../layout/DefaultLayout';
-import DeleteModal from './DeleteModal';
-import UpdateSelector from './UpdateSelector';
+import News from '../../../assets/Long-News-Story.png';
+import Regular from '../../../assets/Regular-News-Story.png';
+import Short from '../../../assets/Short-News-Story.png';
+import WriteYourOwnStory from '../../../assets/WriteYourOwnStory.png';
+import UserLayout from '../../../layout/UserLayout';
 
-const OrderDetails = () => {
+const UserOrderDetails = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [value, setOnClickValue] = useState(false);
@@ -60,7 +58,7 @@ const OrderDetails = () => {
   return (
     <>
       {/* Modal dialog */}
-      <DefaultLayout>
+      <UserLayout>
         <div className="bg-white p-6">
           <div className="bg-white">
             <Grid className="pb-5" spacing={2} container>
@@ -110,13 +108,13 @@ const OrderDetails = () => {
               <Grid item className="" xs={6} md={4}>
                 <p>Payment</p>
 
-                <UpdateSelector
-                  setStatus={setStatus}
-                  id={id}
-                  type="payment"
-                  order={data}
-                  colorB={data?.payment === 'Paid' ? 'Green' : '#dd8e17'}
-                />
+                <p
+                  style={{
+                    color: data?.payment === 'Paid' ? 'Green' : '#dd8e17',
+                  }}
+                >
+                  {data?.payment}
+                </p>
               </Grid>
             </Grid>
 
@@ -158,33 +156,60 @@ const OrderDetails = () => {
               </Grid>
               <Grid item className=" " xs={6} md={4}>
                 <p>Status</p>
-                <UpdateSelector
-                  setStatus={setStatus}
-                  id={id}
-                  type="status"
-                  order={data}
-                  colorB={
-                    (data?.status === 'Pending' && '#dd8e17') ||
-                    (data?.status === 'Compted' && 'blueviolet') ||
-                    (data?.status === 'Processing' && 'Green')
-                  }
-                />
-              </Grid>
-              <Grid item className=" " xs={6} md={4}>
-                <p>Delete</p>
-                <button onClick={handleOnDelete}>Remove</button>
+
+                <p
+                  style={{
+                    color:
+                      (data?.status === 'Pending' && '#dd8e17') ||
+                      (data?.status === 'Compted' && 'blueviolet') ||
+                      (data?.status === 'Processing' && 'Green'),
+                  }}
+                >
+                  {data?.status}
+                </p>
               </Grid>
             </Grid>
+
+            <Box className="review_box mt-5">
+              <div className="d-flex-c between">
+                <Box className="d-flex-c">
+                  <Box className="">
+                    <Typography className="review_title p-2">
+                      {' '}
+                      News Story{' '}
+                    </Typography>
+                  </Box>
+                </Box>
+              </div>
+              <div className="p-2">
+                <p className="data_name_">Link: </p>
+                <span className="span_data ">
+                  {data?.news_story?.docs_link
+                    ? data?.news_story?.docs_link
+                    : 'No link provided'}
+                </span>
+                <p className="data_name_ mt-2">
+                  Description:{' '}
+                  <span className="span_data_quill">
+                    {data?.news_story?.details ? (
+                      <div
+                        className="span_data_quill"
+                        dangerouslySetInnerHTML={{
+                          __html: data?.news_story?.details,
+                        }}
+                      ></div>
+                    ) : (
+                      <p> No description provided</p>
+                    )}
+                  </span>
+                </p>
+              </div>
+            </Box>
           </div>
-          <DeleteModal
-            onCloseDelete={handleOnClose}
-            dValue={data}
-            isDelete={openDelete}
-          />
         </div>
-      </DefaultLayout>
+      </UserLayout>
     </>
   );
 };
 
-export default OrderDetails;
+export default UserOrderDetails;

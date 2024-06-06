@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 
@@ -9,7 +8,6 @@ interface UserDetailsProps {
 
 const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['auth']);
   const { isLoggedIn } = useAdmin();
 
   const trigger = useRef<any>(null);
@@ -45,8 +43,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ userdata }) => {
     localStorage.removeItem('auth');
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
-    removeCookie('auth');
+    setDropdownOpen(false);
   };
 
   return (

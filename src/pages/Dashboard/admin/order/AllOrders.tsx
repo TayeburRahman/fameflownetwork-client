@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DefaultLayout from '../../../../layout/DefaultLayout';
 import TableOrder from './component/Table';
 
@@ -12,7 +13,7 @@ const AllOrders = () => {
   const [ispayment, setChangePayment] = useState('Paid');
   const [isstatus, setChangeState] = useState('Processing');
 
-  console.log('orders', orders);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const publicationDataApi = async () => {
@@ -34,6 +35,9 @@ const AllOrders = () => {
       } catch (error: any) {
         console.log('error', error.response);
         setLoading(false);
+        if (error.response.status === 400) {
+          navigate('/auth/signin');
+        }
       }
     };
     publicationDataApi();

@@ -1,6 +1,9 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import useToast from '../../../hooks/useToast';
 
 type PropsPay = {
   checked: any;
@@ -8,6 +11,43 @@ type PropsPay = {
 };
 
 export default function SuccessPayment() {
+  const { id } = useParams();
+
+  const { displayToast } = useToast();
+
+  useEffect(() => {
+    const postData = async () => {
+      try {
+        const response = await axios.post(
+          `https://fameflownetwork-server.vercel.app/api/v1/payment/order/${id}/user`,
+        );
+
+        const { token, user } = response.data;
+
+        console.log('token', token, user);
+        if (response.status === 204) {
+          displayToast({
+            status: 'error',
+            message: response.data.message,
+          });
+        }
+        if (user?.email) {
+          localStorage.setItem(
+            'auth',
+            JSON.stringify({
+              token: token,
+              user: user,
+              id: user._id,
+            }),
+          );
+        }
+      } catch (error) {
+        // setLoading(false);
+      }
+    };
+
+    postData();
+  }, [id]);
   const navigation = useNavigate();
   return (
     <div>
@@ -17,9 +57,9 @@ export default function SuccessPayment() {
           <Typography variant="h5">Successfully pay</Typography>
           <button
             className="button-next mt-5 mb-5"
-            onClick={(e) => navigation('/')}
+            onClick={(e) => navigation('/user-dashboard/profile')}
           >
-            Go to Home page
+            Go to your profile
           </button>
         </div>
       </Container>

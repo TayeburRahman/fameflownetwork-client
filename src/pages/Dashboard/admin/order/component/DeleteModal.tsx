@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToast from '../../../../../hooks/useToast';
 
 interface ModalProps {
@@ -23,17 +24,20 @@ const DeleteModal: React.FC<ModalProps> = ({
     }, 300); // Adjust the transition duration as needed
   };
 
+  const navigate = useNavigate();
+
   const deleteOnHandel = async () => {
     try {
-      const apiUrl2 = `https://fameflownetwork-server.vercel.app/api/v1/package/delete/${dValue._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/payment/order/delete/${dValue._id}`;
 
-      const response = await axios.delete(apiUrl2);
+      const response = await axios.delete(apiUrl);
 
       if (response.data.status === 'success') {
         displayToast({
           status: 'success',
           message: 'Publication delete successfully!',
         });
+        navigate('/dashboard/admin/manage_orders');
         closeModal(); // Close modal on successful submission
       } else {
         displayToast({

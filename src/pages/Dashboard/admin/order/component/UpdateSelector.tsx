@@ -121,7 +121,7 @@ export default function UpdateSelector({
                 >
                   <MenuItem value="Pending">A. Pending</MenuItem>
                   <MenuItem value="Processing">B. Processing</MenuItem>
-                  <MenuItem value="Compted">C. Compted</MenuItem>
+                  <MenuItem value="Compted">C. Completed</MenuItem>
                 </Select>
               )}
             </FormControl>

@@ -100,9 +100,6 @@ const Orders = () => {
     if (writingPackageLoc?.title) {
       setOpenWriting(true);
     }
-    if (accountLoc) {
-      setOpenPublishing(true);
-    }
     if (brandLoc) {
       setOpenBrand(true);
     }
@@ -116,16 +113,19 @@ const Orders = () => {
     }
     if (nextSteps === 'account') {
       setExpandedPublishing(true);
+      setOpenPublishing(true);
     } else {
       setExpandedPublishing(false);
     }
     if (nextSteps === 'publishing') {
       setExpandedWriting(true);
+      setOpenWriting(true);
     } else {
       setExpandedWriting(false);
     }
     if (nextSteps === 'writing') {
       setExpandedBrand(true);
+      setOpenBrand(true);
     } else {
       setExpandedBrand(false);
     }

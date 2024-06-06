@@ -18,7 +18,9 @@ import PaymentDetails from './pages/Dashboard/admin/order/PaymentDetails';
 import OrderDetails from './pages/Dashboard/admin/order/component/OrderDetails';
 import SampolReports from './pages/Dashboard/admin/report/SampolReports';
 import Package from './pages/Dashboard/admin/report/package/Package';
+import UserOrderDetails from './pages/Dashboard/users/OrderDetails';
 import PublicationDetails from './pages/Dashboard/users/PublicationDetails';
+import UserOrders from './pages/Dashboard/users/UserOrders';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Home from './pages/Home';
@@ -55,6 +57,22 @@ const App = () => {
         <Route path="/user-dashboard" element={<Dashboard />} />
         <Route path="/user-dashboard/settings" element={<UserSettings />} />
         <Route path="/user-dashboard/billing-reports" element={<BillInfo />} />
+
+        <Route path="/user-dashboard/orders" element={<UserOrders />} />
+        <Route
+          path="/user-dashboard/orders/:id"
+          element={<UserOrderDetails />}
+        />
+
+        <Route
+          path="/pay/success/:id"
+          element={
+            <>
+              <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />
+              <SuccessPayment />
+            </>
+          }
+        />
 
         <Route
           path="/dashboard"
@@ -164,16 +182,6 @@ const App = () => {
         </Route>
 
         <Route
-          path="/pay/success"
-          element={
-            <>
-              <PageTitle title="Payment Successfully | FameFlow - Go Viral With Massive Exposure" />
-              <SuccessPayment />
-            </>
-          }
-        />
-
-        <Route
           path="/dashboard/forms/form-elements"
           element={
             <>
@@ -184,7 +192,7 @@ const App = () => {
         />
 
         <Route
-          path="/dashboard/admin/padding_orders"
+          path="/dashboard/admin/manage_orders"
           element={
             <>
               <PageTitle title="Form Elements | FameFlow - Go Viral With Massive Exposure" />

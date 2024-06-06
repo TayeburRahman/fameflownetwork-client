@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useCookies } from 'react-cookie';
 import useAdmin from '../../hooks/useAdmin';
 import UserOne from '../../images/user/user-01.png';
 
@@ -11,9 +10,7 @@ interface UserDetailsProps {
 
 const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['auth']);
   const { isLoggedIn: isAdmin } = useAdmin();
-  const { user } = cookies.auth;
 
   const navigate = useNavigate();
   const trigger = useRef<any>(null);
@@ -35,7 +32,6 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -49,8 +45,6 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
     localStorage.removeItem('auth');
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
-    removeCookie('auth');
     navigate('/');
   };
 
