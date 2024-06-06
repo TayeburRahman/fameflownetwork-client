@@ -1,12 +1,11 @@
-import { useCookies } from 'react-cookie';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import useAuth from '../hooks/useAuth';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 import UserLayout from '../layout/UserLayout';
 
 const Profile = () => {
-  const [cookies, setCookie] = useCookies(['auth']);
-  const { user } = cookies.auth;
+  const { isUser: user } = useAuth();
   return (
     <UserLayout>
       <Breadcrumb pageName="Profile" />
