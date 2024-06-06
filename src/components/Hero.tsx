@@ -33,7 +33,7 @@ const Hero = () => {
           Step into the spotlight with your story featured across our network of
           200 influential news sites, reaching an impressive audience of 100
           million visitors each month. Elevate your visibility and search
-          rankings with a powerful exposure boost by showcasing your content..
+          rankings with a powerful exposure boost by showcasing your content.
         </p>
 
         <div className="space-x-3 mt-[100px] btns max-md:flex">
