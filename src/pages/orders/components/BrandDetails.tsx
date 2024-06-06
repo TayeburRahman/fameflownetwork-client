@@ -24,7 +24,7 @@ const BrandDetails = ({ openBrand, setNextSteps, brandLoc }: PropsO) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({
     brand_name: '',
-    brand_country: {},
+    brand_country: '',
     website_link: '',
     representative_name: '',
     representative_email: '',

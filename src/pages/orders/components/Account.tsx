@@ -46,6 +46,7 @@ const Account = ({ setNextSteps, accountLoc }: PropsO) => {
       setName(accountLoc?.name);
       setEmail(accountLoc?.email);
       setChecked(accountLoc?.email_confirmation);
+      setExPassword(accountLoc?.password);
     }
   }, [accountLoc]);
 
@@ -72,9 +73,21 @@ const Account = ({ setNextSteps, accountLoc }: PropsO) => {
       !existUser.email &&
       emailPattern.test(isEmail) &&
       isName &&
-      exPassword.length > 8
+      exPassword?.length > 8
     ) {
       setAccountStatus('express');
+      let accounts = {
+        email: '',
+        name: '',
+        email_confirmation: false,
+        password: '',
+        status: 'express',
+      };
+      accounts.email = isEmail;
+      accounts.name = isName;
+      accounts.password = exPassword;
+      accounts.email_confirmation = checked;
+      dispatch(setStateAccount({ account: accounts }));
     } else {
       setAccountStatus('');
       dispatch(setStateAccount({ account: '' }));
@@ -226,6 +239,7 @@ const Account = ({ setNextSteps, accountLoc }: PropsO) => {
                     placeholder="Password, 8+ Characters"
                     className="w-full rounded-lg border border-stroke bg-transparent   pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary h-10"
                     onChange={(e) => setExPassword(e.target.value)}
+                    value={exPassword}
                   />
 
                   <span className="absolute right-4 top-3">
