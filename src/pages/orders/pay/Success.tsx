@@ -11,20 +11,19 @@ type PropsPay = {
 };
 
 export default function SuccessPayment() {
-  const { id, user: email } = useParams();
+  const { id } = useParams();
 
   const { displayToast } = useToast();
 
   useEffect(() => {
     const data = {
       id,
-      email,
     };
 
     const postData = async () => {
       try {
         const response = await axios.post(
-          `https://fameflownetwork-server.vercel.app/api/v1/payment/order/${id}/user/${email}`,
+          `https://fameflownetwork-server.vercel.app/api/v1/payment/order/${id}/user`,
         );
 
         const { token, user } = response.data;
@@ -50,7 +49,7 @@ export default function SuccessPayment() {
     };
 
     postData();
-  }, [id, email]);
+  }, [id]);
   const navigation = useNavigate();
   return (
     <div>

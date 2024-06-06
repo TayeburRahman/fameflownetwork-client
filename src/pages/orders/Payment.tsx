@@ -96,8 +96,6 @@ const Payment = () => {
         { formData },
       );
 
-      console.log(response);
-
       if (response.status !== 200) {
         setLoading(false);
         displayToast({
