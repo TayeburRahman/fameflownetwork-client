@@ -1,5 +1,4 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "routes": [
     { "src": "/chat", "dest": "/Chat" },
     { "src": "/[^.]+", "dest": "/", "status": 200 }
