@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import useAdmin from '../hooks/useAdmin';
+import { setUserInfo } from '../features/auth/authSlice';
 import useToast from '../hooks/useToast';
 import DefaultLayout from '../layout/DefaultLayout';
 
@@ -17,25 +17,16 @@ type Inputs = {
 const Settings = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { displayToast } = useToast();
-  const { isAdmin } = useAdmin();
-  const [userData, setUserState] = useState<any>({});
 
-  const [cookies, setCookie] = useCookies(['auth']);
-  const { user } = cookies.auth;
+  const { user: userData } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (isAdmin) {
-      setUserState({ ...isAdmin });
-    }
-  }, [isAdmin]);
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-
-  console.log('isAdmin..', userData?.name);
 
   const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     if (forData) {
@@ -76,14 +67,14 @@ const Settings = () => {
             id: updateUser._id,
           }),
         );
-
-        setCookie('auth', {
-          token: token,
-          user: updateUser,
-          id: updateUser._id,
-        });
-
-        // navigate('/');
+        // console.log('up ', updateUser);
+        dispatch(
+          setUserInfo({
+            token: token,
+            user: updateUser,
+            id: updateUser._id,
+          }),
+        );
       } else {
         displayToast({
           status: 'error',
@@ -94,7 +85,7 @@ const Settings = () => {
       // reset();
     } catch (error: any) {
       setLoading(false);
-      if (error.response.data.status === 'error') {
+      if (error.response?.data?.status === 'error') {
         displayToast({
           status: 'error',
           message: error.response.data.message,
@@ -112,7 +103,7 @@ const Settings = () => {
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-3 ">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
@@ -164,10 +155,7 @@ const Settings = () => {
                           id="name"
                           {...register('name')}
                           placeholder="Write your name"
-                          value={userData?.name && userData.name}
-                          onChange={(e) =>
-                            setUserState({ name: e.target.value })
-                          }
+                          defaultValue={userData?.name && userData.name}
                         />
                       </div>
                     </div>
@@ -186,10 +174,7 @@ const Settings = () => {
                         id="Phone"
                         {...register('phone')}
                         placeholder="Add a phone number"
-                        value={userData?.phone && userData.phone}
-                        onChange={(e) =>
-                          setUserState({ phone: e.target.value })
-                        }
+                        defaultValue={userData?.phone && userData.phone}
                       />
                     </div>
                   </div>

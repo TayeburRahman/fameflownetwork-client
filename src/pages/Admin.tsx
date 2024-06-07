@@ -1,12 +1,11 @@
-import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const Admin = () => {
-  const [cookies, setCookie] = useCookies(['auth']);
-  const { user } = cookies.auth;
+  const { user } = useSelector((state) => state.auth);
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Profile" />

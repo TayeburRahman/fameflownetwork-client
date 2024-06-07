@@ -140,7 +140,7 @@ const Publications: React.FC<UserDetailsProps> = ({ userData, mType }) => {
             },
           });
           const { publications, status } = response.data;
-          // console.log(publications);
+          console.log('hh', publications);
 
           if (status === 'success') {
             setPublication(publications?.publication);

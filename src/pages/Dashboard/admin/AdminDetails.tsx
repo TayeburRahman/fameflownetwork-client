@@ -75,6 +75,7 @@ const AdminDetails = () => {
           },
         });
         const { data } = response;
+        console.log('user-------------', data);
         setUserData(data);
       } catch (error: any) {
         console.log('error', error.response);

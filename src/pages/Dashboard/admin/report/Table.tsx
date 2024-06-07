@@ -184,7 +184,7 @@ const Table: React.FC<UserDetailsProps> = ({ userData, mType, name }) => {
         {name ? name : 'Sample Reports'}
       </h4>
 
-      <div className="  mb-5">
+      <div className="mb-5">
         <form onSubmit={handleSubmit(onSubmit)} className="grid">
           <input
             defaultValue={isTexts && isTexts?.image}

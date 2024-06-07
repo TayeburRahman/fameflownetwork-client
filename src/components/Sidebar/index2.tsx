@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
 import SidebarLinkGroup from './SidebarLinkGroup';
 // import Logo from '../../images/logo/logo.svg';
 
@@ -13,7 +13,7 @@ const Sidebar2 = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
 
-  const { isUser: user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);

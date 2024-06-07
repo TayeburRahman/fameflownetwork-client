@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import useAuth from '../hooks/useAuth';
+import { setUserInfo } from '../features/auth/authSlice';
 import useToast from '../hooks/useToast';
 import UserLayout from '../layout/UserLayout';
 
@@ -17,7 +18,9 @@ const UserSettings = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const { displayToast } = useToast();
 
-  const { isUser } = useAuth();
+  const { user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -26,7 +29,7 @@ const UserSettings = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  // console.log(isUser && isUser._id);
+  // console.log(user && user._id);
 
   const onSubmit: SubmitHandler<Inputs> = async (forData) => {
     if (forData) {
@@ -40,7 +43,7 @@ const UserSettings = () => {
     }
     try {
       setLoading(true);
-      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${isUser?._id}`;
+      const apiUrl = `https://fameflownetwork-server.vercel.app/api/v1/user/details/${user?._id}`;
       const response = await axios.put(apiUrl, forData);
       const { updateUser, token } = response.data;
 
@@ -62,6 +65,14 @@ const UserSettings = () => {
         localStorage.setItem(
           'auth',
           JSON.stringify({
+            token: token,
+            user: updateUser,
+            id: updateUser._id,
+          }),
+        );
+
+        dispatch(
+          setUserInfo({
             token: token,
             user: updateUser,
             id: updateUser._id,
@@ -101,7 +112,7 @@ const UserSettings = () => {
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
-        <div className="grid grid-cols-5 gap-8">
+        <div className="grid grid-cols-3  ">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
@@ -152,7 +163,7 @@ const UserSettings = () => {
                           // name="name"
                           id="name"
                           {...register('name')}
-                          defaultValue={`${isUser && isUser.name}`}
+                          defaultValue={`${user && user.name}`}
                         />
                       </div>
                     </div>
@@ -171,7 +182,7 @@ const UserSettings = () => {
                         id="Phone"
                         {...register('phone')}
                         placeholder="Add a phone number"
-                        defaultValue={`${isUser?.phone ? isUser.phone : ''}`}
+                        defaultValue={`${user?.phone ? user.phone : ''}`}
                       />
                     </div>
                   </div>
@@ -216,7 +227,7 @@ const UserSettings = () => {
                         disabled
                         id="email"
                         // placeholder="devidjond45@gmail.com"
-                        defaultValue={`${isUser && isUser.email}`}
+                        defaultValue={`${user && user.email}`}
                         {...register('email')}
                       />
                     </div>
@@ -285,7 +296,7 @@ const UserSettings = () => {
                         rows={6}
                         {...register('bio')}
                         placeholder="Write your bio here"
-                        defaultValue={`${isUser && isUser?.bio ? isUser?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
+                        defaultValue={`${user && user?.bio ? user?.bio : "Welcome to our platform! With a wealth of experience spanning many years and a track record of over 10,000 published news stories, we're committed to delivering top-notch publishing services to our users. Feel free to customize your bio and make your mark on our platform!"}`}
                       ></textarea>
                     </div>
                   </div>

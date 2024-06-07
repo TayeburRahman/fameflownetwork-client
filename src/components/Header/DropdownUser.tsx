@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
 import useAdmin from '../../hooks/useAdmin';
 import UserOne from '../../images/user/user-01.png';
 
-interface UserDetailsProps {
-  userdata: any;
-}
-
-const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
+const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isLoggedIn: isAdmin } = useAdmin();
+
+  const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const trigger = useRef<any>(null);
@@ -58,9 +57,9 @@ const DropdownUser: React.FC<UserDetailsProps> = ({ userdata }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {userdata?.name}
+            {user?.name}
           </span>
-          <span className="block text-xs uppercase">{userdata?.role}</span>
+          <span className="block text-xs uppercase">{user?.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

@@ -50,12 +50,12 @@ const TableOrder = ({ orders, isLoading }: PropsS) => {
                     key={key}
                     style={{ cursor: 'pointer' }}
                   >
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11 margin-right-2">
                       <h5 className="font-medium text-black dark:text-white">
                         {order.email}
                       </h5>
                     </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark margin-right-2">
                       <p className="text-black dark:text-white">
                         {order.publishPackage?.title}
                       </p>
@@ -63,17 +63,17 @@ const TableOrder = ({ orders, isLoading }: PropsS) => {
                         {order.writingPackage?.title}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark margin-right-2">
                       <p className="text-black dark:text-white">
                         {order?.updatedAt.slice(0, 10)}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark margin-right-2">
                       <p className="text-black dark:text-white">
                         {order.price}
                       </p>
                     </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark margin-right-2">
                       <button
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
                           order.payment === 'Paid'

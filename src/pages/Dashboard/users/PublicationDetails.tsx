@@ -75,7 +75,9 @@ const PublicationDetails = () => {
           },
         });
         const { data } = response;
-        setUserData(data);
+
+        console.log(data);
+        setUserData(data.user);
       } catch (error: any) {
         console.log('error', error.response);
       }

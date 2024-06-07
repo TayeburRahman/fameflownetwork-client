@@ -1,11 +1,11 @@
+import { useSelector } from 'react-redux';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import useAuth from '../hooks/useAuth';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 import UserLayout from '../layout/UserLayout';
 
 const Profile = () => {
-  const { isUser: user } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   return (
     <UserLayout>
       <Breadcrumb pageName="Profile" />

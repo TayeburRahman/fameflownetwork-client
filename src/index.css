@@ -170,6 +170,10 @@ body {
 .buttons {
   width: 10px !important;
 }
+
+.margin-right-2{
+  padding-left: 2.75rem;
+}
 @media not all and (min-width: 768px) {
   .bg-img {
     background-image: url('https://www.brandpush.co/assets/img/avatar/BrandPush-Review-By-kate-smoothy-267%C3%97356.jpg');
